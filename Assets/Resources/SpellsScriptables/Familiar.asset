@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a07435ab102d15945946b214a3a843e8, type: 3}
+  m_Name: Familiar
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Name: Familiar
+  CastingNumber: 10
+  School: 9
+  Restriction: Out of Game(B)
+  Description: "The spellcaster gains a familiar, which can take the form of any
+    small creature.\nIt is not depicted on the table, unelss the player wants to
+    include it on the spellcaster figure.\nA spellcaster with a familiar grants +2
+    Health(write as a split stat).\nIf the spellcaster is ever reduced to 1 Health
+    or less, the familiar is destroyed.\nAt the start of teh next game, the spellcaster
+    revers to their normal Health, unless another Familiar spell is successfully
+    cast.\r"
+  bookEdition: 0

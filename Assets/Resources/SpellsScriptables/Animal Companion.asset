@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a07435ab102d15945946b214a3a843e8, type: 3}
+  m_Name: Animal Companion
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Name: Animal Companion
+  CastingNumber: 10
+  School: 9
+  Restriction: Out of Game(B)
+  Description: "The spellcaster summons an animal companion of their choice from
+    the following option to become a permanent member of their warband: bear(pg179),
+    ice toad(page 180), snow leopard(page 182) or wolf(page 182).\nAll Animal Companions
+    count a standard soldiers.\nAnimal companions are more strong-willed than wild
+    examples of their species and receive a permanent +3 Will.\nA spellcaster may
+    only have one animal companion at any time.\r"
+  bookEdition: 0
