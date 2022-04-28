@@ -32,5 +32,10 @@ public class WarbandInfoManager : MonoBehaviour
         }
     }
 
+    public PlayerWarband GetCurrentlyLoadedWarband()
+    {
+        return playerWarband;
+    }
+
     
 }

@@ -21,6 +21,12 @@ public class MainNav : MonoBehaviour
         navBox.GoToWizardBuilder();
     }
 
+    public void OnClickCrewAbilityButton()
+    {
+        navBox.GoToCrewabilities();
+    }
+
+
     // public void OnNavHomeClick()
     // {
     //     this.gameObject.SetActive(true);

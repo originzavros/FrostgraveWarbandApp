@@ -11,6 +11,8 @@ public class NavBox : MonoBehaviour
     [SerializeField] GameObject wizardBuilder;
     [SerializeField] GameObject warbandManager;
 
+    [SerializeField] GameObject pirateOathStuff;
+
     [SerializeField] TextMeshProUGUI screenNameText;
 
     public void OnClickNavHome()
@@ -47,5 +49,11 @@ public class NavBox : MonoBehaviour
         warbandManager.SetActive(true);
         warbandManager.GetComponent<WarbandUIManager>().Init();
         ChangeScreenName("Warband Manager");
+    }
+
+    public void GoToCrewabilities()
+    {
+        pirateOathStuff.SetActive(true);
+        mainButtonMenu.SetActive(false);
     }
 }

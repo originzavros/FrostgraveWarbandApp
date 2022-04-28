@@ -67,4 +67,51 @@ public class easySpreadsheetImport : MonoBehaviour
         }
         AssetDatabase.SaveAssets();
     }
+
+    [Button]
+    public void GenerateHireSoldierScriptables()
+    {
+        var sheet = new ES3Spreadsheet();
+        sheet.Load("C:/Users/Nicholas Alaniz/Downloads/SoldierList - Sheet1.csv");
+
+        for(int row=1;row<sheet.RowCount;row++)
+        {
+            SoldierScriptable ss = ScriptableObject.CreateInstance<SoldierScriptable>();
+            ss.hiringName = sheet.GetCell<string>(0, row);
+            ss.move = sheet.GetCell<int>(1, row);
+            ss.fight = sheet.GetCell<int>(2, row);
+            ss.shoot = sheet.GetCell<int>(3, row);
+            ss.armor = sheet.GetCell<int>(4, row);
+            ss.will = sheet.GetCell<int>(5, row);
+            ss.health = sheet.GetCell<int>(6, row);
+            ss.cost = sheet.GetCell<int>(7, row);
+            ss.baseSoldierEquipment = ParseEquipment(sheet.GetCell<string>(8,row));
+            ss.description = sheet.GetCell<string>(9, row);
+            ss.soldierType = sheet.GetCell<string>(11, row);
+            ss.bookEdition = (FrostgraveBook)System.Enum.Parse(typeof(FrostgraveBook),sheet.GetCell<string>(12,row));
+          
+            AssetDatabase.CreateAsset(ss, $"Assets/Resources/SoldierScriptables/{ss.hiringName}.asset"); 
+        }
+        AssetDatabase.SaveAssets();
+    }
+
+    public List<EquipmentScriptable> ParseEquipment(string equipstring)
+    {
+        EquipmentScriptable[] allEquipmentObjects = Resources.LoadAll<EquipmentScriptable>("StandardEquipment");
+        List<EquipmentScriptable> temp = new List<EquipmentScriptable>();
+        string[] words = equipstring.Split('.');
+
+        foreach(var item in words)
+        {
+            foreach(EquipmentScriptable premadeEquipment in allEquipmentObjects)
+            {
+                if(item == premadeEquipment.equipmentName)
+                {
+                    temp.Add(premadeEquipment);
+                    break;
+                }
+            }
+        }
+        return temp;
+    }
 }

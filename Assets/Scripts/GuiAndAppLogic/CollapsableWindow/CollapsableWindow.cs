@@ -14,6 +14,9 @@ public class CollapsableWindow : MonoBehaviour
         ExpandButton.SetActive(false);
         CollapseButton.SetActive(true);
         windowBody.SetActive(true);
+        // windowBody.GetComponent<LayoutElement>().minHeight = 300;
+        // this.gameObject.GetComponentInParent<VerticalLayoutGroup>().spacing += .01f;
+        // Canvas.ForceUpdateCanvases();
     }
 
     public void OnClickCollapseButton()
@@ -21,6 +24,8 @@ public class CollapsableWindow : MonoBehaviour
         ExpandButton.SetActive(true);
         CollapseButton.SetActive(false);
         windowBody.SetActive(false);
+        // this.gameObject.GetComponentInParent<VerticalLayoutGroup>().spacing -= .01f;
+        // Canvas.ForceUpdateCanvases();
     }
 
     //this should take in prefabs that are meant to fit under this window, so should have layoutelement with min height 50 or so

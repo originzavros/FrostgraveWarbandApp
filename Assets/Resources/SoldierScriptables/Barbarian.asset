@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63a5f83dcaf8df0498f63252ef1a4b64, type: 3}
+  m_Name: Barbarian
+  m_EditorClassIdentifier: 
+  soldierName: 
+  inventoryLimit: 1
+  move: 6
+  fight: 4
+  shoot: 0
+  armor: 10
+  will: 3
+  health: 14
+  cost: 125
+  hiringName: Barbarian
+  soldierType: Specialist
+  isHired: 0
+  description: 
+  bookEdition: 0
+  baseSoldierEquipment:
+  - {fileID: 11400000, guid: 20381002a35bc9144a805ad5bd3527f2, type: 2}
+  - {fileID: 11400000, guid: c1b1555f7e59d40448d2091bc16d0ead, type: 2}
+  soldierInventory: []

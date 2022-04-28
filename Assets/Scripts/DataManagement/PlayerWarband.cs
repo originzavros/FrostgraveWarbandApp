@@ -10,5 +10,5 @@ public class PlayerWarband
 
     public int warbandGold = 400;
 
-    public List<EquipmentScriptable> warbandVault;
+    public List<MagicItemScriptable> warbandVault;
 }

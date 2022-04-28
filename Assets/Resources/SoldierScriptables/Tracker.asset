@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63a5f83dcaf8df0498f63252ef1a4b64, type: 3}
+  m_Name: Tracker
+  m_EditorClassIdentifier: 
+  soldierName: 
+  inventoryLimit: 1
+  move: 7
+  fight: 1
+  shoot: 2
+  armor: 11
+  will: 1
+  health: 12
+  cost: 100
+  hiringName: Tracker
+  soldierType: Specialist
+  isHired: 0
+  description: 
+  bookEdition: 0
+  baseSoldierEquipment:
+  - {fileID: 11400000, guid: 97f988db9c9cf1e49a9b5873ecfad7ef, type: 2}
+  - {fileID: 11400000, guid: 7999a923e6936d5408a4884a48b95eaf, type: 2}
+  - {fileID: 11400000, guid: a3f3d02577ce7c6418b1b9a367eded89, type: 2}
+  soldierInventory: []

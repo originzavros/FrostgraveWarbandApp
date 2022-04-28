@@ -20,7 +20,11 @@ public class SoldierScriptable : ScriptableObject
     public int will;
     public int health;
     public int cost;
+    public string hiringName;
+    public string soldierType;
     public bool isHired = false; //for the warband builder
+    public string description;
+    public FrostgraveBook bookEdition;
     public List<EquipmentScriptable> baseSoldierEquipment;
     public List<MagicItemScriptable> soldierInventory;
 

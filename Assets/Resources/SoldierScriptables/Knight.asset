@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63a5f83dcaf8df0498f63252ef1a4b64, type: 3}
+  m_Name: Knight
+  m_EditorClassIdentifier: 
+  soldierName: 
+  inventoryLimit: 1
+  move: 5
+  fight: 4
+  shoot: 0
+  armor: 12
+  will: 1
+  health: 12
+  cost: 125
+  hiringName: Knight
+  soldierType: Specialist
+  isHired: 0
+  description: 
+  bookEdition: 0
+  baseSoldierEquipment:
+  - {fileID: 11400000, guid: 80014bd668f38354183b52662d765dc1, type: 2}
+  - {fileID: 11400000, guid: c1b1555f7e59d40448d2091bc16d0ead, type: 2}
+  - {fileID: 11400000, guid: b7fc43d80a540ef4ba63769bfc6af870, type: 2}
+  - {fileID: 11400000, guid: 83d0cc1bab52cd34d8ccf13c02c772a4, type: 2}
+  soldierInventory: []
