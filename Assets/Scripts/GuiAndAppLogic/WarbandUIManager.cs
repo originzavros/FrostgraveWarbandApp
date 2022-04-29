@@ -51,6 +51,16 @@ public class WarbandUIManager : MonoBehaviour
         warbandHireSoldiersUI.SetActive(false);
     }
 
+    public void BackToWarbandMain()
+    {
+        warbandMainContentUI.SetActive(true);
+        warbandHireSoldiersUI.SetActive(false);
+    }
+
+    public void SaveWarbandChanges()
+    {
+        warbandInfoManager.SaveCurrentWarband();
+    }
 
 
 

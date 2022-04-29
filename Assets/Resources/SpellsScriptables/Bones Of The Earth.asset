@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a07435ab102d15945946b214a3a843e8, type: 3}
+  m_Name: Bones Of The Earth
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Name: Bones Of The Earth
+  CastingNumber: 10
+  School: 4
+  Restriction: Line of Sight
+  Description: "A skeletal hand reaches out of the ground and grabs the target's
+    ankle.\nThe figure may not take any move acitons until it escapes.\nAny form
+    of magic movement, except the Leap spell, allows a figure to escape the hand;\notherwise,
+    the only way to escape is to fight the hand, which has Fight +0, health 1.\nIf
+    the hand takes one point of damage, it vanishes, and the target is free.\nOther
+    figures in base contact may attack the hand or give a support bonus.\nIf the
+    hand wins the fight, it does damage as normal.\nThis spell may only be cast against
+    a target that is standing on the ground.\nLarge creatures are unaffected by this
+    spell.\nThe maximum range for this spell is 18\".\r"
+  bookEdition: 0

@@ -10,3 +10,11 @@ public class PlayerWizard : SoldierScriptable
     public WizardSpellbook playerWizardSpellbook;
 
 }
+
+public class RuntimePlayerWizard
+{
+    public int playerWizardLevel;
+    public int playerWizardExperience;
+
+    public WizardSpellbook playerWizardSpellbook;
+}

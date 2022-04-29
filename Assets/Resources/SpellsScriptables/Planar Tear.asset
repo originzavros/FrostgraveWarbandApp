@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a07435ab102d15945946b214a3a843e8, type: 3}
+  m_Name: Planar Tear
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Name: Planar Tear
+  CastingNumber: 12
+  School: 7
+  Restriction: Line of Sight
+  Description: "The spellcaster creates a small tear in the fabric of the universe.\nThis
+    rift is painful to humans and creatures, but lethal to demons.\nThe spellcaster
+    selects a target point.\nAll figures within 2\" of that point must make a Will
+    Roll with a Target Number equal to the Casting Roll or suffer 2 points of damage.\nDemons
+    that fail the Will Roll take damage equal to the Casting Roll.\r"
+  bookEdition: 0

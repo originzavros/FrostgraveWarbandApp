@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a07435ab102d15945946b214a3a843e8, type: 3}
+  m_Name: Fast Act
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Name: Fast Act
+  CastingNumber: 8
+  School: 0
+  Restriction: Line of Sight
+  Description: "This spell may only be cast on a member of the spellcaster's warband
+    or an uncontrolled creature.\nThis figure will activate at the end of the current
+    phase instead of in it's normal phase.\nFor example, if an apprentice casts this
+    spell on an uncontrolled creature, the creature will activate at the end of that
+    player's Apprentice phase instead of the Creature phase.\nSpellcasters may not
+    cast this spell on themselves, nor on a figure that has already activated in
+    the current turn.\r"
+  bookEdition: 0

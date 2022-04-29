@@ -120,6 +120,7 @@ public class WizardBuilder : MonoBehaviour
         {
             Debug.Log("finishing fourth step");
             playerWizard.soldierName = NameGeneratorInputBox.GetComponent<NameGenerator>().GetName();
+            Debug.Log("wizard name: " + playerWizard.soldierName);
             BuilderToNextStep();
         }
         else if(currentStep == 5)

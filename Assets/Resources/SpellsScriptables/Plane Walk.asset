@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a07435ab102d15945946b214a3a843e8, type: 3}
+  m_Name: Plane Walk
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Name: Plane Walk
+  CastingNumber: 10
+  School: 7
+  Restriction: Self Only
+  Description: "Although the spellcaster remains in the same physical location, they
+    move briefly between planes of existence.\nFor the rest of this turn, they can
+    ignore all terrain when moving, thus walking though walls or across chasms.\nThey
+    may not be the target of any shooting attacks or spells.\nThe spellcaster will
+    never be considered in combat during the turn, nor can they be attacked by any
+    figure.\nThey may not, however, pick up treasure or in any way affect other figures
+    or terrain on the table.\nIf they are carrying treasure, they drop it.\nIt is
+    incredibly draining to move between planes of existence, so if a spellcaster
+    attempts to cast this spell in a second consecutive turn, they suffer a -5 modifier
+    to their Casting Roll, -10 if they attmpt it three turns in a row, and 15 on
+    the fourth turn and beyond.\r"
+  bookEdition: 0

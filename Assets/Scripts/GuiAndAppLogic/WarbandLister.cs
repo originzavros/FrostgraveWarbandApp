@@ -13,6 +13,10 @@ public class WarbandLister : MonoBehaviour
     
     public void PopulateListerWithWarbands()
     {
+        foreach(Transform item in contentBox.transform)
+        {
+            Destroy(item.gameObject);
+        }
         LoadAssets.LoadWarbandNames();
         foreach(var item in LoadAssets.warbandNames)
         {

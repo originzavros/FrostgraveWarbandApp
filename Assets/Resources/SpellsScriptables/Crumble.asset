@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a07435ab102d15945946b214a3a843e8, type: 3}
+  m_Name: Crumble
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Name: Crumble
+  CastingNumber: 10
+  School: 0
+  Restriction: Line of Sight
+  Description: "This spell can only target inanimate structures such as buildings
+    and walls.\nThe spellcaster rapidly speeds up the passing of time in a small
+    area of the structure, causing it to collapse.\nThis can create a doorway-sized
+    hold through any wall, which should be indicated on the table somehow.\nThe spell
+    can also be used to collapse a section of floor beneath a figure standing on
+    a level above the ground.\nIn this case, the figure about to be affeted must
+    pass a Move Roll (TN22) or fall to the next level down and taking damage appropriately.\nIf
+    this spell is cast on a wall created by the Wall spell, the wall is completely
+    destroyed.\nIf it is cast on terrain holding a Wizard Eye, the Wizard Eye is
+    cancelled.\r"
+  bookEdition: 0

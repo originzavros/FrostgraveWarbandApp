@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a07435ab102d15945946b214a3a843e8, type: 3}
+  m_Name: Raise Zombie
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Name: Raise Zombie
+  CastingNumber: 10
+  School: 4
+  Restriction: Out of Game (B) OR Touch
+  Description: "The spellcaster adds one zombie (page 193) to their warband as a
+    temporary member.\nIf the spell is cast before the game, the zombie can be deployed
+    normally.\nIf it is cast during a game, the zombie appears in base contact with
+    the spellcaster.\nA wizard may only have one raised zombie at any one time.\nIf
+    the zombie is killed or have one raised zombie at any one time.\nIf the zombie
+    is killed or exits the table, Raise Zombie can be cast again to create another.\r"
+  bookEdition: 0

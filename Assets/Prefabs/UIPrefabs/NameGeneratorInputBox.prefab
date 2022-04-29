@@ -613,6 +613,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputField: {fileID: 9220906246818294962}
+  doneButton: {fileID: 0}
 --- !u!1001 &9220906247711069423
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -894,7 +895,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5835072859575479627, guid: 66318c292c1ffbd4698330bbcc01bb55, type: 3}
       propertyPath: m_text
-      value: Done
+      value: Save Name
       objectReference: {fileID: 0}
     - target: {fileID: 5835072859575479627, guid: 66318c292c1ffbd4698330bbcc01bb55, type: 3}
       propertyPath: m_fontSize

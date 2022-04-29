@@ -27,8 +27,36 @@ public class SoldierScriptable : ScriptableObject
     public FrostgraveBook bookEdition;
     public List<EquipmentScriptable> baseSoldierEquipment;
     public List<MagicItemScriptable> soldierInventory;
+}
 
-
-
-
+//for saving loading easily with ES3 as scriptables can't be saved by instance
+public class RuntimeSoldierData
+{
+    public void Init(SoldierScriptable ss)
+    {
+        soldierName = ss.soldierName;
+        inventoryLimit = ss.inventoryLimit;
+        move = ss.move;
+        fight = ss.fight;
+        shoot = ss.shoot;
+        armor = ss.armor;
+        will = ss.will;
+        
+    }
+    public string soldierName;
+    public int inventoryLimit = 1;
+    public int move;
+    public int fight;
+    public int shoot;
+    public int armor;
+    public int will;
+    public int health;
+    public int cost;
+    public string hiringName;
+    public string soldierType;
+    public bool isHired = false; //for the warband builder
+    public string description;
+    public FrostgraveBook bookEdition;
+    public List<EquipmentScriptable> baseSoldierEquipment;
+    public List<MagicItemScriptable> soldierInventory;
 }

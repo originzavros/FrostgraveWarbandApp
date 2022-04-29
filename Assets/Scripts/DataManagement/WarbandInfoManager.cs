@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 public class WarbandInfoManager : MonoBehaviour
 {
-    private PlayerWarband playerWarband;
+    
+    [SerializeField] PlayerWarband playerWarband;
     private PlayerWizard playerWizard;
 
     public void Init(PlayerWarband _warband)
@@ -16,7 +18,11 @@ public class WarbandInfoManager : MonoBehaviour
     public void SaveCurrentWarband()
     {
         string key = playerWarband.warbandName;
-        LoadAssets.warbandNames.Add(key);
+        if(!LoadAssets.warbandNames.Contains(key))
+        {
+            LoadAssets.warbandNames.Add(key);
+        }
+        playerWarband.saveSoldierArray = playerWarband.warbandSoldiers.ToArray();
         ES3.Save(key, playerWarband);
         ES3.Save("warbandNames", LoadAssets.warbandNames);
     }
@@ -25,7 +31,13 @@ public class WarbandInfoManager : MonoBehaviour
     {
         if(ES3.KeyExists(_warbandName))
         {
-            Init(ES3.Load<PlayerWarband>(_warbandName));
+            PlayerWarband tempwarband = ES3.Load<PlayerWarband>(_warbandName);
+            tempwarband.warbandSoldiers.Clear();
+            foreach(var item in tempwarband.saveSoldierArray)
+            {
+                tempwarband.warbandSoldiers.Add(item);
+            }
+            Init(tempwarband);
         }
         else{
             Debug.Log("could not load warband");
@@ -36,6 +48,8 @@ public class WarbandInfoManager : MonoBehaviour
     {
         return playerWarband;
     }
+
+
 
     
 }

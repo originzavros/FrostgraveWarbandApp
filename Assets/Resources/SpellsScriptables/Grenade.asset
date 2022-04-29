@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a07435ab102d15945946b214a3a843e8, type: 3}
+  m_Name: Grenade
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Name: Grenade
+  CastingNumber: 10
+  School: 2
+  Restriction: Line of Sight
+  Description: "The spellcaster takes an object, commonly a simple rock, imbues it
+    with magic energy and throws it at their target, whereupon it explodes into hundreds
+    of fragments.\nThe spellcaster picks a traget point within 14\". \nEvery figure,
+    including allies, within 1.5\" of that point immediately suffers a +3 magic shooting
+    attack.\nUs the target point as the origin of the attack for working out line
+    of sight and cover.\r"
+  bookEdition: 0
