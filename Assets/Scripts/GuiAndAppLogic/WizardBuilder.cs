@@ -24,6 +24,8 @@ public class WizardBuilder : MonoBehaviour
     [SerializeField][ReadOnly]
     int currentStep = 0;
 
+    [SerializeField] SoldierScriptable wizardProfileScriptable;
+
     private PlayerWizard playerWizard;
     private PlayerWarband playerWarband;
     private WizardSchoolScriptable selectedSchool;
@@ -43,7 +45,11 @@ public class WizardBuilder : MonoBehaviour
     {
         ClearContent();
         currentStep = 0;
-        playerWizard = ScriptableObject.CreateInstance<PlayerWizard>();
+        playerWizard = new PlayerWizard();
+        playerWizard.Init();
+        RuntimeSoldierData newWizardProfile = new RuntimeSoldierData();
+        newWizardProfile.Init(wizardProfileScriptable);
+        playerWizard.playerWizardProfile = newWizardProfile;
         HandleCurrentStepSetup();
     }
 
@@ -119,14 +125,14 @@ public class WizardBuilder : MonoBehaviour
         else if(currentStep == 4)
         {
             Debug.Log("finishing fourth step");
-            playerWizard.soldierName = NameGeneratorInputBox.GetComponent<NameGenerator>().GetName();
-            Debug.Log("wizard name: " + playerWizard.soldierName);
+            playerWizard.playerWizardProfile.soldierName = NameGeneratorInputBox.GetComponent<NameGenerator>().GetName();
+            Debug.Log("wizard name: " + playerWizard.playerWizardProfile.soldierName);
             BuilderToNextStep();
         }
         else if(currentStep == 5)
         {
             Debug.Log("finishing fifth step");
-            playerWizard.baseSoldierEquipment = spellSelectionHandler.GetCurrentlySelectedEquipment();
+            playerWizard.playerWizardProfile.baseSoldierEquipment = spellSelectionHandler.GetCurrentlySelectedEquipment();
             BuilderToNextStep();
         }
         else{
@@ -195,6 +201,7 @@ public class WizardBuilder : MonoBehaviour
         playerWizard.playerWizardSpellbook.wizardSpellbookSpells.AddRange(selectedAlignedSpells);
         playerWizard.playerWizardSpellbook.wizardSpellbookSpells.AddRange(selectedNeutralSpells);
         playerWarband = new PlayerWarband();
+        playerWarband.Init();
         playerWarband.warbandName = WarbandInput.GetComponent<BasicInput>().nameEntry.text;
         playerWarband.warbandWizard = playerWizard;
 
@@ -246,7 +253,7 @@ public class WizardBuilder : MonoBehaviour
         if(currentStep == 6)
         {
             WarbandInput.SetActive(true);
-            WarbandInput.GetComponent<BasicInput>().nameEntry.text = playerWizard.soldierName + "'s Warband";
+            WarbandInput.GetComponent<BasicInput>().nameEntry.text = playerWizard.playerWizardProfile.soldierName + "'s Warband";
             titleText.text = "Name Warband";
             nextButtonNav.SetActive(false);
         }

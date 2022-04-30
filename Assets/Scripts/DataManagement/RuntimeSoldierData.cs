@@ -2,15 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-[CreateAssetMenu(fileName = "New Soldier", menuName = "Assets/New Soldier")]
-public class SoldierScriptable : ScriptableObject
+//for saving loading easily with ES3 as scriptables can't be saved by instance
+public class RuntimeSoldierData
 {
-    /*
-        Hold predefined soldier data like stats and starting equipment.
-        wizards and monsters will use this as their base with their own extensions
-    */
-    public void Init(RuntimeSoldierData ss)
+    public void Init(SoldierScriptable ss)
     {
         soldierName = ss.soldierName;
         inventoryLimit = ss.inventoryLimit;

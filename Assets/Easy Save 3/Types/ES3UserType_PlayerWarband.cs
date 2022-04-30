@@ -17,8 +17,8 @@ namespace ES3Types
 			var instance = (PlayerWarband)obj;
 			
 			writer.WriteProperty("warbandName", instance.warbandName, ES3Type_string.Instance);
-			writer.WritePropertyByRef("warbandWizard", instance.warbandWizard);
-			writer.WriteProperty("warbandSoldiers", instance.warbandSoldiers, ES3Internal.ES3TypeMgr.GetOrCreateES3Type(typeof(System.Collections.Generic.List<SoldierScriptable>)));
+			writer.WriteProperty("warbandWizard", instance.warbandWizard, ES3UserType_PlayerWizard.Instance);
+			writer.WriteProperty("warbandSoldiers", instance.warbandSoldiers, ES3Internal.ES3TypeMgr.GetOrCreateES3Type(typeof(System.Collections.Generic.List<RuntimeSoldierData>)));
 			writer.WriteProperty("warbandGold", instance.warbandGold, ES3Type_int.Instance);
 			writer.WriteProperty("warbandMaxSoldiers", instance.warbandMaxSoldiers, ES3Type_int.Instance);
 			writer.WriteProperty("warbandVault", instance.warbandVault, ES3Internal.ES3TypeMgr.GetOrCreateES3Type(typeof(System.Collections.Generic.List<MagicItemScriptable>)));
@@ -39,7 +39,7 @@ namespace ES3Types
 						instance.warbandWizard = reader.Read<PlayerWizard>(ES3UserType_PlayerWizard.Instance);
 						break;
 					case "warbandSoldiers":
-						instance.warbandSoldiers = reader.Read<System.Collections.Generic.List<SoldierScriptable>>();
+						instance.warbandSoldiers = reader.Read<System.Collections.Generic.List<RuntimeSoldierData>>();
 						break;
 					case "warbandGold":
 						instance.warbandGold = reader.Read<System.Int32>(ES3Type_int.Instance);

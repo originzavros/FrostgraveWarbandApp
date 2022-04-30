@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class HireSoldiersManager : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class HireSoldiersManager : MonoBehaviour
     // [SerializeField] GameObject collapsableWindowPrefab;
     [SerializeField] GameObject soldierHiringContainerPrefab;
     [SerializeField] WarbandUIManager warbandUIManager;
+    [SerializeField] TMP_Dropdown soldierTypeDropdown;
 
 
 
@@ -39,7 +41,9 @@ public class HireSoldiersManager : MonoBehaviour
                 // CreateAndAttachCollapsableWindow(item, currentSoldiersContent);
                 // item.isHired = true;
                 Debug.Log(item);
-                CreateAndAttachSoliderContainer(item, currentSoldiersContent, false);
+                SoldierScriptable tempsoldier =   SoldierScriptable.CreateInstance<SoldierScriptable>();
+                tempsoldier.Init(item);
+                CreateAndAttachSoliderContainer(tempsoldier, currentSoldiersContent, false);
                 currentHiredSoldierCount++;
                 if(item.soldierType == "Specialist")
                 {
@@ -199,13 +203,69 @@ public class HireSoldiersManager : MonoBehaviour
         foreach(Transform item in currentSoldiersContent.transform)
         {
             SoldierScriptable savingSoldier = item.GetComponentInChildren<SoldierInfoWindow>().GetStoredSoldier();
-            loadedWarband.warbandSoldiers.Add(savingSoldier);
+            RuntimeSoldierData temp = new RuntimeSoldierData();
+            temp.Init(savingSoldier);
+            loadedWarband.warbandSoldiers.Add(temp);
         }
     }
     public void HandleDropdownSorting()
     {
-
+        string temp = soldierTypeDropdown.options[soldierTypeDropdown.value].text;
+        SortSoldierHiringContent(temp);
     }
+
+    public void SortSoldierHiringContent(string sorttype)
+    {
+        if(sorttype == "Standard")
+        {
+            foreach(Transform item in soldierHiringContent.transform)
+            {
+                if(item.GetComponentInChildren<SoldierInfoWindow>().GetStoredSoldier().soldierType != "Standard")
+                {
+                    item.gameObject.SetActive(false);
+                }
+                else{
+                    item.gameObject.SetActive(true);
+                }
+            }
+        }
+        else if(sorttype == "Specialist")
+        {
+            foreach(Transform item in soldierHiringContent.transform)
+            {
+                if(item.GetComponentInChildren<SoldierInfoWindow>().GetStoredSoldier().soldierType != "Specialist")
+                {
+                    item.gameObject.SetActive(false);
+                }
+                else{
+                    item.gameObject.SetActive(true);
+                }
+            }
+        }
+        else{
+            foreach(Transform item in soldierHiringContent.transform)
+            {
+                
+                item.gameObject.SetActive(true);
+                
+            }
+        }
+    }
+    // public void OnSchoolDropdownChanged()
+    // {
+
+    //     string temp = spellDropDown.options[spellDropDown.value].text;
+    //     // Debug.Log("Dropdown text: " + temp);
+    //     //string temp = spellDropDown.GetComponent<drop
+    //     // ShowOnlyButtonsOfSchool(temp);
+    //     CheckRestrictions(temp);
+    // }
+
+    // public void OnRangeTypeDropdownChanged()
+    // {
+    //     string temp = rangeTypeDropDown.options[rangeTypeDropDown.value].text;
+    //     CheckRestrictions(rangeType: temp);
+    // }
 
 
 

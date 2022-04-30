@@ -5,13 +5,21 @@ using Sirenix.OdinInspector;
 
 public class PlayerWarband
 {
+
+    public void Init()
+    {
+        warbandWizard = new PlayerWizard();
+        warbandGold = 400;
+        warbandMaxSoldiers = 9;
+        warbandSoldiers = new List<RuntimeSoldierData>();
+        warbandVault = new List<MagicItemScriptable>();
+    }
     public string warbandName;
     public PlayerWizard warbandWizard;
-    public List<SoldierScriptable> warbandSoldiers = new List<SoldierScriptable>();
-    public SoldierScriptable[] saveSoldierArray;
+    public List<RuntimeSoldierData> warbandSoldiers;
 
-    public int warbandGold = 400;
-    public int warbandMaxSoldiers = 9;
+    public int warbandGold;
+    public int warbandMaxSoldiers;
 
-    public List<MagicItemScriptable> warbandVault = new List<MagicItemScriptable>();
+    public List<MagicItemScriptable> warbandVault;
 }

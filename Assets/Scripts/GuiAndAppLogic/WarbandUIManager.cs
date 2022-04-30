@@ -18,6 +18,8 @@ public class WarbandUIManager : MonoBehaviour
 
     public void Init()
     {
+        warbandListerUI.SetActive(true);
+        warbandMainContentUI.SetActive(false);
         warbandLister.PopulateListerWithWarbands();
     }
 

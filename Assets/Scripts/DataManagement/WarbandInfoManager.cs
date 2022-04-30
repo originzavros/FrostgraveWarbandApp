@@ -7,6 +7,7 @@ public class WarbandInfoManager : MonoBehaviour
 {
     
     [SerializeField] PlayerWarband playerWarband;
+    [SerializeField] PlayerWarband playerWarbandPrefab;
     private PlayerWizard playerWizard;
 
     public void Init(PlayerWarband _warband)
@@ -22,7 +23,8 @@ public class WarbandInfoManager : MonoBehaviour
         {
             LoadAssets.warbandNames.Add(key);
         }
-        playerWarband.saveSoldierArray = playerWarband.warbandSoldiers.ToArray();
+        playerWizard.wizardProfilekey =  playerWarband.warbandName + "wizardkey";
+        ES3.Save(playerWizard.wizardProfilekey, playerWizard.playerWizardProfile);
         ES3.Save(key, playerWarband);
         ES3.Save("warbandNames", LoadAssets.warbandNames);
     }
@@ -31,12 +33,11 @@ public class WarbandInfoManager : MonoBehaviour
     {
         if(ES3.KeyExists(_warbandName))
         {
-            PlayerWarband tempwarband = ES3.Load<PlayerWarband>(_warbandName);
-            tempwarband.warbandSoldiers.Clear();
-            foreach(var item in tempwarband.saveSoldierArray)
-            {
-                tempwarband.warbandSoldiers.Add(item);
-            }
+            PlayerWarband tempwarband = new PlayerWarband();
+            tempwarband.warbandWizard = new PlayerWizard();
+            tempwarband.warbandWizard.playerWizardProfile = new RuntimeSoldierData();
+            ES3.LoadInto<PlayerWarband>(_warbandName, tempwarband);
+            ES3.Load<RuntimeSoldierData>(tempwarband.warbandWizard.wizardProfilekey, tempwarband.warbandWizard.playerWizardProfile);
             Init(tempwarband);
         }
         else{
@@ -48,6 +49,8 @@ public class WarbandInfoManager : MonoBehaviour
     {
         return playerWarband;
     }
+
+
 
 
 
