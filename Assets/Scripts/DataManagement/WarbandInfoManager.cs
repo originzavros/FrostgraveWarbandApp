@@ -35,9 +35,10 @@ public class WarbandInfoManager : MonoBehaviour
         {
             PlayerWarband tempwarband = new PlayerWarband();
             tempwarband.warbandWizard = new PlayerWizard();
-            tempwarband.warbandWizard.playerWizardProfile = new RuntimeSoldierData();
             ES3.LoadInto<PlayerWarband>(_warbandName, tempwarband);
-            ES3.Load<RuntimeSoldierData>(tempwarband.warbandWizard.wizardProfilekey, tempwarband.warbandWizard.playerWizardProfile);
+
+            tempwarband.warbandWizard.playerWizardProfile = new RuntimeSoldierData();
+            ES3.LoadInto<RuntimeSoldierData>(tempwarband.warbandWizard.wizardProfilekey, tempwarband.warbandWizard.playerWizardProfile);
             Init(tempwarband);
         }
         else{

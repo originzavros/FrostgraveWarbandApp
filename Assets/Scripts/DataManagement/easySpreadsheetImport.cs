@@ -6,7 +6,7 @@ using UnityEditor;
 
 public class easySpreadsheetImport : MonoBehaviour
 {
-    
+    #if UNITY_EDITOR
     [Button]
     public void GenerateSpells()
     {
@@ -114,4 +114,5 @@ public class easySpreadsheetImport : MonoBehaviour
         }
         return temp;
     }
+    #endif
 }

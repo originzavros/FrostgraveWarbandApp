@@ -11,7 +11,8 @@ public class GeneratePirateOathStuff : MonoBehaviour
 
     private CrewAbilityScriptable[] allCrewAbilities;
 
-    [Button]
+    #if UNITY_EDITOR
+    [Button] 
     public void GenerateAbilityScriptables()
     {
         var sheet = new ES3Spreadsheet();
@@ -27,6 +28,7 @@ public class GeneratePirateOathStuff : MonoBehaviour
         }
         AssetDatabase.SaveAssets();
     }
+    #endif
 
     void Start()
     {

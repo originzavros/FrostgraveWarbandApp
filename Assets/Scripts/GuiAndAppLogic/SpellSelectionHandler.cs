@@ -233,10 +233,7 @@ public class SpellSelectionHandler : MonoBehaviour
     {
         spellTextPopup.transform.gameObject.SetActive(true);
         SpellScriptable tempSpell = go.GetComponent<SpellButton>().referenceScriptable;
-        spellTextPopup.spellNameText.text = tempSpell.Name;
-        spellTextPopup.castingNumberText.text = tempSpell.CastingNumber.ToString();
-        spellTextPopup.descriptionText.text = tempSpell.Description;
-        spellTextPopup.schoolValueText.text = tempSpell.School.ToString();
+        spellTextPopup.UpdateInfo(tempSpell);
     }
 
 

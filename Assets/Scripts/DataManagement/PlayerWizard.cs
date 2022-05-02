@@ -17,8 +17,6 @@ public class PlayerWizard
 
     public string wizardProfilekey;
 
-    
-    [ES3NonSerializable]
     public RuntimeSoldierData playerWizardProfile;
 
     public WizardSpellbook playerWizardSpellbook;

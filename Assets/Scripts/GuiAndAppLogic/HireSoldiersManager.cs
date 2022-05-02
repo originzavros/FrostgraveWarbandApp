@@ -24,12 +24,14 @@ public class HireSoldiersManager : MonoBehaviour
     private int currentGoldTotal;
     private int currentHiredSpecialistsSoldierCount;
     private int currentHiredSoldierCount;
+    private bool apprenticeHired;
     public void Init(PlayerWarband playerWarband)
     {
         currentHiredSpecialistsSoldierCount = 0;
         currentHiredSoldierCount = 0;
         loadedWarband = playerWarband;
         currentGoldTotal = playerWarband.warbandGold;
+        apprenticeHired = false;
         // currentGoldTotal = 1000;
         UpdateGoldAmount(0);
         //init current warband
@@ -49,6 +51,10 @@ public class HireSoldiersManager : MonoBehaviour
                 {
                     currentHiredSpecialistsSoldierCount++;
                 }
+                if(item.soldierType == "Apprentice")
+                {
+                    apprenticeHired = true;
+                }
             }
         }
         
@@ -56,7 +62,26 @@ public class HireSoldiersManager : MonoBehaviour
         //init hiring soldiers
         foreach(var item in LoadAssets.allSoldierObjects)
         {
-            CreateAndAttachSoliderContainer(item, soldierHiringContent);
+            if(item.soldierType == "Apprentice")
+            {
+                SoldierScriptable newApprenticeData = ScriptableObject.CreateInstance<SoldierScriptable>();
+                newApprenticeData.Init(playerWarband.warbandWizard.playerWizardProfile);
+                newApprenticeData.fight -= 2;
+                newApprenticeData.will -= 2;
+                newApprenticeData.health -= 2;
+                newApprenticeData.cost = (playerWarband.warbandWizard.playerWizardLevel -6) * 10 + 160;
+                newApprenticeData.soldierType = "Apprentice";
+                newApprenticeData.soldierName = "Apprentice";
+                newApprenticeData.hiringName = "Apprentice";
+                newApprenticeData.description = "Can cast spells with a -2 to the Casting Roll";
+                newApprenticeData.baseSoldierEquipment.Clear();
+                CreateAndAttachSoliderContainer(newApprenticeData, soldierHiringContent);
+
+            }
+            else{
+                CreateAndAttachSoliderContainer(item, soldierHiringContent);
+            }
+            
             // CreateAndAttachCollapsableWindow(item, soldierHiringContent);
         }
     }
@@ -135,6 +160,10 @@ public class HireSoldiersManager : MonoBehaviour
         {
             ErrorPopup("Cannot hire more than 4 specialists");
         }
+        else if(hiredSoldier.soldierType == "Apprentice" && apprenticeHired)
+        {
+            ErrorPopup("Already Hired Apprentice");
+        }
         else{
             CreateAndAttachSoliderContainer(hiredSoldier, currentSoldiersContent, false);
             currentHiredSoldierCount++;
@@ -142,6 +171,10 @@ public class HireSoldiersManager : MonoBehaviour
             if(hiredSoldier.soldierType == "Specialist")
             {
                 currentHiredSpecialistsSoldierCount++;
+            }
+            if(hiredSoldier.soldierType == "Apprentice")
+            {
+                apprenticeHired = true;
             }
         }
 
@@ -161,6 +194,10 @@ public class HireSoldiersManager : MonoBehaviour
         if(hiredSoldier.soldierType == "Specialist")
         {
             currentHiredSpecialistsSoldierCount--;
+        }
+        if(hiredSoldier.soldierType == "Apprentice")
+        {
+            apprenticeHired = false;
         }
         currentHiredSoldierCount--;
         Destroy(siw.transform.parent.gameObject);

@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using Sirenix.OdinInspector;
 using TMPro;
 
+
+//This is the spell reference, not named great will refactor later
 public class ScrollBox : MonoBehaviour
 {
     [SerializeField] GameObject contentBox;
@@ -57,10 +59,7 @@ public class ScrollBox : MonoBehaviour
     {
         spellTextPopup.transform.gameObject.SetActive(true);
         SpellScriptable tempSpell = go.GetComponent<SpellButton>().referenceScriptable;
-        spellTextPopup.spellNameText.text = tempSpell.Name;
-        spellTextPopup.castingNumberText.text = tempSpell.CastingNumber.ToString();
-        spellTextPopup.descriptionText.text = tempSpell.Description;
-        spellTextPopup.schoolValueText.text = tempSpell.School.ToString();
+        spellTextPopup.UpdateInfo(tempSpell);
     }
 
 
@@ -137,6 +136,13 @@ public class ScrollBox : MonoBehaviour
     {
         string temp = rangeTypeDropDown.options[rangeTypeDropDown.value].text;
         CheckRestrictions(rangeType: temp);
+    }
+
+    public void OnEitherDropdownChanged()
+    {
+        string spellDropdownText = spellDropDown.options[spellDropDown.value].text;
+        string rangeDropdownText = rangeTypeDropDown.options[rangeTypeDropDown.value].text;
+        CheckRestrictions(spellDropdownText, rangeDropdownText);
     }
 
     
