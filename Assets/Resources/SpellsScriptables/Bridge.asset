@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a07435ab102d15945946b214a3a843e8, type: 3}
+  m_Name: Bridge
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Name: Bridge
+  CastingNumber: 10
+  School: 5
+  Restriction: Line of Sight
+  Description: "The spellcaster used the parchment of a long scroll to create a temporary
+    bridge, ramp, or staircase.\nPlace a bridge 6\" long and 2\" wide anywhere that
+    is completely in the line of sight of the spellcaster.\nThe bridge has no appreciable
+    thickness ans is essentially two dimensional.\nThe ends of this bridge do not
+    have to be on the same horizontal plane, nor do teh ends of the bridge need to
+    be anchored on terrain, they may float in the air.\nFigures may move along this
+    bridge at their normal movement rate, even when essentially climbing.\nEach spellcaster
+    may only have one bridge in play at any time.\nWhenever the spellcaster activates,
+    they may cancel this spell as a free action.\nOtherwise roll a die at the end
+    of every turn: On a 1-2 the bridge vanishes.\nFigures on the bridge when it vanishes
+    will fall to the ground. \r"
+  bookEdition: 0

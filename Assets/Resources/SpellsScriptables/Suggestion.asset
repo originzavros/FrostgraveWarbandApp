@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a07435ab102d15945946b214a3a843e8, type: 3}
-  m_Name: Raise Zombie
+  m_Name: Suggestion
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,14 +21,14 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  Name: Raise Zombie
-  CastingNumber: 10
-  School: 4
-  Restriction: Out of Game(B) OR Touch
-  Description: "The spellcaster adds one zombie (page 193) to their warband as a
-    temporary member.\nIf the spell is cast before the game, the zombie can be deployed
-    normally.\nIf it is cast during a game, the zombie appears in base contact with
-    the spellcaster.\nA wizard may only have one raised zombie at any one time.\nIf
-    the zombie is killed or have one raised zombie at any one time.\nIf the zombie
-    is killed or exits the table, Raise Zombie can be cast again to create another.\r"
+  Name: Suggestion
+  CastingNumber: 12
+  School: 6
+  Restriction: Line of Sight
+  Description: "The target of this spell immediately drops any treasure tokens it
+    is carrying.\nThe spellcaster may move the figure up to 3\" in any direction
+    provided this does not move the figure into combat or cause it any immediate
+    damage (e.g. falling more than 3\").\nThe target of this spell may make a Will
+    Roll with a Target Number equal to the Casting Roll.\nIf successful, the spell
+    has no effect.\r"
   bookEdition: 0

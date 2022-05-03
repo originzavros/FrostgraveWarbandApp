@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a07435ab102d15945946b214a3a843e8, type: 3}
-  m_Name: Raise Zombie
+  m_Name: Circle of Protection
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,14 +21,14 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  Name: Raise Zombie
-  CastingNumber: 10
-  School: 4
-  Restriction: Out of Game(B) OR Touch
-  Description: "The spellcaster adds one zombie (page 193) to their warband as a
-    temporary member.\nIf the spell is cast before the game, the zombie can be deployed
-    normally.\nIf it is cast during a game, the zombie appears in base contact with
-    the spellcaster.\nA wizard may only have one raised zombie at any one time.\nIf
-    the zombie is killed or have one raised zombie at any one time.\nIf the zombie
-    is killed or exits the table, Raise Zombie can be cast again to create another.\r"
+  Name: Circle of Protection
+  CastingNumber: 12
+  School: 8
+  Restriction: Touch
+  Description: "Creates a circle with a 3\" diameter which no demon or undead creature
+    can enter or pass through.\nIf something forces them into contact with the circle,
+    they stop at its edge.\nA spellcaster may only have one active circle of protection
+    at a time, but they do not have to remain within it.\nThe spellcaster may cancel
+    this spell at the end of any turn.\nOtherwise, roll a die at the end of every
+    turn: on a 1-3 the spell is cancelled.\r"
   bookEdition: 0

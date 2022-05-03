@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a07435ab102d15945946b214a3a843e8, type: 3}
-  m_Name: Raise Zombie
+  m_Name: Furious Quill
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,14 +21,14 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  Name: Raise Zombie
+  Name: Furious Quill
   CastingNumber: 10
-  School: 4
-  Restriction: Out of Game(B) OR Touch
-  Description: "The spellcaster adds one zombie (page 193) to their warband as a
-    temporary member.\nIf the spell is cast before the game, the zombie can be deployed
-    normally.\nIf it is cast during a game, the zombie appears in base contact with
-    the spellcaster.\nA wizard may only have one raised zombie at any one time.\nIf
-    the zombie is killed or have one raised zombie at any one time.\nIf the zombie
-    is killed or exits the table, Raise Zombie can be cast again to create another.\r"
+  School: 5
+  Restriction: Line of Sight
+  Description: "The target is attacked by a sharp animated quill.\nAlthough the quill
+    does no damage, it is highly irritating and extremely distracting.\nWhile under
+    attack, the taret suffers -1 Move, -2 Fight, -4 Shoot, and -2 to all Casting
+    Rolls.\nWhenever the target is activated, it may make a Will Roll with a Target
+    Number equal to the Casting Roll - if successful, the quill is caught and destroyed.\nMultiple
+    castings of Furious Quill against the same target have no effect.\r"
   bookEdition: 0

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a07435ab102d15945946b214a3a843e8, type: 3}
-  m_Name: Raise Zombie
+  m_Name: Power Word
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,14 +21,13 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  Name: Raise Zombie
-  CastingNumber: 10
-  School: 4
-  Restriction: Out of Game(B) OR Touch
-  Description: "The spellcaster adds one zombie (page 193) to their warband as a
-    temporary member.\nIf the spell is cast before the game, the zombie can be deployed
-    normally.\nIf it is cast during a game, the zombie appears in base contact with
-    the spellcaster.\nA wizard may only have one raised zombie at any one time.\nIf
-    the zombie is killed or have one raised zombie at any one time.\nIf the zombie
-    is killed or exits the table, Raise Zombie can be cast again to create another.\r"
+  Name: Power Word
+  CastingNumber: 14
+  School: 5
+  Restriction: Area Effect
+  Description: "The spell draws a bright rune of power in the sky.\nThe spellcaster
+    may pick one spell for the Power Word to affect.\nAll rolls to cast that particular
+    spell are at +3 for every spellcaster for the rest of the game.\nA spellcaster
+    may only have one Power Word spell in effect at a time.\nOnly one Power Word
+    can be active for each specific target spell at one time.\r"
   bookEdition: 0

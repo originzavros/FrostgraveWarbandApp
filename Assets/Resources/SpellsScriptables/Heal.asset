@@ -25,11 +25,7 @@ MonoBehaviour:
   CastingNumber: 8
   School: 8
   Restriction: Line of Sight
-  Description: 'The spell restores up to 5 points of lost Health to a target figure
-    within 6".
-
-    This spell cannot take a model above its starting Health.
-
-    This
-    spell has no effect on undead or constructs'
+  Description: "The spell restores up to 5 points of lost Health to a target figure
+    within 6\".\nThis spell cannot take a model above its starting Health.\nThis
+    spell has no effect on undead or constructs\r"
   bookEdition: 0
