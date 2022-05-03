@@ -24,7 +24,7 @@ MonoBehaviour:
   hiringName: Marksman
   soldierType: Specialist
   isHired: 0
-  description: 
+  description: None
   bookEdition: 0
   baseSoldierEquipment:
   - {fileID: 11400000, guid: e4261eb7b1932a94faa456bf82e8352a, type: 2}

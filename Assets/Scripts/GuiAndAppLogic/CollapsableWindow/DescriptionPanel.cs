@@ -9,5 +9,10 @@ public class DescriptionPanel : MonoBehaviour
     public void UpdateDescription(SoldierScriptable soldier)
     {
         descriptionField.text = soldier.description;
+        // if(descriptionField.text == "None")
+        // {
+        //     // this.transform.parent.gameObject.SetActive(false);
+        //     this.gameObject.SetActive(false);
+        // }
     }
 }

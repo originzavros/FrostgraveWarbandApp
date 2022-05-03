@@ -24,7 +24,7 @@ MonoBehaviour:
   hiringName: Infantryman
   soldierType: Standard
   isHired: 0
-  description: 
+  description: None
   bookEdition: 0
   baseSoldierEquipment:
   - {fileID: 11400000, guid: 20381002a35bc9144a805ad5bd3527f2, type: 2}

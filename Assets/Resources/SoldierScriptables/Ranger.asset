@@ -24,7 +24,7 @@ MonoBehaviour:
   hiringName: Ranger
   soldierType: Specialist
   isHired: 0
-  description: 
+  description: None
   bookEdition: 0
   baseSoldierEquipment:
   - {fileID: 11400000, guid: 7999a923e6936d5408a4884a48b95eaf, type: 2}

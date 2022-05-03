@@ -14,6 +14,7 @@ public class NavBox : MonoBehaviour
     [SerializeField] GameObject pirateOathStuff;
 
     [SerializeField] TextMeshProUGUI screenNameText;
+    [SerializeField] BasicPopup infoPopup;
 
     private AppFragment currentLocation = AppFragment.Home;
 
@@ -54,6 +55,12 @@ public class NavBox : MonoBehaviour
         warbandManager.SetActive(true);
         warbandManager.GetComponent<WarbandUIManager>().Init();
         ChangeScreenName("Warband Manager");
+        currentLocation = AppFragment.WarbandManagerSelection;
+    }
+
+    public void GoToWarbandManagerMain()
+    {
+        ChangeScreenName("Warband Manager");
         currentLocation = AppFragment.WarbandManagerMain;
     }
 
@@ -93,6 +100,25 @@ public class NavBox : MonoBehaviour
             //might want to have wizard builder go back to previous step instead
             OnClickNavHome();
         }
+
+        if(currentLocation == AppFragment.WarbandManagerCategory)
+        {
+            
+        }
+    }
+
+    public void OnClickInfoButton()
+    {
+        infoPopup.gameObject.SetActive(true);
+        if(currentLocation == AppFragment.Home)
+        {
+            string hometext = "Frostgrave is owned by Joseph A. McCullough and Published by Osprey Games.\n";
+            hometext += "Please support Frostgrave by purchasing the books.\n";
+            hometext += "This app is provided for free by me OriginZavros. If you would like to support me, Donate!\n";
+            hometext += "\n";
+            hometext += "Use the wizard builder to set up your first wizard. Then go to the warband manager to hire soldiers inlcuding an Apprentice\n";
+            infoPopup.UpdatePopupText(hometext);
+        }
     }
 }
 
@@ -101,8 +127,9 @@ public enum AppFragment
     Home,
     SpellReference,
     WizardBuilder,
+    WarbandManagerSelection,
     WarbandManagerMain,
-    WarbandHiring,
+    WarbandManagerCategory,
     Other
 }
 

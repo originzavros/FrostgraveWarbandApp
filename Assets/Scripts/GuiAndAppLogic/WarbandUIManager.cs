@@ -10,6 +10,8 @@ public class WarbandUIManager : MonoBehaviour
     [SerializeField] GameObject warbandHireSoldiersUI;
     [SerializeField] GameObject basicButtonPrefab;
 
+    [SerializeField] NavBox navBox;
+
 
    [SerializeField]  WarbandInfoManager warbandInfoManager;
    [SerializeField] WarbandLister warbandLister;
@@ -43,7 +45,7 @@ public class WarbandUIManager : MonoBehaviour
     }
     public void OnClickViewWarbandButton()
     {
-
+        
     }
 
     public void BackToMain()
@@ -51,12 +53,14 @@ public class WarbandUIManager : MonoBehaviour
         warbandMainContentUI.SetActive(true);
         warbandListerUI.SetActive(false);
         warbandHireSoldiersUI.SetActive(false);
+        navBox.ChangeScreenName("Warband Manager");
     }
 
     public void BackToWarbandMain()
     {
         warbandMainContentUI.SetActive(true);
         warbandHireSoldiersUI.SetActive(false);
+        
     }
 
     public void SaveWarbandChanges()
