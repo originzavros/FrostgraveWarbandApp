@@ -28,6 +28,7 @@ public class SoldierScriptable : ScriptableObject
         bookEdition = ss.bookEdition;
         baseSoldierEquipment = ss.baseSoldierEquipment;
         soldierInventory = ss.soldierInventory;
+        status = ss.status;
     }
     public string soldierName;
     public int inventoryLimit = 1;
@@ -42,6 +43,7 @@ public class SoldierScriptable : ScriptableObject
     public string soldierType;
     public bool isHired = false; //for the warband builder
     public string description;
+    public SoldierStatus status = SoldierStatus.ready;
     public FrostgraveBook bookEdition;
     public List<EquipmentScriptable> baseSoldierEquipment;
     public List<MagicItemScriptable> soldierInventory;

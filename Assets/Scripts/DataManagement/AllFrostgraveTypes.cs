@@ -32,4 +32,12 @@ public enum FrostgraveBook{
     TheFrostgraveFolio
 }
 
+public enum SoldierStatus{
+    ready,
+    knockout,
+    outOfGame,
+    escaped,
+    escapedWithTreasure
+}
+
 

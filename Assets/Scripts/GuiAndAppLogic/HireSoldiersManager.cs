@@ -42,10 +42,10 @@ public class HireSoldiersManager : MonoBehaviour
 
                 // CreateAndAttachCollapsableWindow(item, currentSoldiersContent);
                 // item.isHired = true;
-                Debug.Log(item);
-                SoldierScriptable tempsoldier =   SoldierScriptable.CreateInstance<SoldierScriptable>();
-                tempsoldier.Init(item);
-                CreateAndAttachSoliderContainer(tempsoldier, currentSoldiersContent, false);
+                // Debug.Log(item);
+                // SoldierScriptable tempsoldier =   SoldierScriptable.CreateInstance<SoldierScriptable>();
+                // tempsoldier.Init(item);
+                CreateAndAttachSoliderContainer(item, currentSoldiersContent, false);
                 currentHiredSoldierCount++;
                 if(item.soldierType == "Specialist")
                 {
@@ -75,11 +75,16 @@ public class HireSoldiersManager : MonoBehaviour
                 newApprenticeData.hiringName = "Apprentice";
                 newApprenticeData.description = "Can cast spells with a -2 to the Casting Roll";
                 newApprenticeData.baseSoldierEquipment.Clear();
-                CreateAndAttachSoliderContainer(newApprenticeData, soldierHiringContent);
+
+                RuntimeSoldierData convertAgain = new RuntimeSoldierData();
+                convertAgain.Init(newApprenticeData);
+                CreateAndAttachSoliderContainer(convertAgain, soldierHiringContent);
 
             }
             else{
-                CreateAndAttachSoliderContainer(item, soldierHiringContent);
+                RuntimeSoldierData newSoldier = new RuntimeSoldierData();
+                newSoldier.Init(item);
+                CreateAndAttachSoliderContainer(newSoldier, soldierHiringContent);
             }
             
             // CreateAndAttachCollapsableWindow(item, soldierHiringContent);
@@ -114,8 +119,10 @@ public class HireSoldiersManager : MonoBehaviour
     //     temp.transform.SetParent(attachedTo.transform);
     // }
 
-    private void CreateAndAttachSoliderContainer(SoldierScriptable incoming, GameObject attachedTo, bool hireMode = true)
+    private void CreateAndAttachSoliderContainer(RuntimeSoldierData incoming, GameObject attachedTo, bool hireMode = true)
     {
+        // RuntimeSoldierData newsoldier = new RuntimeSoldierData();
+        // newsoldier.Init(incoming);
         GameObject temp = Instantiate(soldierHiringContainerPrefab);
         SoldierInfoWindow csw = temp.GetComponentInChildren<SoldierInfoWindow>();
         csw.UpdatePanelInfo(incoming);
@@ -147,7 +154,8 @@ public class HireSoldiersManager : MonoBehaviour
     {
         Debug.Log("hired soldier by name: " + siw.GetStoredSoldier().hiringName);
 
-        SoldierScriptable hiredSoldier = siw.GetStoredSoldier();
+        RuntimeSoldierData hiredSoldier = siw.GetStoredSoldier();
+        hiredSoldier.soldierName = hiredSoldier.hiringName; //give them a default name
         if(hiredSoldier.cost > currentGoldTotal)
         {
             ErrorPopup("Not enough gold to hire soldier!");
@@ -190,7 +198,7 @@ public class HireSoldiersManager : MonoBehaviour
     
     public void OnClickFireSoldier(SoldierInfoWindow siw)
     {
-        SoldierScriptable hiredSoldier = siw.GetStoredSoldier();
+        RuntimeSoldierData hiredSoldier = siw.GetStoredSoldier();
         if(hiredSoldier.soldierType == "Specialist")
         {
             currentHiredSpecialistsSoldierCount--;
@@ -239,10 +247,10 @@ public class HireSoldiersManager : MonoBehaviour
         loadedWarband.warbandSoldiers.Clear();
         foreach(Transform item in currentSoldiersContent.transform)
         {
-            SoldierScriptable savingSoldier = item.GetComponentInChildren<SoldierInfoWindow>().GetStoredSoldier();
-            RuntimeSoldierData temp = new RuntimeSoldierData();
-            temp.Init(savingSoldier);
-            loadedWarband.warbandSoldiers.Add(temp);
+            RuntimeSoldierData savingSoldier = item.GetComponentInChildren<SoldierInfoWindow>().GetStoredSoldier();
+            // RuntimeSoldierData temp = new RuntimeSoldierData();
+            // temp.Init(savingSoldier);
+            loadedWarband.warbandSoldiers.Add(savingSoldier);
         }
     }
     public void HandleDropdownSorting()

@@ -8,6 +8,7 @@ public class WarbandUIManager : MonoBehaviour
     [SerializeField] GameObject warbandListerUI;
     [SerializeField] GameObject warbandMainContentUI;
     [SerializeField] GameObject warbandHireSoldiersUI;
+    [SerializeField] GameObject warbandPlayGameUI;
     [SerializeField] GameObject basicButtonPrefab;
 
     [SerializeField] NavBox navBox;
@@ -35,7 +36,7 @@ public class WarbandUIManager : MonoBehaviour
 
     public void OnClickHireSoldiersButton()
     {
-        warbandMainContentUI.SetActive(false);
+        DisableAllContentWindows();
         warbandHireSoldiersUI.SetActive(true);
         hireSoldiersManager.Init(warbandInfoManager.GetCurrentlyLoadedWarband());
     }
@@ -43,29 +44,37 @@ public class WarbandUIManager : MonoBehaviour
     {
 
     }
-    public void OnClickViewWarbandButton()
+    public void OnPlayGameButton()
     {
-        
+        DisableAllContentWindows();
+        warbandPlayGameUI.SetActive(true);
+
     }
 
     public void BackToMain()
     {
+        DisableAllContentWindows();
         warbandMainContentUI.SetActive(true);
-        warbandListerUI.SetActive(false);
-        warbandHireSoldiersUI.SetActive(false);
         navBox.ChangeScreenName("Warband Manager");
     }
 
     public void BackToWarbandMain()
     {
+        DisableAllContentWindows();
         warbandMainContentUI.SetActive(true);
-        warbandHireSoldiersUI.SetActive(false);
-        
     }
 
     public void SaveWarbandChanges()
     {
         warbandInfoManager.SaveCurrentWarband();
+    }
+
+    public void DisableAllContentWindows()
+    {
+        warbandMainContentUI.SetActive(false);
+        warbandListerUI.SetActive(false);
+        warbandHireSoldiersUI.SetActive(false);
+        warbandPlayGameUI.SetActive(false);
     }
 
 

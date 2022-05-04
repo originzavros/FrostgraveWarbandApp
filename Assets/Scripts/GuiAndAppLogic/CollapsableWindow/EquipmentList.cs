@@ -6,7 +6,7 @@ public class EquipmentList : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI equipmentText;
 
-    public void UpdateEquipment(SoldierScriptable soldier)
+    public void UpdateEquipment(RuntimeSoldierData soldier)
     {
         string fill = "";
         foreach(var item in soldier.baseSoldierEquipment)

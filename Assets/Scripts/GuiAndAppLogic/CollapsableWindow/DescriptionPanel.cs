@@ -6,7 +6,7 @@ public class DescriptionPanel : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI descriptionField;
 
-    public void UpdateDescription(SoldierScriptable soldier)
+    public void UpdateDescription(RuntimeSoldierData soldier)
     {
         descriptionField.text = soldier.description;
         // if(descriptionField.text == "None")

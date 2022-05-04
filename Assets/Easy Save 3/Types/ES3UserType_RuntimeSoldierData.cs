@@ -4,7 +4,7 @@ using UnityEngine;
 namespace ES3Types
 {
 	[UnityEngine.Scripting.Preserve]
-	[ES3PropertiesAttribute("soldierName", "inventoryLimit", "move", "fight", "shoot", "armor", "will", "health", "cost", "hiringName", "soldierType", "isHired", "description", "bookEdition", "baseSoldierEquipment", "soldierInventory")]
+	[ES3PropertiesAttribute("soldierName", "inventoryLimit", "move", "fight", "shoot", "armor", "will", "health", "cost", "hiringName", "soldierType", "isHired", "description", "status", "bookEdition", "baseSoldierEquipment", "soldierInventory")]
 	public class ES3UserType_RuntimeSoldierData : ES3ObjectType
 	{
 		public static ES3Type Instance = null;
@@ -29,7 +29,8 @@ namespace ES3Types
 			writer.WriteProperty("soldierType", instance.soldierType, ES3Type_string.Instance);
 			writer.WriteProperty("isHired", instance.isHired, ES3Type_bool.Instance);
 			writer.WriteProperty("description", instance.description, ES3Type_string.Instance);
-			writer.WriteProperty("bookEdition", instance.bookEdition, ES3Internal.ES3TypeMgr.GetOrCreateES3Type(typeof(FrostgraveBook)));
+			writer.WriteProperty("status", instance.status, ES3Internal.ES3TypeMgr.GetOrCreateES3Type(typeof(SoldierStatus)));
+			writer.WriteProperty("bookEdition", instance.bookEdition, ES3Type_enum.Instance);
 			writer.WriteProperty("baseSoldierEquipment", instance.baseSoldierEquipment, ES3Internal.ES3TypeMgr.GetOrCreateES3Type(typeof(System.Collections.Generic.List<EquipmentScriptable>)));
 			writer.WriteProperty("soldierInventory", instance.soldierInventory, ES3Internal.ES3TypeMgr.GetOrCreateES3Type(typeof(System.Collections.Generic.List<MagicItemScriptable>)));
 		}
@@ -81,8 +82,11 @@ namespace ES3Types
 					case "description":
 						instance.description = reader.Read<System.String>(ES3Type_string.Instance);
 						break;
+					case "status":
+						instance.status = reader.Read<SoldierStatus>();
+						break;
 					case "bookEdition":
-						instance.bookEdition = reader.Read<FrostgraveBook>();
+						instance.bookEdition = reader.Read<FrostgraveBook>(ES3Type_enum.Instance);
 						break;
 					case "baseSoldierEquipment":
 						instance.baseSoldierEquipment = reader.Read<System.Collections.Generic.List<EquipmentScriptable>>();

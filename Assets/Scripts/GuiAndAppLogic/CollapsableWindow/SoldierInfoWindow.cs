@@ -10,9 +10,9 @@ public class SoldierInfoWindow : MonoBehaviour
     [SerializeField] StatCollapsablePanel statCollapsablePanel;
     [SerializeField] SoldierHeader soldierHeader;
 
-    private SoldierScriptable storedSoldier;
+    private RuntimeSoldierData storedSoldier;
 
-    public void UpdatePanelInfo(SoldierScriptable soldier)
+    public void UpdatePanelInfo(RuntimeSoldierData soldier)
     {
         storedSoldier = soldier;
         descriptionPanel.UpdateDescription(soldier);
@@ -21,7 +21,7 @@ public class SoldierInfoWindow : MonoBehaviour
         soldierHeader.UpdateInfo(soldier);
     }
 
-    public SoldierScriptable GetStoredSoldier()
+    public RuntimeSoldierData GetStoredSoldier()
     {
         return storedSoldier;
     }

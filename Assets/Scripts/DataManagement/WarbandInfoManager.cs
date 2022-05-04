@@ -6,9 +6,11 @@ using Sirenix.OdinInspector;
 public class WarbandInfoManager : MonoBehaviour
 {
     
-    [SerializeField] PlayerWarband playerWarband;
-    [SerializeField] PlayerWarband playerWarbandPrefab;
+    private PlayerWarband playerWarband;
     private PlayerWizard playerWizard;
+
+    private PlayerWarband activeGameWarband;
+    private PlayerWarband lastGamePlayedWarband;
 
     public void Init(PlayerWarband _warband)
     {
@@ -50,6 +52,30 @@ public class WarbandInfoManager : MonoBehaviour
     {
         return playerWarband;
     }
+
+    public void SaveActiveGame(PlayerWarband _playerWarband)
+    {
+        activeGameWarband = _playerWarband;
+        string id = _playerWarband.warbandName + "ActiveGameSave";
+        ES3.Save(id, activeGameWarband);
+    }
+    public PlayerWarband LoadActiveGame(string _warbandName)
+    {
+        string id = _warbandName + "ActiveGameSave";
+        PlayerWarband tempwarband = new PlayerWarband();
+        tempwarband.warbandName = "temp";
+        if(ES3.KeyExists(id))
+        {
+            tempwarband.warbandWizard = new PlayerWizard();
+            ES3.LoadInto<PlayerWarband>(_warbandName, tempwarband);
+
+            tempwarband.warbandWizard.playerWizardProfile = new RuntimeSoldierData();
+            ES3.LoadInto<RuntimeSoldierData>(tempwarband.warbandWizard.wizardProfilekey, tempwarband.warbandWizard.playerWizardProfile);
+        }
+        activeGameWarband = tempwarband;
+        return tempwarband;
+    }
+
 
 
 

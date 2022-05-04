@@ -9,7 +9,7 @@ public class SoldierHeader : MonoBehaviour
     [SerializeField] TextMeshProUGUI soldierType;
     [SerializeField] TextMeshProUGUI soldierCost;
 
-    public void UpdateInfo(SoldierScriptable soldier)
+    public void UpdateInfo(RuntimeSoldierData soldier)
     {
         soldierName.text = soldier.hiringName;
         soldierType.text = soldier.soldierType;

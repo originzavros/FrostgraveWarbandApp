@@ -13,7 +13,7 @@ public class StatCollapsablePanel : MonoBehaviour
     [SerializeField] TextMeshProUGUI healthStat;
 
 
-    public void UpdateStats( SoldierScriptable soldier)
+    public void UpdateStats( RuntimeSoldierData soldier)
     {
         moveStat.text = soldier.move.ToString();
         fightStat.text = soldier.fight.ToString();
