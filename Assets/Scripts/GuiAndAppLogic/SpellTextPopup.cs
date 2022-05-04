@@ -20,6 +20,15 @@ public class SpellTextPopup : MonoBehaviour
         rangetypeValueText.text = ss.Restriction.ToString();
     }
 
+    public void UpdateRuntimeInfo(WizardRuntimeSpell ss)
+    {
+        spellNameText.text = ss.referenceSpell.name;
+        castingNumberText.text = (ss.referenceSpell.CastingNumber + ss.GetAllMods()).ToString();
+        descriptionText.text = ss.referenceSpell.Description;
+        schoolValueText.text = ss.referenceSpell.School.ToString();
+        rangetypeValueText.text = ss.referenceSpell.Restriction.ToString();
+    }
+
     public void ClosePopup()
     {
         this.gameObject.SetActive(false);

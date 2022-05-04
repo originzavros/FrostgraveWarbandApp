@@ -4,7 +4,7 @@ using UnityEngine;
 namespace ES3Types
 {
 	[UnityEngine.Scripting.Preserve]
-	[ES3PropertiesAttribute("playerWizardLevel", "playerWizardExperience", "wizardProfilekey", "playerWizardSpellbook")]
+	[ES3PropertiesAttribute("playerWizardLevel", "playerWizardExperience", "playerWizardProfile", "playerWizardSpellbook")]
 	public class ES3UserType_PlayerWizard : ES3ObjectType
 	{
 		public static ES3Type Instance = null;
@@ -18,8 +18,8 @@ namespace ES3Types
 			
 			writer.WriteProperty("playerWizardLevel", instance.playerWizardLevel, ES3Type_int.Instance);
 			writer.WriteProperty("playerWizardExperience", instance.playerWizardExperience, ES3Type_int.Instance);
-			writer.WriteProperty("wizardProfilekey", instance.wizardProfilekey, ES3Type_string.Instance);
-			writer.WriteProperty("playerWizardSpellbook", instance.playerWizardSpellbook, ES3Internal.ES3TypeMgr.GetOrCreateES3Type(typeof(WizardSpellbook)));
+			writer.WriteProperty("playerWizardProfile", instance.playerWizardProfile, ES3UserType_RuntimeSoldierData.Instance);
+			writer.WriteProperty("playerWizardSpellbook", instance.playerWizardSpellbook, ES3UserType_WizardSpellbook.Instance);
 		}
 
 		protected override void ReadObject<T>(ES3Reader reader, object obj)
@@ -36,11 +36,11 @@ namespace ES3Types
 					case "playerWizardExperience":
 						instance.playerWizardExperience = reader.Read<System.Int32>(ES3Type_int.Instance);
 						break;
-					case "wizardProfilekey":
-						instance.wizardProfilekey = reader.Read<System.String>(ES3Type_string.Instance);
+					case "playerWizardProfile":
+						instance.playerWizardProfile = reader.Read<RuntimeSoldierData>(ES3UserType_RuntimeSoldierData.Instance);
 						break;
 					case "playerWizardSpellbook":
-						instance.playerWizardSpellbook = reader.Read<WizardSpellbook>();
+						instance.playerWizardSpellbook = reader.Read<WizardSpellbook>(ES3UserType_WizardSpellbook.Instance);
 						break;
 					default:
 						reader.Skip();

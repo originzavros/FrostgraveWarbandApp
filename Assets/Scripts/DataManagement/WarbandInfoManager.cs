@@ -25,8 +25,8 @@ public class WarbandInfoManager : MonoBehaviour
         {
             LoadAssets.warbandNames.Add(key);
         }
-        playerWizard.wizardProfilekey =  playerWarband.warbandName + "wizardkey";
-        ES3.Save(playerWizard.wizardProfilekey, playerWizard.playerWizardProfile);
+        // playerWizard.wizardProfilekey =  playerWarband.warbandName + "wizardkey";
+        // ES3.Save(playerWizard.wizardProfilekey, playerWizard.playerWizardProfile);
         ES3.Save(key, playerWarband);
         ES3.Save("warbandNames", LoadAssets.warbandNames);
     }
@@ -39,8 +39,8 @@ public class WarbandInfoManager : MonoBehaviour
             tempwarband.warbandWizard = new PlayerWizard();
             ES3.LoadInto<PlayerWarband>(_warbandName, tempwarband);
 
-            tempwarband.warbandWizard.playerWizardProfile = new RuntimeSoldierData();
-            ES3.LoadInto<RuntimeSoldierData>(tempwarband.warbandWizard.wizardProfilekey, tempwarband.warbandWizard.playerWizardProfile);
+            // tempwarband.warbandWizard.playerWizardProfile = new RuntimeSoldierData();
+            // ES3.LoadInto<RuntimeSoldierData>(tempwarband.warbandWizard.wizardProfilekey, tempwarband.warbandWizard.playerWizardProfile);
             Init(tempwarband);
         }
         else{
@@ -69,8 +69,8 @@ public class WarbandInfoManager : MonoBehaviour
             tempwarband.warbandWizard = new PlayerWizard();
             ES3.LoadInto<PlayerWarband>(_warbandName, tempwarband);
 
-            tempwarband.warbandWizard.playerWizardProfile = new RuntimeSoldierData();
-            ES3.LoadInto<RuntimeSoldierData>(tempwarband.warbandWizard.wizardProfilekey, tempwarband.warbandWizard.playerWizardProfile);
+            // tempwarband.warbandWizard.playerWizardProfile = new RuntimeSoldierData();
+            // ES3.LoadInto<RuntimeSoldierData>(tempwarband.warbandWizard.wizardProfilekey, tempwarband.warbandWizard.playerWizardProfile);
         }
         activeGameWarband = tempwarband;
         return tempwarband;

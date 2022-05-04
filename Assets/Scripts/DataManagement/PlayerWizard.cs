@@ -15,7 +15,7 @@ public class PlayerWizard
     public int playerWizardLevel;
     public int playerWizardExperience;
 
-    public string wizardProfilekey;
+    // public string wizardProfilekey;
 
     public RuntimeSoldierData playerWizardProfile;
 

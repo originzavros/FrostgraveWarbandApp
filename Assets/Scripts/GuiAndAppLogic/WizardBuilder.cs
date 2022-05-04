@@ -197,9 +197,21 @@ public class WizardBuilder : MonoBehaviour
     {
         //do stuff to save it
         playerWizard.playerWizardSpellbook = new WizardSpellbook();
-        playerWizard.playerWizardSpellbook.wizardSpellbookSpells.AddRange(selectedPrimarySpells);
-        playerWizard.playerWizardSpellbook.wizardSpellbookSpells.AddRange(selectedAlignedSpells);
-        playerWizard.playerWizardSpellbook.wizardSpellbookSpells.AddRange(selectedNeutralSpells);
+        playerWizard.playerWizardSpellbook.Init(selectedSchool);
+        List<SpellScriptable> tempspells = new List<SpellScriptable>();
+        tempspells.AddRange(selectedPrimarySpells);
+        tempspells.AddRange(selectedAlignedSpells);
+        tempspells.AddRange(selectedNeutralSpells);
+        foreach(var item in tempspells)
+        {
+            WizardRuntimeSpell newTempSpell = new WizardRuntimeSpell();
+            newTempSpell.Init(item);
+            newTempSpell.wizardSchoolMod = CheckSpellAlignmentMod(newTempSpell, playerWizard.playerWizardSpellbook.wizardSchool);
+            playerWizard.playerWizardSpellbook.wizardSpellbookSpells.Add(newTempSpell);
+        }
+        // playerWizard.playerWizardSpellbook.wizardSpellbookSpells.AddRange(selectedPrimarySpells);
+        // playerWizard.playerWizardSpellbook.wizardSpellbookSpells.AddRange(selectedAlignedSpells);
+        // playerWizard.playerWizardSpellbook.wizardSpellbookSpells.AddRange(selectedNeutralSpells);
         playerWarband = new PlayerWarband();
         playerWarband.Init();
         playerWarband.warbandName = WarbandInput.GetComponent<BasicInput>().nameEntry.text;
@@ -209,6 +221,55 @@ public class WizardBuilder : MonoBehaviour
         warbandInfoManager.SaveCurrentWarband();
 
         navBox.OnClickNavHome();
+    }
+
+    public int CheckSpellAlignmentMod(WizardRuntimeSpell _spell, WizardSchoolScriptable _school)
+    {
+        int schoolMod = 0;
+        bool foundSchool = false;
+        if(_spell.referenceSpell.School == _school.primarySchool)
+        {
+            schoolMod = 0;
+        }
+        else{
+            if(!foundSchool)
+            {
+                foreach(var item in _school.alignedSchools)
+                {
+                    if(_spell.referenceSpell.School == item)
+                    {
+                        schoolMod = 2;
+                        foundSchool = true;
+                        break;
+                    }
+                }
+            }
+            if(!foundSchool)
+            {
+                foreach(var item in _school.neutralSchools)
+                {
+                    if(_spell.referenceSpell.School == item)
+                    {
+                        schoolMod = 4;
+                        foundSchool = true;
+                        break;
+                    }
+                }
+            }
+            if(!foundSchool)
+            {
+                foreach(var item in _school.enemySchools)
+                {
+                    if(_spell.referenceSpell.School == item)
+                    {
+                        schoolMod = 6;
+                        foundSchool = true;
+                        break;
+                    }
+                }
+            } 
+        }
+        return schoolMod;
     }
 
     public void HandleCurrentStepSetup()

@@ -7,14 +7,18 @@ public class PlayModeManager : MonoBehaviour
 {
     [SerializeField] GameObject gamePanelContents;
     [SerializeField] GameObject warbandViewContents;
+    [SerializeField] GameObject wizardViewContents;
     [SerializeField] GameObject soldierViewScroll;
+    [SerializeField] GameObject wizardViewScroll;
     [SerializeField] GameObject playModeWindowPrefab;
+    [SerializeField] GameObject spellButtonPrefab;
     [SerializeField] WarbandInfoManager warbandInfoManager;
 
     [SerializeField] GameObject rollDicePopup;
     [SerializeField] GameObject addConditionPopup;
     [SerializeField] GameObject soldierEscapePopup;
     [SerializeField] GameObject changeSoldierNamePopup;
+    [SerializeField] SpellTextPopup spellTextPopup;
 
     [SerializeField] GameObject newGameButton;
 
@@ -43,6 +47,7 @@ public class PlayModeManager : MonoBehaviour
     public void OnClickWizardButton()
     {
         DisableAllContents();
+        wizardViewScroll.SetActive(true);
     }
     public void OnClickBeastsButton()
     {
@@ -52,11 +57,13 @@ public class PlayModeManager : MonoBehaviour
     {
         DisableAllContents();
         gamePanelContents.SetActive(true);
+        
     }
     public void DisableAllContents()
     {
         gamePanelContents.SetActive(false);
         soldierViewScroll.SetActive(false);
+        wizardViewScroll.SetActive(false);
     }
     #endregion
 
@@ -68,27 +75,42 @@ public class PlayModeManager : MonoBehaviour
     }
     public void OnClickEndGame()
     {
-        
+
     }
 
     public void NewGameSetup(PlayerWarband _playerwarband)
     {
         currentGameWarband = _playerwarband;
         PopulateWarbandView();
+        PopulateWizardView();
     }
 
     public void PopulateWarbandView()
     {
         foreach(var item in currentGameWarband.warbandSoldiers)
         {
-            CreateAndAttachPlaymodeSoldierContainer(item, warbandViewContents);
-            
+            CreateAndAttachPlaymodeSoldierContainer(item, warbandViewContents);    
         }
     }
 
     public void PopulateWizardView()
     {
-
+        // GameObject wizardAttachPanel = wizardViewContents.transform.GetChild(0).gameObject;
+        CreateAndAttachPlaymodeSoldierContainer(currentGameWarband.warbandWizard.playerWizardProfile, wizardViewContents);
+        foreach(var spellItem in currentGameWarband.warbandWizard.playerWizardSpellbook.wizardSpellbookSpells)
+        {
+            GameObject temp = Instantiate(spellButtonPrefab);
+            temp.GetComponent<Button>().onClick.AddListener(delegate {EnableAndFillDescriptionPopUp(temp);});
+            SpellButton sb = temp.GetComponent<SpellButton>();
+            sb.LoadRuntimeSpellInfo(spellItem);
+            temp.transform.SetParent(wizardViewContents.transform);
+        }
+    }
+    public void EnableAndFillDescriptionPopUp(GameObject go)
+    {
+        spellTextPopup.transform.gameObject.SetActive(true);
+        WizardRuntimeSpell tempSpell = go.GetComponent<SpellButton>().referenceRuntimeSpell;
+        spellTextPopup.UpdateRuntimeInfo(tempSpell);
     }
 
     private void CreateAndAttachPlaymodeSoldierContainer(RuntimeSoldierData incoming, GameObject attachedTo)
@@ -133,6 +155,8 @@ public class PlayModeManager : MonoBehaviour
         changeSoldierNamePopup.SetActive(true);
         changeSoldierNamePopup.GetComponent<ChangeSoldierNamePopup>().Init(_playmodeWindow);
     }
+
+
 
 
 
