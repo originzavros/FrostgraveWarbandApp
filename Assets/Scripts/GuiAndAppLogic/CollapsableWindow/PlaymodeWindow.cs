@@ -26,7 +26,7 @@ public class PlaymodeWindow : MonoBehaviour
         statCollapsablePanel.UpdateStats(soldier);
         soldierHeader.UpdateInfo(soldier);
     }
-
+    
     public RuntimeSoldierData GetStoredSoldier()
     {
         return storedSoldier;

@@ -10,6 +10,8 @@ public class PlayModeManager : MonoBehaviour
     [SerializeField] GameObject wizardViewContents;
     [SerializeField] GameObject soldierViewScroll;
     [SerializeField] GameObject wizardViewScroll;
+    [SerializeField] GameObject monsterViewContents;
+    [SerializeField] GameObject monsterViewScroll;
     [SerializeField] GameObject playModeWindowPrefab;
     [SerializeField] GameObject spellButtonPrefab;
     [SerializeField] WarbandInfoManager warbandInfoManager;
@@ -19,10 +21,16 @@ public class PlayModeManager : MonoBehaviour
     [SerializeField] GameObject soldierEscapePopup;
     [SerializeField] GameObject changeSoldierNamePopup;
     [SerializeField] SpellTextPopup spellTextPopup;
+    [SerializeField] MonsterKeywordPopup monsterKeywordPopup;
+    [SerializeField] AddMonsterPopup addMonsterPopup;
 
     [SerializeField] GameObject newGameButton;
 
+    [SerializeField] GameObject monsterKeywordButtonPrefab;
+
     private PlayerWarband currentGameWarband;
+
+    private int monsterKillCount = 0;
 
     public void Init()
     {
@@ -52,6 +60,7 @@ public class PlayModeManager : MonoBehaviour
     public void OnClickBeastsButton()
     {
         DisableAllContents();
+        monsterViewScroll.SetActive(true);
     }
     public void OnClickGameButton()
     {
@@ -64,6 +73,7 @@ public class PlayModeManager : MonoBehaviour
         gamePanelContents.SetActive(false);
         soldierViewScroll.SetActive(false);
         wizardViewScroll.SetActive(false);
+        monsterViewScroll.SetActive(false);
     }
     #endregion
 
@@ -83,6 +93,7 @@ public class PlayModeManager : MonoBehaviour
         currentGameWarband = _playerwarband;
         PopulateWarbandView();
         PopulateWizardView();
+        PopulateMonsterPopup();
     }
 
     public void PopulateWarbandView()
@@ -106,6 +117,11 @@ public class PlayModeManager : MonoBehaviour
             temp.transform.SetParent(wizardViewContents.transform);
         }
     }
+
+    public void PopulateMonsterPopup()
+    {
+        addMonsterPopup.Init();
+    }
     public void EnableAndFillDescriptionPopUp(GameObject go)
     {
         spellTextPopup.transform.gameObject.SetActive(true);
@@ -123,6 +139,27 @@ public class PlayModeManager : MonoBehaviour
         csw.SetStatusEvent(delegate{AddConditionPop(csw);});
         csw.SetDeathEscapeEvent(delegate{SoldierEscapePopup(csw);});
         csw.SetEditEvent(delegate{AddChangeSoldierNamePopup(csw);});
+        
+        temp.transform.SetParent(attachedTo.transform);
+    }
+
+    private void CreateAndAttachMonsterContainer(MonsterScriptable incoming, GameObject attachedTo)
+    {
+        GameObject temp = Instantiate(playModeWindowPrefab);
+        PlaymodeWindow csw = temp.GetComponentInChildren<PlaymodeWindow>();
+        RuntimeSoldierData newMonster = new RuntimeSoldierData();
+        newMonster.Init(incoming);
+        csw.UpdatePanelInfo(newMonster);
+
+        csw.SetRollDiceEvent(delegate{RollDicePopup(csw);});
+        csw.SetStatusEvent(delegate{AddConditionPop(csw);});
+        csw.SetDeathEscapeEvent(delegate{DeleteMonsterEvent(csw);});
+        csw.SetEditEvent(delegate{AddChangeSoldierNamePopup(csw);});
+
+        foreach(var _keyword in incoming.monsterKeywordList)
+        {
+            AddMonsterKeywordToMonster(csw, _keyword);
+        }
         
         temp.transform.SetParent(attachedTo.transform);
     }
@@ -155,6 +192,38 @@ public class PlayModeManager : MonoBehaviour
         changeSoldierNamePopup.SetActive(true);
         changeSoldierNamePopup.GetComponent<ChangeSoldierNamePopup>().Init(_playmodeWindow);
     }
+    public void AddMonsterKeywordTextPopup(MonsterKeywordScriptable _keyword)
+    {
+        monsterKeywordPopup.gameObject.SetActive(true);
+        monsterKeywordPopup.Init(_keyword);
+    }
+
+    public void DeleteMonsterEvent(PlaymodeWindow _playmodeWindow)
+    {
+        monsterKillCount++;
+        Destroy(_playmodeWindow.gameObject);
+    }
+    public void AddMonsterToMonsterScroll(MonsterScriptable _monster)
+    {
+        CreateAndAttachMonsterContainer(_monster, monsterViewContents);
+    }
+
+
+    public void AddMonsterKeywordToMonster(PlaymodeWindow _playmodeWindow, MonsterKeywordScriptable _keyword)
+    {
+        GameObject temp = Instantiate(monsterKeywordButtonPrefab);
+        temp.GetComponent<MonsterKeywordButton>().Init(_keyword);
+
+        temp.GetComponent<MonsterKeywordButton>().SetPopupEvent(delegate {AddMonsterKeywordTextPopup(_keyword);});
+
+        _playmodeWindow.AddItemToContents(temp);
+    }
+
+    public void OnClickAddMonster()
+    {
+        addMonsterPopup.gameObject.SetActive(true);
+    }
+
 
 
 

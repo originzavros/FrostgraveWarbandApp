@@ -14,6 +14,8 @@ public class LoadAssets : MonoBehaviour
     public static EquipmentScriptable[] allItemObjects;
     public static SoldierScriptable[] allSoldierObjects;
     public static List<string> warbandNames;
+    public static MonsterScriptable[] allMonsterObjects;
+    public static MonsterKeywordScriptable[] allMonsterKeywordObjects;
 
     void Start()
     {
@@ -26,6 +28,8 @@ public class LoadAssets : MonoBehaviour
         wizardSchoolObjects = Resources.LoadAll<WizardSchoolScriptable>("WizardSchools");
         allEquipmentObjects = Resources.LoadAll<EquipmentScriptable>("StandardEquipment");
         allSoldierObjects = Resources.LoadAll<SoldierScriptable>("SoldierScriptables");
+        allMonsterObjects =  Resources.LoadAll<MonsterScriptable>("MonsterScriptables");
+        allMonsterKeywordObjects = Resources.LoadAll<MonsterKeywordScriptable>("MonsterKeywordScriptables");
 
 
         warbandNames = ES3.Load("warbandNames", new List<string>());
