@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Bottle Of Dreams And Nightmares
+  m_EditorClassIdentifier: 
+  itemName: Bottle Of Dreams And Nightmares
+  itemDescription: 'This potion can only be used by a wizard immediately before a
+    game.
+
+    The wizard should immediately make a Will Roll (TN12).
+
+    If successful,
+    then the wizard gains an extra 50 experience points after the game.
+
+    This
+    does not count towards the 300 xp point maximum in a game.
+
+    If unsuccessful,
+    the wizard has 30 xp deducted from those earned during the game (cannot take
+    the total xp gained for the game below 0).
+
+    These 30 experience points are
+    deducted from the maximum that can be earned (a wizard that fails can only gain
+    270 max in a game).'
+  itemPurchasePrice: 2000
+  itemSalePrice: 300
+  itemBook: 0
+  itemType: 3

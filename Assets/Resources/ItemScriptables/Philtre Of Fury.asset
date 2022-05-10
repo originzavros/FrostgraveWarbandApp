@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Philtre Of Fury
+  m_EditorClassIdentifier: 
+  itemName: Philtre Of Fury
+  itemDescription: 'The figure gains +1 Fight and receives and additional +1 damage
+    modifier on any successful hand-to-hand attack.
+
+    However, the figure must,
+    if possible, use all its actions every turn to move into combat with and fight
+    the closest enemy figure(including uncontrolled figures) in line of sight and
+    not currently in combat.'
+  itemPurchasePrice: 300
+  itemSalePrice: 120
+  itemBook: 0
+  itemType: 2

@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Potion Of Preservation
+  m_EditorClassIdentifier: 
+  itemName: Potion Of Preservation
+  itemDescription: 'This potion may be used on any figure, other than a wizard, who
+    died in the previous game.
+
+    this potion perfectly preserves the body of the
+    figure for the next five games.
+
+    After each of the next five games, a wizard
+    may use an elixir of life portion or a Miraculous Cure spell on the preserved
+    figure.
+
+    While a figure is preserved, it does not count as a member of the
+    warband for the purpose of calculating maximum warband size, but will do so if
+    brought back to life.
+
+    A wizard may not hire another apprentice if they have
+    one preserved.
+
+    If, after the fight game, the preserved figure has not been
+    brough back to life, it is dead, and shoudl be removed from the Wizard Sheet.'
+  itemPurchasePrice: 500
+  itemSalePrice: 200
+  itemBook: 0
+  itemType: 2

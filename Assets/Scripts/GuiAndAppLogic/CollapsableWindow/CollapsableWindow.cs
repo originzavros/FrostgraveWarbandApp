@@ -40,4 +40,12 @@ public class CollapsableWindow : MonoBehaviour
         // go.AddComponent<LayoutElement>();
         go.transform.SetParent(windowBody.transform);
     }
+
+    public void SetBodyPermaActive()
+    {
+        expandImage.SetActive(false);
+        ExpandButton.SetActive(false);
+        CollapseButton.SetActive(false);
+        windowBody.SetActive(true);
+    }
 }

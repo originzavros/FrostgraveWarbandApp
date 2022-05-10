@@ -9,6 +9,7 @@ public class PlaymodeWindow : MonoBehaviour
     [SerializeField] EquipmentList equipmentList;
     [SerializeField] StatCollapsablePanel statCollapsablePanel;
     [SerializeField] SoldierHeaderPlaymode soldierHeader;
+    [SerializeField] GameObject soldierControlsPanel;
     [SerializeField] GameObject bodyContents;
     [SerializeField] GameObject rollDiceButton;
     [SerializeField] GameObject statusButton;
@@ -64,6 +65,8 @@ public class PlaymodeWindow : MonoBehaviour
         newStatusObject.GetComponent<PlaymodeCondition>().UpdateCondition(statusType, statusTN);
         AddItemToContents(newStatusObject);
     }
+
+    
     public void UpdateSoldierName(string name)
     {
         storedSoldier.soldierName = name;
@@ -74,6 +77,24 @@ public class PlaymodeWindow : MonoBehaviour
     {
 
     }
+
+    public void SetUpForVaultPanel()
+    {
+        descriptionPanel.gameObject.SetActive(false);
+        equipmentList.gameObject.SetActive(false);
+        statCollapsablePanel.gameObject.SetActive(false);
+        soldierHeader.SetUpForVaultPanel();
+        soldierControlsPanel.SetActive(false);
+    }
+
+    public void SetBodyPermaActive()
+    {
+        // bodyContents.SetActive(true);
+        this.GetComponent<CollapsableWindow>().SetBodyPermaActive();
+
+    }
+
+
 
     
 

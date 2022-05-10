@@ -40,5 +40,16 @@ public enum SoldierStatus{
     escapedWithTreasure
 }
 
+public enum MagicItemType{
+    Weapon,
+    Armor,
+    LesserPotion,
+    GreaterPotion,
+    Artifact,
+    Grimoire,
+    Scroll,
+    BasicEquipment
+
+}
 
 

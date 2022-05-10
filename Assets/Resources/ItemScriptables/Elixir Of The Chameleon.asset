@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Elixir Of The Chameleon
+  m_EditorClassIdentifier: 
+  itemName: Elixir Of The Chameleon
+  itemDescription: "This potion allows a figure to blend in with their surroundings.
+    \nNo other figure may draw line of sight ot this figure if they are more than
+    12\" away.\nThus, this figure may only be targeted by an attack or a spell from
+    another figure that is within 12\"."
+  itemPurchasePrice: 400
+  itemSalePrice: 140
+  itemBook: 0
+  itemType: 2

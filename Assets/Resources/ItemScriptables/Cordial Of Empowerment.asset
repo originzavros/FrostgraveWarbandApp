@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Cordial Of Empowerment
+  m_EditorClassIdentifier: 
+  itemName: Cordial Of Empowerment
+  itemDescription: 'The next time a spellcaster casts a spell after drinking this
+    potion, they add +4 to their Casting Roll but suffer 2 damage, in addition to
+    any other effects of casting the spell.
+
+    A spellcaster may only use on cordial
+    of empowerment per game.
+
+    This potion may not be used to cast Out of Game
+    spells.'
+  itemPurchasePrice: 500
+  itemSalePrice: 200
+  itemBook: 0
+  itemType: 3

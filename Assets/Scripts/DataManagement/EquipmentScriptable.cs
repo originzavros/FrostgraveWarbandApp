@@ -4,8 +4,8 @@ using UnityEngine;
 
 
 /*
-    Slightly misleading, but this holds both equipment and items
-    They aren't really functionally different in the game in most cases
+    The basic equipment in the game.
+    These could probably just be magic items sorted by BasicEquipment type, will have to refactor later, isn't hurting anything right now
 */
 [CreateAssetMenu(fileName = "New Equipment", menuName = "Assets/New Equipment")]
 public class EquipmentScriptable : ScriptableObject

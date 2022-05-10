@@ -56,12 +56,11 @@ public class easySpreadsheetImport : MonoBehaviour
         {
             MagicItemScriptable es = ScriptableObject.CreateInstance<MagicItemScriptable>();
             es.itemName = sheet.GetCell<string>(0, row);
-            es.itemBook = (FrostgraveBook)System.Enum.Parse(typeof(FrostgraveBook),sheet.GetCell<string>(1,row));
-            es.itemType = (MagicItemType)System.Enum.Parse(typeof(MagicItemType),sheet.GetCell<string>(2,row));
-            es.itemDescription = sheet.GetCell<string>(3,row);
-            es.itemPurchasePrice = sheet.GetCell<int>(4,row);
-            es.itemSalePrice = sheet.GetCell<int>(5,row);
-            
+            es.itemDescription = sheet.GetCell<string>(1,row);
+            es.itemPurchasePrice = sheet.GetCell<int>(2,row);
+            es.itemSalePrice = sheet.GetCell<int>(3,row);
+            es.itemBook = (FrostgraveBook)System.Enum.Parse(typeof(FrostgraveBook),sheet.GetCell<string>(4,row));
+            es.itemType = (MagicItemType)System.Enum.Parse(typeof(MagicItemType),sheet.GetCell<string>(5,row));
 
             AssetDatabase.CreateAsset(es, $"Assets/Resources/ItemScriptables/{es.itemName}.asset"); 
         }

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Poison
+  m_EditorClassIdentifier: 
+  itemName: Poison
+  itemDescription: "This sticky poison may be used to coat any weapon except a staff,
+    bow, or crossbow. \nIt can be used on one arrow or crossbow bolt.\nThe next time
+    this weapon causes damage, the figure that takes the damage is poisoned (assuming
+    that figure is not immune to poison).\nThe weapon loses the ability to poison
+    after the first attack with it that causess damage.\nThis potion is not magic
+    and not affected by anything that cancels magic."
+  itemPurchasePrice: 100
+  itemSalePrice: 30
+  itemBook: 0
+  itemType: 2

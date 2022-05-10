@@ -7,6 +7,9 @@ public class SoldierHeaderPlaymode : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI soldierName;
     [SerializeField] TextMeshProUGUI soldierHP;
+    [SerializeField] GameObject hptracker;
+    [SerializeField] GameObject hpUpButton;
+    [SerializeField] GameObject hpDownButton;
 
     private int maxHP = 10;
     private int currentHp;
@@ -43,5 +46,12 @@ public class SoldierHeaderPlaymode : MonoBehaviour
             currentHp--;
             soldierHP.text = currentHp.ToString();
         }
+    }
+
+    public void SetUpForVaultPanel()
+    {
+        hptracker.SetActive(false);
+        hpUpButton.SetActive(false);
+        hpDownButton.SetActive(false);
     }
 }

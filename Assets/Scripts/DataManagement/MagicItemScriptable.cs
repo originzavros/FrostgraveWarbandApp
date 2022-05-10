@@ -11,16 +11,4 @@ public class MagicItemScriptable : ScriptableObject
     public int itemSalePrice;
     public FrostgraveBook itemBook;
     public MagicItemType itemType;
-
-}
-
-public enum MagicItemType{
-    Weapon,
-    Armor,
-    LesserPotion,
-    GreaterPotion,
-    Artifact,
-    Grimoire,
-    Scroll
-
 }

@@ -25,6 +25,7 @@ public class PlayModeManager : MonoBehaviour
     [SerializeField] AddMonsterPopup addMonsterPopup;
 
     [SerializeField] GameObject newGameButton;
+    [SerializeField] GameObject endGameButton;
 
     [SerializeField] GameObject monsterKeywordButtonPrefab;
 
@@ -82,10 +83,29 @@ public class PlayModeManager : MonoBehaviour
         currentGameWarband = warbandInfoManager.GetCurrentlyLoadedWarband();
         NewGameSetup(currentGameWarband);
         newGameButton.GetComponent<Button>().interactable = false;
+        endGameButton.GetComponent<Button>().interactable = true;
     }
     public void OnClickEndGame()
     {
+        //update soldiers for warband and postgame
+        //save game data (monsters killed, treasures captured ?)
+        //go to post game?
+        UpdateWarbandInfoWithGameInfo();
+        newGameButton.GetComponent<Button>().interactable = true;
+        endGameButton.GetComponent<Button>().interactable = false;
+    }
 
+    //just want to grab their status info for postgame.
+    public void UpdateWarbandInfoWithGameInfo()
+    {
+        currentGameWarband.warbandSoldiers.Clear();
+        foreach(Transform child in warbandViewContents.transform)
+        {
+            RuntimeSoldierData rsd = child.GetComponent<PlaymodeWindow>().GetStoredSoldier();
+            currentGameWarband.warbandSoldiers.Add(rsd);
+        }
+        currentGameWarband.warbandWizard.playerWizardProfile = wizardViewContents.GetComponentInChildren<PlaymodeWindow>().GetStoredSoldier();
+        warbandInfoManager.Init(currentGameWarband);
     }
 
     public void NewGameSetup(PlayerWarband _playerwarband)
