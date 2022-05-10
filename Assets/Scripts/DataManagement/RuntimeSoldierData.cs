@@ -40,6 +40,6 @@ public class RuntimeSoldierData
     public string description;
     public SoldierStatus status = SoldierStatus.ready;
     public FrostgraveBook bookEdition;
-    public List<EquipmentScriptable> baseSoldierEquipment;
-    public List<MagicItemScriptable> soldierInventory;
+    public List<EquipmentScriptable> baseSoldierEquipment = new List<EquipmentScriptable>();
+    public List<MagicItemScriptable> soldierInventory = new List<MagicItemScriptable>();
 }

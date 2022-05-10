@@ -70,6 +70,15 @@ public class ItemSlotSoldier : MonoBehaviour
         return isHoldingItem;
     }
 
+    public void SetItemToPlaymode()
+    {
+        removeItemButton.SetActive(false);
+    }
+    public void SetItemToVaultMode()
+    {
+        removeItemButton.SetActive(true);
+    }
+
     
 
 }

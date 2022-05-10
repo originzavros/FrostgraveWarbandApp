@@ -2,32 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Sirenix.OdinInspector;
 
 public class PlayModeManager : MonoBehaviour
 {
-    [SerializeField] GameObject gamePanelContents;
-    [SerializeField] GameObject warbandViewContents;
-    [SerializeField] GameObject wizardViewContents;
-    [SerializeField] GameObject soldierViewScroll;
-    [SerializeField] GameObject wizardViewScroll;
-    [SerializeField] GameObject monsterViewContents;
-    [SerializeField] GameObject monsterViewScroll;
-    [SerializeField] GameObject playModeWindowPrefab;
-    [SerializeField] GameObject spellButtonPrefab;
+    [BoxGroup("Gui Contents")][SerializeField] GameObject gamePanelContents;
+    [BoxGroup("Gui Contents")][SerializeField] GameObject warbandViewContents;
+    [BoxGroup("Gui Contents")][SerializeField] GameObject wizardViewContents;
+    [BoxGroup("Gui Panels")][SerializeField] GameObject soldierViewScroll;
+    [BoxGroup("Gui Panels")][SerializeField] GameObject wizardViewScroll;
+    [BoxGroup("Gui Contents")][SerializeField] GameObject monsterViewContents;
+    [BoxGroup("Gui Panels")] [SerializeField] GameObject monsterViewScroll;
+    [BoxGroup("Prefabs")][SerializeField] GameObject playModeWindowPrefab;
+    [BoxGroup("Prefabs")][SerializeField] GameObject spellButtonPrefab;
+    [BoxGroup("Prefabs")][SerializeField] GameObject itemSlotPrefab;
     [SerializeField] WarbandInfoManager warbandInfoManager;
 
-    [SerializeField] GameObject rollDicePopup;
-    [SerializeField] GameObject addConditionPopup;
-    [SerializeField] GameObject soldierEscapePopup;
-    [SerializeField] GameObject changeSoldierNamePopup;
-    [SerializeField] SpellTextPopup spellTextPopup;
-    [SerializeField] MonsterKeywordPopup monsterKeywordPopup;
-    [SerializeField] AddMonsterPopup addMonsterPopup;
+    [BoxGroup("Popups")][SerializeField] GameObject rollDicePopup;
+    [BoxGroup("Popups")][SerializeField] GameObject addConditionPopup;
+    [BoxGroup("Popups")][SerializeField] GameObject soldierEscapePopup;
+    [BoxGroup("Popups")][SerializeField] GameObject changeSoldierNamePopup;
+    [BoxGroup("Popups")][SerializeField] SpellTextPopup spellTextPopup;
+    [BoxGroup("Popups")][SerializeField] MonsterKeywordPopup monsterKeywordPopup;
+    [BoxGroup("Popups")][SerializeField] AddMonsterPopup addMonsterPopup;
+    [BoxGroup("Popups")][SerializeField] GameObject itemDescriptionPopup;
 
-    [SerializeField] GameObject newGameButton;
-    [SerializeField] GameObject endGameButton;
+    [BoxGroup("GameButtons")][SerializeField] GameObject newGameButton;
+    [BoxGroup("GameButtons")][SerializeField] GameObject endGameButton;
 
-    [SerializeField] GameObject monsterKeywordButtonPrefab;
+    [BoxGroup("Prefabs")][SerializeField] GameObject monsterKeywordButtonPrefab;
 
     private PlayerWarband currentGameWarband;
 
@@ -159,6 +162,21 @@ public class PlayModeManager : MonoBehaviour
         csw.SetStatusEvent(delegate{AddConditionPop(csw);});
         csw.SetDeathEscapeEvent(delegate{SoldierEscapePopup(csw);});
         csw.SetEditEvent(delegate{AddChangeSoldierNamePopup(csw);});
+
+        if(incoming.soldierInventory.Count > 0)
+        {
+            foreach(var item in incoming.soldierInventory)
+            {
+                Debug.Log(item.itemName);
+                GameObject newItemSlot = Instantiate(itemSlotPrefab);
+                ItemSlotSoldier iss = newItemSlot.GetComponent<ItemSlotSoldier>();
+                iss.SetItemDescriptionButtonEvent(delegate { AddItemInfoToItemPopup(item);});
+                iss.SetItem(item);
+                iss.SetItemToPlaymode();
+                csw.AddItemToContents(newItemSlot);
+            }
+        }
+        
         
         temp.transform.SetParent(attachedTo.transform);
     }
@@ -244,10 +262,10 @@ public class PlayModeManager : MonoBehaviour
         addMonsterPopup.gameObject.SetActive(true);
     }
 
-
-
-
-
-
+    public void AddItemInfoToItemPopup(MagicItemScriptable itemScriptable)
+    {
+        itemDescriptionPopup.gameObject.SetActive(true);
+        itemDescriptionPopup.GetComponent<ItemDescriptionPopup>().Init(itemScriptable);
+    }
 
 }

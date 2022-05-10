@@ -39,6 +39,7 @@ public class ShopVaultManager : MonoBehaviour
     //don't want to juggle chaining variable instances through UI objects
     private ItemSlotSoldier currentlySelectedSoldierSlot;
     private PlaymodeWindow currentlySelectedSoldierWindow;
+    [SerializeField] int testGoldModifier = 1000;
 
 
     public void Init()
@@ -46,7 +47,7 @@ public class ShopVaultManager : MonoBehaviour
         // Debug.Log("Begin Init");
         currentWarband = warbandInfoManager.GetCurrentlyLoadedWarband();
         // Debug.Log("loaded warband");
-        // currentWarband.warbandGold += 1000;
+        currentWarband.warbandGold += testGoldModifier;
         UpdateGoldAmount(currentWarband.warbandGold);
         // Debug.Log("updated gold");
         FillWarbandPanelWithSoldiers();
@@ -216,6 +217,7 @@ public class ShopVaultManager : MonoBehaviour
             if(currentItemSlotCount < itemsOnSoldier)
             {
                 iss.SetItem(incoming.soldierInventory[currentItemSlotCount]);
+                iss.SetItemToVaultMode();
             }
             csw.AddItemToContents(newItemSlot);
             currentItemSlotCount++;
@@ -373,6 +375,17 @@ public class ShopVaultManager : MonoBehaviour
 
     private void SaveAllChangesToWarband()
     {
+        // foreach(var item in currentWarband.warbandWizard.playerWizardProfile.soldierInventory)
+        // {
+        //     Debug.Log(item.itemName);
+        // }
+        // foreach(var soldier in currentWarband.warbandSoldiers)
+        // {
+        //     foreach(var item in soldier.soldierInventory)
+        //     {
+        //         Debug.Log(item.itemName);
+        //     }
+        // }
         warbandInfoManager.SaveCurrentWarband();
     }
 

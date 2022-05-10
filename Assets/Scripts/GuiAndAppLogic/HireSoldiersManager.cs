@@ -17,6 +17,7 @@ public class HireSoldiersManager : MonoBehaviour
     [SerializeField] GameObject soldierHiringContainerPrefab;
     [SerializeField] WarbandUIManager warbandUIManager;
     [SerializeField] TMP_Dropdown soldierTypeDropdown;
+    [SerializeField] TextMeshProUGUI goldTrackerText;
 
 
 
@@ -214,7 +215,8 @@ public class HireSoldiersManager : MonoBehaviour
     public void UpdateGoldAmount(int gold)
     {
         currentGoldTotal += gold;
-        navBox.ChangeScreenName("Current Gold: " + currentGoldTotal);
+        goldTrackerText.text = "Current Gold: " + currentGoldTotal.ToString();
+        // navBox.ChangeScreenName("Current Gold: " + currentGoldTotal);
     }
 
     public void OnClickBackButton()
