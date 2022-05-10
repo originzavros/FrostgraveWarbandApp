@@ -12,33 +12,50 @@ public class ShopVaultManager : MonoBehaviour
     [BoxGroup("Gui Objects")][SerializeField] GameObject shopBuyPanel;
     [BoxGroup("Gui Objects")][SerializeField] GameObject shopVaultPanel;
     [BoxGroup("Gui Objects")][SerializeField] GameObject shopWarbandPanel;
+    [BoxGroup("Gui Objects")][SerializeField] GameObject saveSettingsPanel;
 
     [BoxGroup("Gui Object Contents")] [SerializeField] GameObject shopBuyContents;
     [BoxGroup("Gui Object Contents")] [SerializeField] GameObject vaultContents;
     [BoxGroup("Gui Object Contents")] [SerializeField] GameObject warbandContents;
+    [BoxGroup("Gui Object Contents")] [SerializeField] GameObject itemSelectPopupContents;
 
     [SerializeField] WarbandInfoManager warbandInfoManager;
+    [SerializeField] WarbandUIManager warbandUIManager;
     [SerializeField] TextMeshProUGUI goldValueText;
 
     
     [BoxGroup("Popups")][SerializeField] ItemDescriptionPopup itemDescriptionPopup;
     [BoxGroup("Popups")][SerializeField] GameObject errorPopupContainer;
+    [BoxGroup("Popups")][SerializeField] GameObject itemSelectPopup;
 
     [BoxGroup("Prefabs")] [SerializeField] GameObject buySellButtonContainerPrefab;
     [BoxGroup("Prefabs")] [SerializeField] GameObject itemSlotPrefab;
     [BoxGroup("Prefabs")] [SerializeField] GameObject collapsableWindowPlaymode;
+    [BoxGroup("Prefabs")] [SerializeField] GameObject itemButtonPrefab;
 
     private PlayerWarband currentWarband;
 
+    //These are here for convenience when adding items to soldiers
+    //don't want to juggle chaining variable instances through UI objects
+    private ItemSlotSoldier currentlySelectedSoldierSlot;
+    private PlaymodeWindow currentlySelectedSoldierWindow;
+
+
     public void Init()
     {
+        // Debug.Log("Begin Init");
         currentWarband = warbandInfoManager.GetCurrentlyLoadedWarband();
-        currentWarband.warbandGold += 1000;
+        // Debug.Log("loaded warband");
+        // currentWarband.warbandGold += 1000;
         UpdateGoldAmount(currentWarband.warbandGold);
+        // Debug.Log("updated gold");
         FillWarbandPanelWithSoldiers();
+        // Debug.Log("filled warband panel with soldiers");
         OnClickShopTab();
+        // Debug.Log("clicked shop tab");
     }
 
+    #region tabsOnClick
     public void OnClickShopTab()
     {
         DisableAllPanels();
@@ -48,11 +65,17 @@ public class ShopVaultManager : MonoBehaviour
     {
         DisableAllPanels();
         shopVaultPanel.SetActive(true);
+        UpdateVaultItems();
     }
     public void OnClickWarbandTab()
     {
         DisableAllPanels();
         shopWarbandPanel.SetActive(true);
+    }
+    public void OnClickSaveSettingsTab()
+    {
+        DisableAllPanels();
+        saveSettingsPanel.SetActive(true);
     }
 
     public void DisableAllPanels()
@@ -60,14 +83,34 @@ public class ShopVaultManager : MonoBehaviour
         shopSelectionPanel.SetActive(false);
         shopVaultPanel.SetActive(false);
         shopWarbandPanel.SetActive(false);
+        saveSettingsPanel.SetActive(false);
+        shopBuyPanel.SetActive(false);
     }
+    #endregion
 
-    public void UpdateGoldAmount(int newAmount)
+    private void UpdateGoldAmount(int newAmount)
     {
         goldValueText.text = "Gold: " + newAmount.ToString();
     }
 
-    public bool CheckIfPurchaseable(int purchaseAmount)
+    private void UpdateVaultItems()
+    {
+        ClearVaultPanel();
+        foreach(var item in currentWarband.warbandVault)
+        {
+            InstanceItemContainerAndAttach(item, vaultContents, ItemContainerMode.sell);
+        }
+    }
+
+    private void ClearVaultPanel()
+    {
+        foreach(Transform item in vaultContents.transform)
+        {
+            Destroy(item.gameObject);
+        }
+    }
+
+    private bool CheckIfPurchaseable(int purchaseAmount)
     {
         if(purchaseAmount > currentWarband.warbandGold)
         {
@@ -79,12 +122,7 @@ public class ShopVaultManager : MonoBehaviour
 
     }
 
-    public void PurchaseItem()
-    {
-
-    }
-
-    public void FillShopBuyWithItems(string shopType)
+    private void FillShopBuyWithItems(string shopType)
     {
         if(shopType == "Potions")
         {
@@ -94,7 +132,7 @@ public class ShopVaultManager : MonoBehaviour
                 {
                     if(item.itemPurchasePrice > 0) //filter out potions that you can only get as treasure/craft
                     {
-                        InstanceItemButtonAndAttach(item, shopBuyContents, ItemContainerMode.buy);
+                        InstanceItemContainerAndAttach(item, shopBuyContents, ItemContainerMode.buy);
                     }
                     
                 }
@@ -116,16 +154,16 @@ public class ShopVaultManager : MonoBehaviour
         shopBuyPanel.gameObject.SetActive(true);
     }
 
-    public void FillWarbandPanelWithSoldiers()
+    private void FillWarbandPanelWithSoldiers()
     {
+        CreateAndAttachPlaymodeSoldierContainer(currentWarband.warbandWizard.playerWizardProfile, warbandContents);
         foreach(var item in currentWarband.warbandSoldiers)
         {
             CreateAndAttachPlaymodeSoldierContainer(item, warbandContents);
         }
-        
     }
 
-    public void InstanceItemButtonAndAttach(MagicItemScriptable itemScriptable, GameObject parentWindow, ItemContainerMode buymode)
+    private void InstanceItemContainerAndAttach(MagicItemScriptable itemScriptable, GameObject parentWindow, ItemContainerMode buymode)
     {
         GameObject temp = Instantiate(buySellButtonContainerPrefab);
         ItemButton newItemButton =  temp.GetComponentInChildren<ItemButton>();
@@ -141,7 +179,17 @@ public class ShopVaultManager : MonoBehaviour
             newItemButton.SwitchCostToSell();}
 
         temp.transform.SetParent(parentWindow.transform);
+    }
 
+    private void InstanceItemSelectButtonAndAttach(MagicItemScriptable itemScriptable, GameObject parentWindow)
+    {
+        GameObject temp = Instantiate(itemButtonPrefab);
+        ItemButton newItemButton =  temp.GetComponent<ItemButton>();
+        newItemButton.Init(itemScriptable);
+        // newItemButton.SetButtonEvent(delegate {AddItemInfoToItemPopup(newItemButton.GetItemReference());});
+        newItemButton.SetButtonEvent(delegate {AttachSelectedItemToSoldier(newItemButton);});
+
+        temp.transform.SetParent(parentWindow.transform);
     }
 
      private void CreateAndAttachPlaymodeSoldierContainer(RuntimeSoldierData incoming, GameObject attachedTo)
@@ -152,60 +200,71 @@ public class ShopVaultManager : MonoBehaviour
 
         csw.SetUpForVaultPanel();
         csw.SetBodyPermaActive();
-        if(incoming.soldierInventory.Count > 0)
-        {
-            foreach(var item in incoming.soldierInventory)
-            {
-                GameObject newItemSlot = Instantiate(itemSlotPrefab);
-                ItemSlotSoldier iss = newItemSlot.GetComponent<ItemSlotSoldier>();
-                iss.SetItem(item);
-                iss.SetItemDescriptionButtonEvent(delegate { AddItemInfoToItemPopup(item);});
-                iss.SetRemoveItemEvent(delegate { RemoveItemFromSoldier(csw, item);});
-                iss.SetAddItemEvent( delegate { AddItemToSoldier(csw);});
-                //csw.AddItemToContents()
-            }
-        }
-        else{
-            int count = 0;
-            while(count < incoming.inventoryLimit)
-            {
 
+        //for each item in iventory below their item limit, add item, else add empty item slot
+        int itemsOnSoldier = incoming.soldierInventory.Count;
+        int currentItemSlotCount = 0;
+        while(currentItemSlotCount < incoming.inventoryLimit)
+        {
+            GameObject newItemSlot = Instantiate(itemSlotPrefab);
+            ItemSlotSoldier iss = newItemSlot.GetComponent<ItemSlotSoldier>();
+
+            iss.SetItemDescriptionButtonEvent(delegate { GetSoldierItemInfoAndAddToPopup(iss);});
+            iss.SetRemoveItemEvent(delegate { RemoveItemFromSoldier(csw, iss);});
+            iss.SetAddItemEvent( delegate { AddItemToSoldier(csw, iss);});
+
+            if(currentItemSlotCount < itemsOnSoldier)
+            {
+                iss.SetItem(incoming.soldierInventory[currentItemSlotCount]);
             }
+            csw.AddItemToContents(newItemSlot);
+            currentItemSlotCount++;
         }
-        
-        temp.transform.SetParent(attachedTo.transform);
+
+        temp.transform.SetParent(attachedTo.transform); 
     }
 
-    private void RemoveItemFromSoldier(PlaymodeWindow _playmodeWindow, MagicItemScriptable item)
+    private void RemoveItemFromSoldier(PlaymodeWindow _playmodeWindow, ItemSlotSoldier iss)
     {
         RuntimeSoldierData rsd = _playmodeWindow.GetStoredSoldier();
         if(rsd.soldierInventory.Count > 0)
         {
-            // int count = 0;
             foreach(var listitem in rsd.soldierInventory)
             {
-                if(listitem == item)
+                if(listitem == iss.GetStoredItem())
                 {
+                    currentWarband.warbandVault.Add(listitem);
                     rsd.soldierInventory.Remove(listitem);
                     break; //only want to remove the first instance of that item
                 }
-                // count++;
             }
         }
     }
-    private void AddItemToSoldier(PlaymodeWindow _playmodeWindow)
+    private void AddItemToSoldier(PlaymodeWindow _playmodeWindow, ItemSlotSoldier iss)
     {
+        currentlySelectedSoldierSlot = iss;
+        currentlySelectedSoldierWindow = _playmodeWindow;
         //need to launch item selection window
         RuntimeSoldierData rsd = _playmodeWindow.GetStoredSoldier();
-        if(rsd.soldierInventory.Count < rsd.inventoryLimit)
+        if(currentWarband.warbandVault.Count > 0)
         {
-
+            if(rsd.soldierInventory.Count < rsd.inventoryLimit)
+            {
+                ActivateAndFillItemSelectPopup();
+            }
+            else{
+                ErrorPopup("Can't add item, soldier inventory full");
+                // Debug.Log("tried to add item to soldier with inventory at limit");
+            }
         }
         else{
-            Debug.Log("tried to add item to soldier with inventory at limit");
+            iss.OnClickRemoveItem();
+            ErrorPopup("Need items in vault to add to soldier");
         }
+        
     }
 
+    #region shopsOnClick
     public void OnClickPotionShop()
     {
         FillShopBuyWithItems("Potions");
@@ -226,39 +285,63 @@ public class ShopVaultManager : MonoBehaviour
     {
 
     }
+    #endregion
 
-    // public void OnClickItemButtonForDescritptionPopup()
-    // {
+    private void ActivateAndFillItemSelectPopup()
+    {
+        //clean up the popup window
+        foreach(Transform child in itemSelectPopupContents.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        itemSelectPopup.SetActive(true);
+        foreach(var item in currentWarband.warbandVault)
+        {
+            InstanceItemSelectButtonAndAttach(item, itemSelectPopupContents);
+        }
+    }
 
-    // }
-
+    public void AttachSelectedItemToSoldier(ItemButton itemButton)
+    {
+        currentlySelectedSoldierSlot.SetItem(itemButton.GetItemReference());
+        RemoveItemFromPlayerVault(itemButton.GetItemReference());
+        currentlySelectedSoldierWindow.GetStoredSoldier().soldierInventory.Add(itemButton.GetItemReference());
+        itemSelectPopup.SetActive(false);
+    }
+    private void GetSoldierItemInfoAndAddToPopup(ItemSlotSoldier iss)
+    {
+        AddItemInfoToItemPopup(iss.GetStoredItem());
+    }
     public void AddItemInfoToItemPopup(MagicItemScriptable itemScriptable)
     {
         itemDescriptionPopup.gameObject.SetActive(true);
         itemDescriptionPopup.GetComponent<ItemDescriptionPopup>().Init(itemScriptable);
     }
 
-    public void BuyItem(SoldierHireWindow shw)
+    private void BuyItem(SoldierHireWindow shw)
     {
         if(CheckIfPurchaseable(shw.GetComponentInChildren<ItemButton>().GetItemReference().itemPurchasePrice))
         {
-            InstanceItemButtonAndAttach(shw.GetComponentInChildren<ItemButton>().GetItemReference(), vaultContents, ItemContainerMode.sell);
+            // InstanceItemContainerAndAttach(shw.GetComponentInChildren<ItemButton>().GetItemReference(), vaultContents, ItemContainerMode.sell);
+            currentWarband.warbandVault.Add(shw.GetComponentInChildren<ItemButton>().GetItemReference());
             currentWarband.warbandGold -= shw.GetComponentInChildren<ItemButton>().GetItemReference().itemPurchasePrice;
             UpdateGoldAmount(currentWarband.warbandGold);
+
         }
         else{
             ErrorPopup("Not Enough Gold");
         }
     }
 
-    public void SellItem(SoldierHireWindow shw)
+    private void SellItem(SoldierHireWindow shw)
     {
         currentWarband.warbandGold += shw.GetComponentInChildren<ItemButton>().GetItemReference().itemSalePrice;
         UpdateGoldAmount(currentWarband.warbandGold);
+        RemoveItemFromPlayerVault(shw.GetComponentInChildren<ItemButton>().GetItemReference());
         Destroy(shw.gameObject);
     }
 
-    public void ErrorPopup(string error)
+    private void ErrorPopup(string error)
     {
         errorPopupContainer.SetActive(true);
         errorPopupContainer.GetComponent<BasicPopup>().UpdatePopupText(error);
@@ -268,6 +351,29 @@ public class ShopVaultManager : MonoBehaviour
         buy,
         sell,
         use
+    }
+
+    private void RemoveItemFromPlayerVault(MagicItemScriptable itemScriptable)
+    {
+        foreach(var item in currentWarband.warbandVault)
+        {
+            if(item == itemScriptable)
+            {
+                currentWarband.warbandVault.Remove(item);
+                break;
+            }
+        }
+    }
+
+    public void OnClickSaveAndExitButton()
+    {
+        SaveAllChangesToWarband();
+        warbandUIManager.BackToWarbandMain();
+    }
+
+    private void SaveAllChangesToWarband()
+    {
+        warbandInfoManager.SaveCurrentWarband();
     }
 
 
