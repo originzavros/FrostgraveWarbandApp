@@ -42,4 +42,10 @@ public class WizardRuntimeSpell
     {
         return currentWizardLevelMod + wizardSchoolMod;
     }
+
+    public int GetFullModedCastingNumber()
+    {
+        int temp = GetAllMods();
+        return (referenceSpell.CastingNumber + temp);
+    }
 }

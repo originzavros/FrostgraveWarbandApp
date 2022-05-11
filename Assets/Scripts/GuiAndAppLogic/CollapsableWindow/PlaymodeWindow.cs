@@ -37,6 +37,16 @@ public class PlaymodeWindow : MonoBehaviour
     {
         // go.AddComponent<LayoutElement>();
         go.transform.SetParent(bodyContents.transform);
+        /*
+            there doesn't seem to be a clear answer on how to get the window to resize properly
+            it works if the pane is switched off and on, but I just need this window to be redrawn
+            maybe it's the parent's vertical layout/content size fitter issue?
+        */
+        // this.GetComponent<ContentSizeFitter>().enabled = false;
+        // this.GetComponent<ContentSizeFitter>().enabled = true;
+        // LayoutRebuilder.ForceRebuildLayoutImmediate(this.transform as RectTransform);
+        // this.gameObject.SetActive(false);
+        // this.gameObject.SetActive(true);
     }
 
     public void SetRollDiceEvent(UnityEngine.Events.UnityAction call)

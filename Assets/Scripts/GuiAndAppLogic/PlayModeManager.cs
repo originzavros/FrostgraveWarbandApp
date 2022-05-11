@@ -16,6 +16,7 @@ public class PlayModeManager : MonoBehaviour
     [BoxGroup("Prefabs")][SerializeField] GameObject playModeWindowPrefab;
     [BoxGroup("Prefabs")][SerializeField] GameObject spellButtonPrefab;
     [BoxGroup("Prefabs")][SerializeField] GameObject itemSlotPrefab;
+    [BoxGroup("Prefabs")][SerializeField] GameObject infoDisplayElementPrefab;
     [SerializeField] WarbandInfoManager warbandInfoManager;
 
     [BoxGroup("Popups")][SerializeField] GameObject rollDicePopup;
@@ -38,16 +39,7 @@ public class PlayModeManager : MonoBehaviour
 
     public void Init()
     {
-        // PlayerWarband playerWarband = warbandInfoManager.GetCurrentlyLoadedWarband();
-        // currentGameWarband = warbandInfoManager.LoadActiveGame(playerWarband.warbandName);
-        // if(currentGameWarband.warbandName == "temp")
-        // {
-        //     // NewGameSetup(playerWarband);
-        // }
-        // else{
-        //     NewGameSetup(currentGameWarband);
-        // }
-        
+        OnClickGameButton();
     }
 
     #region Playgame Tabs
@@ -130,6 +122,8 @@ public class PlayModeManager : MonoBehaviour
     public void PopulateWizardView()
     {
         // GameObject wizardAttachPanel = wizardViewContents.transform.GetChild(0).gameObject;
+
+        RollForPregameSpells();
         CreateAndAttachPlaymodeSoldierContainer(currentGameWarband.warbandWizard.playerWizardProfile, wizardViewContents);
         foreach(var spellItem in currentGameWarband.warbandWizard.playerWizardSpellbook.wizardSpellbookSpells)
         {
@@ -138,6 +132,41 @@ public class PlayModeManager : MonoBehaviour
             SpellButton sb = temp.GetComponent<SpellButton>();
             sb.LoadRuntimeSpellInfo(spellItem);
             temp.transform.SetParent(wizardViewContents.transform);
+        }
+    }
+
+    public void RollForPregameSpells()
+    {
+        foreach(var item in currentGameWarband.warbandWizard.playerWizardSpellbook.wizardSpellbookSpells)
+        {
+            if(item.referenceSpell.Restriction == "Out of Game(B)" || item.referenceSpell.Restriction == "Out of Game(B) OR Touch")
+            {
+                int  currentRoll = Random.Range(1, 20);
+                if(currentRoll >= item.GetFullModedCastingNumber())
+                {
+                    GameObject temp = Instantiate(infoDisplayElementPrefab);
+                    temp.GetComponent<InfoDisplayElement>().UpdateText("Wizard <color=green>Success</color>: " + currentRoll.ToString() + "\nSpell: " + item.referenceSpell.Name);
+                    temp.transform.SetParent(wizardViewContents.transform);
+                }
+                else{
+                    GameObject temp = Instantiate(infoDisplayElementPrefab);
+                    temp.GetComponent<InfoDisplayElement>().UpdateText("Wizard <color=red>Fail</color>: " + currentRoll.ToString() + "\nSpell: " + item.referenceSpell.Name);
+                    temp.transform.SetParent(wizardViewContents.transform);
+                }
+                currentRoll = Random.Range(1, 20);
+                currentRoll -= 2; //apprentice roll mod
+                if(currentRoll >= item.GetFullModedCastingNumber())
+                {
+                    GameObject temp = Instantiate(infoDisplayElementPrefab);
+                    temp.GetComponent<InfoDisplayElement>().UpdateText("Apprentice <color=green>Success</color>: " + currentRoll.ToString() + "\nSpell: " + item.referenceSpell.Name);
+                    temp.transform.SetParent(wizardViewContents.transform);
+                } 
+                else{
+                    GameObject temp = Instantiate(infoDisplayElementPrefab);
+                    temp.GetComponent<InfoDisplayElement>().UpdateText("Apprentice <color=red>Fail</color>: " + currentRoll.ToString() + "\nSpell: " + item.referenceSpell.Name);
+                    temp.transform.SetParent(wizardViewContents.transform);
+                }
+            }
         }
     }
 
@@ -176,6 +205,8 @@ public class PlayModeManager : MonoBehaviour
                 csw.AddItemToContents(newItemSlot);
             }
         }
+
+        csw.SetBodyPermaActive();
         
         
         temp.transform.SetParent(attachedTo.transform);

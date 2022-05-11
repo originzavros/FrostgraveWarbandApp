@@ -19,6 +19,7 @@ public class WarbandUIManager : MonoBehaviour
    [SerializeField] WarbandLister warbandLister;
    [SerializeField] HireSoldiersManager hireSoldiersManager;
    [SerializeField] ShopVaultManager shopVaultManager;
+   [SerializeField] PlayModeManager playModeManager;
 
 
     public void Init()
@@ -53,6 +54,7 @@ public class WarbandUIManager : MonoBehaviour
     {
         DisableAllContentWindows();
         warbandPlayGameUI.SetActive(true);
+        playModeManager.Init();
 
     }
 
