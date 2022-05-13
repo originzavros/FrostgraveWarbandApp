@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Raise Zombie Grimoire
+  m_EditorClassIdentifier: 
+  itemName: Raise Zombie Grimoire
+  itemDescription: "The spellcaster adds one zombie (page 193) to their warband as
+    a temporary member.\nIf the spell is cast before the game, the zombie can be
+    deployed normally.\nIf it is cast during a game, the zombie appears in base contact
+    with the spellcaster.\nA wizard may only have one raised zombie at any one time.\nIf
+    the zombie is killed or have one raised zombie at any one time.\nIf the zombie
+    is killed or exits the table, Raise Zombie can be cast again to create another.\r"
+  itemPurchasePrice: 500
+  itemSalePrice: 200
+  itemBook: 0
+  itemType: 4

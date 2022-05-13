@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Embed Enchantment Grimoire
+  m_EditorClassIdentifier: 
+  itemName: Embed Enchantment Grimoire
+  itemDescription: "This spell causes any one Enchant Armor or Enchant Weapon spell
+    that is still active at the end of a game to become permanent and the weapon
+    or armor in question ito become a magic weapon or armor.\nThe newly created magic
+    weapon or armor takes up an item slot as normal.\r"
+  itemPurchasePrice: 500
+  itemSalePrice: 200
+  itemBook: 0
+  itemType: 4

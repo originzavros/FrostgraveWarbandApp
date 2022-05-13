@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Push Scroll
+  m_EditorClassIdentifier: 
+  itemName: Push Scroll
+  itemDescription: "The target suffers an immediate +10 attack.\nInstead of taking
+    damage from this attack, the target is moved 1\" directly away from the spellcaster
+    for every point of damage they would have taken.\nIf this pushes the target into
+    the edge of the table or a piece of terrain over 1/2\" high, they stop immediately.
+    \nOther figures do not stop (or get hit by) a pushed figure - they are assumed
+    to step out of the way.\nIf this spell is cast from beneath a figure it will
+    push them up.\nIf the target is pushed up or off a height, it suffers falling
+    damage as normal.\nThis spell can push a figure out of combat, and as it is not
+    a shooting attack, the target is not randomized.\r"
+  itemPurchasePrice: 250
+  itemSalePrice: 30
+  itemBook: 0
+  itemType: 5

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Elemental Ball Scroll
+  m_EditorClassIdentifier: 
+  itemName: Elemental Ball Scroll
+  itemDescription: "The spellcaster selects an enemy figure within 16\" and line
+    of sight and hurls a ball of destructive elemental energy at it.\nThe target
+    and every figure within 1\" and line of sight of the target imediately suffers
+    a +5 elemental magic shooting attack.\nRoll this shooting attack seperately for
+    each figure.\nTreat the target figure as the origin of the attack for the purposes
+    of dertermining cover or inervening terrain for all other figures suffering the
+    attack.\nThis spell may not target an enemy figure that is even partially obscured
+    by another figure.\r"
+  itemPurchasePrice: 250
+  itemSalePrice: 30
+  itemBook: 0
+  itemType: 5

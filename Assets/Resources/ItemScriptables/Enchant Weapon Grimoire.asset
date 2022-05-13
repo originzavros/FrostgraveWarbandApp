@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Enchant Weapon Grimoire
+  m_EditorClassIdentifier: 
+  itemName: Enchant Weapon Grimoire
+  itemDescription: "This spell targets a weapon of the spellcaster's choosing.\nIf
+    cast on a melee weapon, this weapon counts as a magic weapon with +1 fight.\nBows
+    and crossbows count as magic weapons with +1 shoot, but the attack made with
+    them do not count as magic attacks.\nThis spell may be cast on a single arrow
+    or crossbow bolt, in which case that ammunition gives +1 Shoot and its attack
+    counts as magic, but for the next shooting attack only.\nThis spell may only
+    be cast once on each weapon.\nWhen using both a magic missile weapon and magic
+    ammunition, the shooter may choose to apply the bonus of one or the other, but
+    not both.\r"
+  itemPurchasePrice: 500
+  itemSalePrice: 200
+  itemBook: 0
+  itemType: 4

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Posses Scroll
+  m_EditorClassIdentifier: 
+  itemName: Posses Scroll
+  itemDescription: "This spell may only be cast on a permanent or temporary member
+    of the spellcaster's own warband, except the wizard, apprentice, or demons.\nThe
+    target is possessed by a demon and gains +2 Fight, +1 Armor, and -2 Will and
+    counts as a demon (i.e. it will be affected by Banish, Control Demon, Circle
+    of Protection, etc.).\nThis figure may not be part of a group activation.\nIf
+    removed from teh game for any reason (such as being hit by a Banish spell), check
+    for the character's survival as normal.\nA spellcaster may only have one Possess
+    sepll active at a time.\r"
+  itemPurchasePrice: 250
+  itemSalePrice: 30
+  itemBook: 0
+  itemType: 5

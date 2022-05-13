@@ -18,6 +18,8 @@ public class PlayModeManager : MonoBehaviour
     [BoxGroup("Prefabs")][SerializeField] GameObject itemSlotPrefab;
     [BoxGroup("Prefabs")][SerializeField] GameObject infoDisplayElementPrefab;
     [SerializeField] WarbandInfoManager warbandInfoManager;
+    [SerializeField] PostGameManager postGameManager;
+    [SerializeField] WarbandUIManager warbandUIManager;
 
     [BoxGroup("Popups")][SerializeField] GameObject rollDicePopup;
     [BoxGroup("Popups")][SerializeField] GameObject addConditionPopup;
@@ -34,6 +36,7 @@ public class PlayModeManager : MonoBehaviour
     [BoxGroup("Prefabs")][SerializeField] GameObject monsterKeywordButtonPrefab;
 
     private PlayerWarband currentGameWarband;
+    private RuntimeGameInfo gameInfo;
 
     private int monsterKillCount = 0;
 
@@ -88,6 +91,12 @@ public class PlayModeManager : MonoBehaviour
         UpdateWarbandInfoWithGameInfo();
         newGameButton.GetComponent<Button>().interactable = true;
         endGameButton.GetComponent<Button>().interactable = false;
+        warbandUIManager.SwitchToPostgameAndInit(gameInfo);
+    }
+
+    public void OnClickCancelGame()
+    {
+        //go through each window and clear it's contents, reset new game button
     }
 
     //just want to grab their status info for postgame.
@@ -100,7 +109,8 @@ public class PlayModeManager : MonoBehaviour
             currentGameWarband.warbandSoldiers.Add(rsd);
         }
         currentGameWarband.warbandWizard.playerWizardProfile = wizardViewContents.GetComponentInChildren<PlaymodeWindow>().GetStoredSoldier();
-        warbandInfoManager.Init(currentGameWarband);
+        warbandInfoManager.SaveCurrentWarband();
+        //warbandInfoManager.Init(currentGameWarband);
     }
 
     public void NewGameSetup(PlayerWarband _playerwarband)
@@ -109,6 +119,7 @@ public class PlayModeManager : MonoBehaviour
         PopulateWarbandView();
         PopulateWizardView();
         PopulateMonsterPopup();
+        gameInfo = new RuntimeGameInfo();
     }
 
     public void PopulateWarbandView()

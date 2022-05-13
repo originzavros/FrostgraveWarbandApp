@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Animate Skull Grimoire
+  m_EditorClassIdentifier: 
+  itemName: Animate Skull Grimoire
+  itemDescription: "The spellcaster fills a skull with magic malice and throws it
+    at an opponent.\nPlace one animated skull (page 190) within 6\" of the spellcaster.\nIt
+    can be placed directly into combat.\nThis skull is an uncontrolled creature.\nThe
+    spellcaster may not cast this spell again until this creature is removed from
+    the table, but may spend an action to cancel the spell, in which case the animated
+    skull is immediately removed from the table.\r"
+  itemPurchasePrice: 500
+  itemSalePrice: 200
+  itemBook: 0
+  itemType: 4

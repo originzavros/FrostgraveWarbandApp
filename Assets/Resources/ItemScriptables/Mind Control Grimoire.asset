@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Mind Control Grimoire
+  m_EditorClassIdentifier: 
+  itemName: Mind Control Grimoire
+  itemDescription: "The target figure must make an immediate Will Roll with a Target
+    Number equal to the Casting Roll.\nIf it fails, the target temporarily joins
+    the spellcaster's warband, activating as normal.\nAfter the figure activates
+    each turn, it must make another Will Roll with a Target Number equal to the Casting
+    Roll.\nIf successful, the spell is cancelled and the figure returns to its normal
+    allegiance.\nA spellcaster may only have one active Mind Control spell at a time.\nA
+    figure under Mind Control cannot purposely take any action that causes it immediate
+    damage but can be moved into combat and may attack an enemy figure.\nA figure
+    under Mind Control is not allowed to move off teh table.\nA spellcaster may cancel
+    an active Mind Control at the end of any turn.\nThis spell has no effect on spellcasters.\r"
+  itemPurchasePrice: 500
+  itemSalePrice: 200
+  itemBook: 0
+  itemType: 4

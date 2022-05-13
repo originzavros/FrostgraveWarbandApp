@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Fog Grimoire
+  m_EditorClassIdentifier: 
+  itemName: Fog Grimoire
+  itemDescription: "Place a line of fog, 6\" long, 3\" high, and 1\" thick anywhere
+    on the table as long as some part of it is within line of sight of the spellcaster
+    and all of it is within 24\".\nFigures can move throught eh fog with no penalty,
+    but line of sight may not be drawn through it.\nAt the start of each new turn,
+    roll a die.\nOn a result of 1-4 the fog dissipates and is removed from the table.\r"
+  itemPurchasePrice: 500
+  itemSalePrice: 200
+  itemBook: 0
+  itemType: 4

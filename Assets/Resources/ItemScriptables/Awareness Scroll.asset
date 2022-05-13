@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Awareness Scroll
+  m_EditorClassIdentifier: 
+  itemName: Awareness Scroll
+  itemDescription: "If this spellcaster is on the table, its warband may add +2 to
+    its Initiative Rolls for the purposes of determining the primary player only.\nThis
+    bonus stacks so , if both the wizard and the apprentice have cast this spell
+    and are both on the table, the player may add +4 to their Initiative Rolls.\nThe
+    maximum possible bonus is +4.\nThis spell counts as active on the spellcaster
+    during hte game and may be cancelled by anything that cancels spells.\r"
+  itemPurchasePrice: 250
+  itemSalePrice: 30
+  itemBook: 0
+  itemType: 5

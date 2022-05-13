@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Strike Dead Grimoire
+  m_EditorClassIdentifier: 
+  itemName: Strike Dead Grimoire
+  itemDescription: "This spell targets a figure within 8\". The target must make
+    a Will Roll with a Target Number equal to the Casting Roll or be immdediately
+    reduced to 0 Health.\nAll figures may empower their Will Roll to resist this
+    spell, even non-spellcasters.\nThe spellcaster immediately loses 1 Health upon
+    attempting this spell (even if it is cast successfully), in addition to any loss
+    incurred by failure or empowerment.\nthis spell has no effect on undead or constructs.\r"
+  itemPurchasePrice: 500
+  itemSalePrice: 200
+  itemBook: 0
+  itemType: 4

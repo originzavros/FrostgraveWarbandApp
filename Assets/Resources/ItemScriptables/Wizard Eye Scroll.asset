@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Wizard Eye Scroll
+  m_EditorClassIdentifier: 
+  itemName: Wizard Eye Scroll
+  itemDescription: 'This spell may be cast on any terrain feature within 12" that
+    has a flat side, such as most ruins.
+
+    Place a token on or next to the terrain
+    feature to represent the Wizard Eye.
+
+    For the rest of the game, the caster
+    may choose to drawa  line of sight from the Wizard Eye instead of from the figure
+    when casting spells.
+
+    The Wizard Eye has 180-degree field fo vision.
+
+    A
+    spellcaster may only maintain one Wizard Eye at a time.
+
+    If the terrain piece
+    on which the Wizard Eye is placed is damaged or destroyed (such as by a Crumble
+    spell) the spell is cancelled.
+
+    The spellcaster may cancel this spell at
+    the end of any turn.'
+  itemPurchasePrice: 250
+  itemSalePrice: 30
+  itemBook: 0
+  itemType: 5

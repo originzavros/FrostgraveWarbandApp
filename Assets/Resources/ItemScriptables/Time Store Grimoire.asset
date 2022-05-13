@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Time Store Grimoire
+  m_EditorClassIdentifier: 
+  itemName: Time Store Grimoire
+  itemDescription: "The spellcaster captures a fragment of their own present to save
+    for future use.\nTo cast this spell, the spellcaster must be able to take two
+    actions during their activation.\nThey must spend the first action casting Time
+    Store.\nIf successful, the second action is lost.\nThis spellcaster is now considered
+    to have a stored 'extra action' that they may use in a future turn.\nThis action
+    can only be used during the spellcaster's activation and can give the spellcater
+    three actions in one activation.\r"
+  itemPurchasePrice: 500
+  itemSalePrice: 200
+  itemBook: 0
+  itemType: 4

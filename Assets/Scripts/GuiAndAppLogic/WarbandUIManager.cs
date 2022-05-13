@@ -10,6 +10,7 @@ public class WarbandUIManager : MonoBehaviour
     [SerializeField] GameObject warbandHireSoldiersUI;
     [SerializeField] GameObject warbandShopVaultUI;
     [SerializeField] GameObject warbandPlayGameUI;
+    [SerializeField] GameObject warbandPostgameUi;
     [SerializeField] GameObject basicButtonPrefab;
 
     [SerializeField] NavBox navBox;
@@ -20,6 +21,7 @@ public class WarbandUIManager : MonoBehaviour
    [SerializeField] HireSoldiersManager hireSoldiersManager;
    [SerializeField] ShopVaultManager shopVaultManager;
    [SerializeField] PlayModeManager playModeManager;
+   [SerializeField] PostGameManager postGameManager;
 
 
     public void Init()
@@ -83,6 +85,13 @@ public class WarbandUIManager : MonoBehaviour
         warbandHireSoldiersUI.SetActive(false);
         warbandPlayGameUI.SetActive(false);
         warbandShopVaultUI.SetActive(false);
+    }
+
+    public void SwitchToPostgameAndInit(RuntimeGameInfo gameInfo)
+    {
+        warbandPlayGameUI.SetActive(false);
+        warbandPostgameUi.SetActive(true);
+        postGameManager.Init(warbandInfoManager.GetCurrentlyLoadedWarband(), gameInfo);
     }
 
 

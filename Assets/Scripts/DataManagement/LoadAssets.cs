@@ -5,6 +5,7 @@ using Sirenix.OdinInspector;
 
 public class LoadAssets : MonoBehaviour
 {
+    [SerializeField] TreasureGenerator treasureGenerator;
     public static SpellScriptable[] spellObjects;
     //public static string[] wizardSchoolsForDisplay;
     public static string[] spellRangeTypeForDisplay;
@@ -50,6 +51,8 @@ public class LoadAssets : MonoBehaviour
         // }
 
         spellRangeTypeForDisplay = new string[]{"Line of Sight", "Touch", "Self Only", "Area Effect", "Out of Game(A)", "Out of Game(B)", "Out of Game(B) OR Touch"};
+
+        treasureGenerator.Init();
     }
 
     public static void LoadWarbandNames()

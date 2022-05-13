@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Explosive Rune Grimoire
+  m_EditorClassIdentifier: 
+  itemName: Explosive Rune Grimoire
+  itemDescription: "The spellcaster draws a bright, glowing rune of power on the
+    ground or wall anywhere within 4\" and line of sight.\nA marker should be placed
+    on the table to represent the rune.\nIf any character or creature that was not
+    part of the spellcaste's warband at the start of the game moves within 1\" of
+    the rune, it explodes, and every figure, friend or foe, within 2\" suffers and
+    immediate +5 magic attack.\nNote that if the rune is placed within 1\" of a figure,
+    it does not explode immediately - that figure must move to set it off.\nA spellcaster
+    may have up to three such runes in play at any time.\nAt the end of any turn,
+    they may choose to cancel any or all their runes.\nIf the spellcaster that placed
+    the rune is no longer on the table, roll a die for each rune at the end of each
+    turn: on a 11+ the rune vanishes.\r"
+  itemPurchasePrice: 500
+  itemSalePrice: 200
+  itemBook: 0
+  itemType: 4

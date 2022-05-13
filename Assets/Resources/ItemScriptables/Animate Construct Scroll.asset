@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Animate Construct Scroll
+  m_EditorClassIdentifier: 
+  itemName: Animate Construct Scroll
+  itemDescription: "It is assumed that the spellcaster has built a construct prior
+    to using this spell to animate it.\nIf the spell is successfully cast, the construct
+    immediately becomes a permanent member of teh warband, taking the place of a
+    soldier.\nA spellcaster must declare teh size of construct they are attmepting
+    to animate (small,medium, or large - page 183) before rolling to cast the spell.\nThe
+    larger the contruct, the harder it is to animate, so the following modifiers
+    are applied to the Casting Roll: Small -0, Medium -3, Large -6.\nThere is no
+    limit to the number of constructs in a warband other than the normal limits for
+    soldiers.\nLarge constructs count as specialist soldiers, the others as standard
+    soldiers. \r"
+  itemPurchasePrice: 250
+  itemSalePrice: 30
+  itemBook: 0
+  itemType: 5

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Telekinesis Scroll
+  m_EditorClassIdentifier: 
+  itemName: Telekinesis Scroll
+  itemDescription: "The spellcaster may move any treasure token within 16\" by up
+    to 6\" in any direction, so along as it remains in line of sight the entire time.\nIf
+    the treasure moves out of line of sight, it immediately falls straight to the
+    ground.\nThis spell has no effect on a treasure token that has any special requirements
+    for how and when it can be picked up, nor on one being carried by a figure.\nThis
+    spell may not target the central treasure, until after that treasure has been
+    picked up for the first time.\r"
+  itemPurchasePrice: 250
+  itemSalePrice: 30
+  itemBook: 0
+  itemType: 5

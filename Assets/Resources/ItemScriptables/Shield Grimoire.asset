@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Shield Grimoire
+  m_EditorClassIdentifier: 
+  itemName: Shield Grimoire
+  itemDescription: "The target receives +2 Armor for the rest of the game.\nThis
+    may not take a figure above Armor 15 (errata)(i.e. figure with Armor 14 go to
+    Armor 15). \nMultiple castings of Shield on the same target have no effect.\r"
+  itemPurchasePrice: 500
+  itemSalePrice: 200
+  itemBook: 0
+  itemType: 4

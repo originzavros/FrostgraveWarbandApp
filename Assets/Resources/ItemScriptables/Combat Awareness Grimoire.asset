@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Combat Awareness Grimoire
+  m_EditorClassIdentifier: 
+  itemName: Combat Awareness Grimoire
+  itemDescription: "This spell gives the target a magic insight into the moves their
+    opponent will attempt in a fight.\nIt grants the target +1 Fight and +1 Armor
+    for the remainder of the game.\nMultiple castings of this spell on the same target
+    have no effect.\r"
+  itemPurchasePrice: 500
+  itemSalePrice: 200
+  itemBook: 0
+  itemType: 4

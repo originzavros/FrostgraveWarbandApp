@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Brew Potion Grimoire
+  m_EditorClassIdentifier: 
+  itemName: Brew Potion Grimoire
+  itemDescription: "The spellcaster creates one Lesser Potion of their choice (page
+    86) that may be sold, stored in the wizard's vault or given to a member of the
+    warband.\nA wizard (and only wizard) may use this spell to create a Greater Potion
+    (page 87). \nFirst, they must declare what potion they are attempting to brew
+    and pay the listed ingredients cost.\nThe wizard should then roll to cast Brew
+    Potion with a -4 to the Casting Roll.\nIf successful, the potion is created and
+    can be immediately assigned to a figure in the warband, sold, or stored in the
+    wizard's vault.\nIf unsuccessful, the potion is not created and the money spent
+    on ingredients is lost.\r"
+  itemPurchasePrice: 500
+  itemSalePrice: 200
+  itemBook: 0
+  itemType: 4

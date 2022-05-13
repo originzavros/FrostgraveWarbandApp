@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Invisibility Scroll
+  m_EditorClassIdentifier: 
+  itemName: Invisibility Scroll
+  itemDescription: "The target figure becomes invisible.\nNo figure may move into
+    combat with the invisible figure, nor target it with any attack or spell(although
+    it may still be affected by area effects, such as the blast radius of a grenade
+    spell).\nIf the invisible figure moves into combat, casts a spell, or picks up
+    a treasure token, the Invisibility spell is cancelled.\nThis spell may be cast
+    on a figure already carrying treasure, rendering both invisible.\nIn this case,
+    if the figure drops the treasure, the spell is cancelled.\r"
+  itemPurchasePrice: 250
+  itemSalePrice: 30
+  itemBook: 0
+  itemType: 5

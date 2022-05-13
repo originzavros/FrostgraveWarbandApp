@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Summon Demon Scroll
+  m_EditorClassIdentifier: 
+  itemName: Summon Demon Scroll
+  itemDescription: "Immediately place a demon on the table within 1\" of trhe spellcaster.\nIt
+    may not be placed straight into combat.\nThis demon is considered to be under
+    the effects of a Control Demon spell by the same spellcaster, and thus this spell
+    may not be cast if the spellcaster is already controlling a demon.\nThe type
+    of demon summoned depends on the amount by which the spellcaster succeeded on
+    their Casting Roll: 0-5 imp, 6-12 minor demon,, 13+ major demon. \nIf a spellcaster
+    rolls a 1 while attempting to cast this spell, they summon an uncontrolled demon
+    and must place this demon in combat with the spellcater.\nRoll a die to determine
+    the type of demon 1-10 imp, 11-17 minor demon, 18+ major demon.\nA spellcater
+    cannot empower a roll of 1 when casting this spell but ther is otherwise no limit
+    on empowering this spell.\nIt may not be empowered above 18.\r"
+  itemPurchasePrice: 250
+  itemSalePrice: 30
+  itemBook: 0
+  itemType: 5

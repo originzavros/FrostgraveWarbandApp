@@ -183,5 +183,42 @@ public class easySpreadsheetImport : MonoBehaviour
         }
         return temp;
     }
+
+    [Button]
+    public void GenerateScrollsAndGrimoireScriptablesForEverySpell()
+    {
+        SpellScriptable[] spellObjects = Resources.LoadAll<SpellScriptable>("SpellsScriptables");
+        
+        //generate grimoires
+        foreach(var spell in spellObjects)
+        {
+            MagicItemScriptable es = ScriptableObject.CreateInstance<MagicItemScriptable>();
+            es.itemName = spell.Name + " Grimoire";
+            es.itemDescription = spell.Description;
+            es.itemPurchasePrice = 500;
+            es.itemSalePrice = 200;
+            es.itemBook = spell.bookEdition;
+            es.itemType = MagicItemType.Grimoire;
+
+            AssetDatabase.CreateAsset(es, $"Assets/Resources/ItemScriptables/{es.itemName}.asset"); 
+        }
+
+         //generate grimoires
+        foreach(var spell in spellObjects)
+        {
+            MagicItemScriptable es = ScriptableObject.CreateInstance<MagicItemScriptable>();
+            es.itemName = spell.Name + " Scroll";
+            es.itemDescription = spell.Description;
+            es.itemPurchasePrice = 250;
+            es.itemSalePrice = 30;
+            es.itemBook = spell.bookEdition;
+            es.itemType = MagicItemType.Scroll;
+
+            AssetDatabase.CreateAsset(es, $"Assets/Resources/ItemScriptables/{es.itemName}.asset"); 
+        }
+        
+        AssetDatabase.SaveAssets();
+    }
+
     #endif
 }

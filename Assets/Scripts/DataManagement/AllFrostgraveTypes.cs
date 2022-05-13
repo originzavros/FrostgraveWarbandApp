@@ -35,21 +35,21 @@ public enum FrostgraveBook{
 public enum SoldierStatus{
     ready,
     knockout,
-    outOfGame,
+    BadlyWounded,
     escaped,
-    escapedWithTreasure
+    escapedWithTreasure,
+    Dead
 }
 
 public enum MagicItemType{
-    Weapon,
-    Armor,
+    MagicEquipment,
     LesserPotion,
     GreaterPotion,
     Artifact,
     Grimoire,
     Scroll,
     BasicEquipment
-
 }
+
 
 

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Steal Health Grimoire
+  m_EditorClassIdentifier: 
+  itemName: Steal Health Grimoire
+  itemDescription: "The target must make an immediate Will Roll with a Target Number
+    equal to the Casting Roll.\nIf failed, the target immediately loses 3 health
+    and the spellcaster regains 3 Health.\nThe spellcaster gains 3 Health, even if
+    the target had less Health than that remaining.\nThis may not take the spellcaster
+    above their starting health.\nThis spell has no effect on undead or constructs.\nA
+    spellcaster may target a member of their own warband -  if they do, however,
+    the target immediately (and permanently) leaves the warband is treated as an
+    uncontrolled creature for the rest of the game.\r"
+  itemPurchasePrice: 500
+  itemSalePrice: 200
+  itemBook: 0
+  itemType: 4

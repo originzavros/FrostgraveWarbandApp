@@ -20,4 +20,4 @@ MonoBehaviour:
   itemPurchasePrice: 400
   itemSalePrice: 140
   itemBook: 0
-  itemType: 2
+  itemType: 1
