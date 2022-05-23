@@ -34,5 +34,10 @@ public class ItemButton : MonoBehaviour
         itemCostText.text = itemReference.itemSalePrice.ToString();
     }
 
+    public void SetText(string newName)
+    {
+        itemNameText.text = newName;
+    }
+
 
 }

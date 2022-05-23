@@ -85,6 +85,7 @@ public class WarbandUIManager : MonoBehaviour
         warbandHireSoldiersUI.SetActive(false);
         warbandPlayGameUI.SetActive(false);
         warbandShopVaultUI.SetActive(false);
+        warbandPostgameUi.SetActive(false);
     }
 
     public void SwitchToPostgameAndInit(RuntimeGameInfo gameInfo)

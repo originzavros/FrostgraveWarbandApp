@@ -525,6 +525,7 @@ MonoBehaviour:
   treasureTypeText: {fileID: 3440981932528802650}
   itemButtonPrefab: {fileID: 27013562884376710, guid: d5882ad91470813449823cba7ffd5c01, type: 3}
   itemGroupPrefab: {fileID: 856404353439816228, guid: c4d3c5dad9fceb749b01aab77a7295e7, type: 3}
+  basicButtonPrefab: {fileID: 5835072859587385380, guid: 66318c292c1ffbd4698330bbcc01bb55, type: 3}
 --- !u!114 &3440981933980931223
 MonoBehaviour:
   m_ObjectHideFlags: 0

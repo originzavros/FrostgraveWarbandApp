@@ -39,7 +39,7 @@ public class ShopVaultManager : MonoBehaviour
     //don't want to juggle chaining variable instances through UI objects
     private ItemSlotSoldier currentlySelectedSoldierSlot;
     private PlaymodeWindow currentlySelectedSoldierWindow;
-    [SerializeField] int testGoldModifier = 1000;
+    [SerializeField] int testGoldModifier = 0;
 
 
     public void Init()
@@ -388,6 +388,5 @@ public class ShopVaultManager : MonoBehaviour
         // }
         warbandInfoManager.SaveCurrentWarband();
     }
-
 
 }
