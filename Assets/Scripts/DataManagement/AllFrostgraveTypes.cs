@@ -35,10 +35,13 @@ public enum FrostgraveBook{
 public enum SoldierStatus{
     ready,
     knockout,
-    BadlyWounded,
+    badlyWounded,
     escaped,
     escapedWithTreasure,
-    Dead
+    dead,
+    injured,
+    closeCall,
+    preserved
 }
 
 public enum MagicItemType{

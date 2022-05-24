@@ -25,6 +25,8 @@ public class RuntimeSoldierData
         soldierInventory = ss.soldierInventory;
         status = ss.status;
     }
+
+    //ideally these would all be properties as stats could be affected by abilities/spells, but not going that far with rules enforcement
     public string soldierName;
     public int inventoryLimit = 1;
     public int move;
@@ -42,4 +44,5 @@ public class RuntimeSoldierData
     public FrostgraveBook bookEdition;
     public List<EquipmentScriptable> baseSoldierEquipment = new List<EquipmentScriptable>();
     public List<MagicItemScriptable> soldierInventory = new List<MagicItemScriptable>();
+    public List<InjuryScriptable> soldierPermanentInjuries = new List<InjuryScriptable>();
 }

@@ -9,11 +9,16 @@ public class AddMonsterPopup : MonoBehaviour
     [SerializeField] GameObject monsterButtonPrefab;
     [SerializeField] PlayModeManager playModeManager;
 
+    private bool active = false;
     public void Init()
     {
-        foreach(MonsterScriptable item in LoadAssets.allMonsterObjects)
+        if(!active)
         {
-            AddMonsterButton(item);
+            foreach(MonsterScriptable item in LoadAssets.allMonsterObjects)
+            {
+                AddMonsterButton(item);
+            }
+            active = true;
         }
     }
 

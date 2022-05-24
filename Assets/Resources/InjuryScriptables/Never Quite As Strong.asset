@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 954dcc204d6369c43a97955b517f7fd5, type: 3}
+  m_Name: Never Quite As Strong
+  m_EditorClassIdentifier: 
+  injuryName: Never Quite As Strong
+  injuryStat: health
+  injuryMod: 1
+  injuryMax: 2
+  injuryDescription: "Due to internal injuries, the spellcaster never quite returns
+    to full Health and starts every game at -1 Health. This injury can be received
+    twice, with a cumulative effect of -2 Health. Any further Never Quite as Strong
+    results must be re-rolled.\r"

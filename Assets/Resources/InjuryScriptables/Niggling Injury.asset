@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 954dcc204d6369c43a97955b517f7fd5, type: 3}
+  m_Name: Niggling Injury
+  m_EditorClassIdentifier: 
+  injuryName: Niggling Injury
+  injuryStat: health
+  injuryMod: 3
+  injuryMax: 2
+  injuryDescription: "The spellcaster\u2019s injury just never quite heals, and they
+    are forced to use herbs, ointments, or minor magic to keep the pain at bay. The
+    spellcaster must spend 30gc on these treatments before each game or start each
+    game at -3 Health. This injury can be received twice \u2013 in which case the
+    payment increases to 40gc and the penalty to -4 Health. Any further Niggling
+    Injury results must be re-rolled. A 10gc discount applies to these payments for
+    each apothecary in the warband.\r\r"

@@ -30,6 +30,8 @@ public class PostGameManager : MonoBehaviour
     [BoxGroup("wizard")][SerializeField] Text willValueLabel;
     [BoxGroup("wizard")][SerializeField] Toggle healthToggle;
     [BoxGroup("wizard")][SerializeField] Text healthValueLabel;
+    [BoxGroup("wizard")][SerializeField] Toggle invisibleToggle;//for the purpose of letting the player not select something here
+
     [BoxGroup("wizard")][SerializeField] ToggleGroup allToggles;
     // [BoxGroup("wizard")][SerializeField] GameObject wizardSpellLevelPanel;
     // [BoxGroup("wizard")][SerializeField] GameObject wizardSpellLevelContents;
@@ -45,6 +47,9 @@ public class PostGameManager : MonoBehaviour
     [BoxGroup("injury")][SerializeField] GameObject injuryPanel;
     [BoxGroup("injury")][SerializeField] GameObject injuryPanelContents;
     [BoxGroup("injury")][SerializeField] GameObject cureSelectionPopup;
+    [BoxGroup("injury")][SerializeField] GameObject cureSelectionPopupContents;
+    [BoxGroup("injury")][SerializeField] GameObject cureResultPopup;
+
     
     [BoxGroup("prefabs")][SerializeField] GameObject displayElementPrefab;
     [BoxGroup("prefabs")][SerializeField] GameObject basicButtonPrefab;
@@ -59,10 +64,13 @@ public class PostGameManager : MonoBehaviour
     private RuntimeGameInfo lastGameInfo;
 
     private PostgameSoldierButton currentlySelectedSoldier;
-    private int currentStep;
+    [SerializeField][ReadOnly] private int currentStep;
     private GameObject currentTreasureTrackerButton;
 
     [SerializeField] int testExperience = 0;
+    [SerializeField] bool testGiveInjuryToWizard = false;
+    [SerializeField] bool testGiveElixirOfLifeToWarband = false;
+    [SerializeField] bool testGivePreservationPotionToWarband = false;
 
    
     public void Init(PlayerWarband _playerWarband, RuntimeGameInfo _runtimeGameInfo)
@@ -71,17 +79,48 @@ public class PostGameManager : MonoBehaviour
         lastGameInfo = _runtimeGameInfo;
         currentStep = 0;
         currentWarband.warbandWizard.playerWizardExperience += testExperience;
+        if(testGiveElixirOfLifeToWarband){ giveItemWithNameToWarband("Elixir Of Life");}
+        if(testGivePreservationPotionToWarband){ giveItemWithNameToWarband("Potion Of Preservation");}
+        getTreasuresFromEscapedSoldiers();
         HandleCurrentStep();
     }
 
-    public void EnableSkipButton()
+    private void giveItemWithNameToWarband(string name)
     {
-
+        foreach(var item in LoadAssets.allMagicItemObjects)
+        {
+            if(item.itemName == name)
+            {
+                currentWarband.warbandVault.Add(item);
+                break;
+            }
+        }
     }
 
-    public void DisableSkipButton()
+    private void getTreasuresFromEscapedSoldiers()
     {
+        foreach(var soldier in currentWarband.warbandSoldiers)
+        {
+            if(soldier.status == SoldierStatus.escapedWithTreasure)
+            {
+                lastGameInfo.CaptureTreasure();
+                soldier.status = SoldierStatus.ready;
+            }
+            else if(soldier.status == SoldierStatus.escaped)
+            {
+                soldier.status = SoldierStatus.ready;
+            }
+        }
 
+        if(currentWarband.warbandWizard.playerWizardProfile.status == SoldierStatus.escapedWithTreasure)
+        {
+            currentWarband.warbandWizard.playerWizardProfile.status = SoldierStatus.ready;
+            lastGameInfo.CaptureTreasure();
+        }
+        else if(currentWarband.warbandWizard.playerWizardProfile.status == SoldierStatus.escaped)
+        {
+            currentWarband.warbandWizard.playerWizardProfile.status = SoldierStatus.ready;
+        }
     }
 
 
@@ -143,7 +182,7 @@ public class PostGameManager : MonoBehaviour
         //reset any badly wounded in bonus members
         foreach(var soldier in currentWarband.warbandBonusSoldiers)
         {
-            if(soldier.status == SoldierStatus.BadlyWounded)
+            if(soldier.status == SoldierStatus.badlyWounded)
             {
                 soldier.status = SoldierStatus.ready;
             }
@@ -152,7 +191,7 @@ public class PostGameManager : MonoBehaviour
         foreach(var soldier in currentWarband.warbandSoldiers)
         {
             //reset all soldiers that missed last game
-            if(soldier.status == SoldierStatus.BadlyWounded)
+            if(soldier.status == SoldierStatus.badlyWounded)
             {
                 soldier.status = SoldierStatus.ready;
             }
@@ -164,12 +203,12 @@ public class PostGameManager : MonoBehaviour
                 string statusDisplay;
                 if(currentRoll < 5)
                 {
-                    soldier.status = SoldierStatus.Dead;
+                    soldier.status = SoldierStatus.dead;
                     statusDisplay = "<color=red>Dead</color>";
                 }
                 else if(currentRoll > 5 && currentRoll < 9)
                 {
-                    soldier.status = SoldierStatus.BadlyWounded;
+                    soldier.status = SoldierStatus.badlyWounded;
                     statusDisplay = "<color=orange>Badly Wounded</color>";
                 }
                 else{
@@ -179,42 +218,234 @@ public class PostGameManager : MonoBehaviour
                 string fullDisplay = soldier.soldierName + " | " + statusDisplay;
                 CreateSoldierButtonAndAttach(fullDisplay, mainScrollContents, soldier);
             }
+            else if(soldier.status == SoldierStatus.knockout && soldier.soldierType == "Apprentice")
+            {
+                StatusRollForSpellcaster(soldier);
+            }
+        }
+
+        if(currentWarband.warbandWizard.playerWizardProfile.status == SoldierStatus.knockout)
+        {
+            StatusRollForSpellcaster(currentWarband.warbandWizard.playerWizardProfile);
         }
 
         //we'll add in bonus soldiers here too for attempted healing if they are dead
         foreach(var soldier in currentWarband.warbandBonusSoldiers)
         {
-            if(soldier.status == SoldierStatus.Dead)
+            if(soldier.status == SoldierStatus.preserved)
             {
-                string statusDisplay = "<color=red>Dead</color>";
+                string statusDisplay = "<color=orange>Preserved</color>";
                 string fullDisplay = soldier.soldierName + " | " + statusDisplay;
                 CreateSoldierButtonAndAttach(fullDisplay, mainScrollContents, soldier);
             }
         }
     }
 
-    private void FinalizeWarbandInjuries()
+    private void StatusRollForSpellcaster(RuntimeSoldierData soldier)
     {
-        
-
-        //convenient linq query
-        currentWarband.warbandSoldiers.RemoveAll(item => item.status == SoldierStatus.Dead);
-
-        // for(int i = currentWarband.warbandSoldiers.Count; i >=0; i--)
-        // {
-
-        // }
-
-        //whoops, hehe, bad programming
-        // foreach(var soldier in currentWarband.warbandSoldiers)
-        // {
-        //     if(soldier.status == SoldierStatus.Dead)
-        //     {
-        //         currentWarband.warbandSoldiers.Remove(soldier);
-        //     }
-        // }
+        int currentRoll = Random.Range(1, 20);
+        string statusDisplay;
+        if(currentRoll < 3)
+        {
+            if(soldier.soldierType == "Wizard") //wizards get +1 to their survival roll
+            {
+                if(currentRoll < 2)
+                {
+                    soldier.status = SoldierStatus.dead;
+                    statusDisplay = "<color=red>Dead</color>";
+                }
+                else{
+                    soldier.status = SoldierStatus.injured;
+                    statusDisplay = "<color=red>Injured</color>";
+                }
+            }
+            else{
+                soldier.status = SoldierStatus.dead;
+                statusDisplay = "<color=red>Dead</color>";
+            } 
+        }
+        else if(currentRoll > 2 && currentRoll < 5)
+        {
+            soldier.status = SoldierStatus.injured;
+            statusDisplay = "<color=red>Injured</color>";
+        }
+        else if(currentRoll > 4 && currentRoll < 7)
+        {
+            soldier.status = SoldierStatus.badlyWounded;
+            statusDisplay = "<color=orange>Badly Wounded</color>";
+        }
+        else if(currentRoll > 6 && currentRoll < 9)
+        {
+            soldier.status = SoldierStatus.closeCall;
+            statusDisplay = "<color=yellow>Close Call</color>";
+        }
+        else{
+            soldier.status = SoldierStatus.ready;
+            statusDisplay = "<color=green>Full Recovery</color>";
+        }
+        string fullDisplay = soldier.soldierName + " | " + statusDisplay;
+        CreateSoldierButtonAndAttach(fullDisplay, mainScrollContents, soldier);
     }
 
+    //Everyone keeps their status, for dead wizards, they simply stay dead, in case the player wants to continue playing with them
+    private void FinalizeWarbandInjuries()
+    {
+        //convenient linq query
+        currentWarband.warbandSoldiers.RemoveAll(item => item.status == SoldierStatus.dead);
+
+        // for(int i = currentWarband.warbandSoldiers.Count; i > 0 ; i--)
+        // {
+        //     if(currentWarband.warbandBonusSoldiers[i].status == SoldierStatus.dead)
+        //     {
+        //         currentWarband.warbandBonusSoldiers.RemoveAt(i);
+        //     }
+        // }
+
+        if(testGiveInjuryToWizard)
+        {
+            GiveInjuryToSoldier(currentWarband.warbandWizard.playerWizardProfile);
+        }
+
+        RuntimeSoldierData foundApprentice = null;
+        int apothecaryCount = 0;
+
+        foreach(var soldier in currentWarband.warbandSoldiers)
+        {
+            if(soldier.soldierType == "Apprentice")
+            {
+                foundApprentice = soldier;
+            }
+            else if(soldier.soldierType == "Apothecary")
+            {
+                apothecaryCount++;
+            }
+            
+        }
+
+        if(foundApprentice != null)
+        {
+            if(foundApprentice.status == SoldierStatus.injured)
+            {
+                GiveInjuryToSoldier(foundApprentice);
+            }
+            else if(foundApprentice.status == SoldierStatus.closeCall)
+            {
+                foundApprentice.soldierInventory.Clear();
+            }
+            else if(foundApprentice.status == SoldierStatus.badlyWounded)
+            {
+                if(apothecaryCount > 0)
+                {
+                    currentWarband.warbandGold -= 50;
+                }
+                else{
+                    currentWarband.warbandGold -= 150;
+                }
+            }
+        }
+
+        if(currentWarband.warbandWizard.playerWizardProfile.status == SoldierStatus.injured)
+        {
+            GiveInjuryToSoldier(currentWarband.warbandWizard.playerWizardProfile);
+        }
+        else if(currentWarband.warbandWizard.playerWizardProfile.status == SoldierStatus.closeCall)
+        {
+            currentWarband.warbandWizard.playerWizardProfile.soldierInventory.Clear();
+        }
+        else if(currentWarband.warbandWizard.playerWizardProfile.status == SoldierStatus.badlyWounded)
+        {
+            if(apothecaryCount > 0)
+            {
+                currentWarband.warbandGold -= 50;
+            }
+            else{
+                currentWarband.warbandGold -= 150;
+            }
+        }
+        else if(currentWarband.warbandWizard.playerWizardProfile.status == SoldierStatus.dead)
+        {
+            if(currentWarband.warbandWizard.playerWizardLevel < 6)
+            {
+                cureResultPopup.SetActive(true);
+                cureResultPopup.GetComponent<BasicPopup>().UpdatePopupText("Wizard died and was below lvl 6, recommend starting new warband");
+            }
+            else{
+                if(foundApprentice != null)
+                {
+                    currentWarband.warbandWizard.playerWizardProfile = foundApprentice;
+                    currentWarband.warbandWizard.playerWizardProfile.soldierType = "Wizard";
+                    currentWarband.warbandWizard.playerWizardLevel -= 6;
+
+                    currentWarband.warbandSoldiers.Remove(foundApprentice);
+                    cureResultPopup.SetActive(true);
+                    cureResultPopup.GetComponent<BasicPopup>().UpdatePopupText("Wizard died and was replaced by apprentice, wizard level reduced by 6");
+                }
+                else{
+                    cureResultPopup.SetActive(true);
+                    cureResultPopup.GetComponent<BasicPopup>().UpdatePopupText("Wizard died and no apprentice to replace him, recommend starting new warband");
+                }
+            }
+        }
+        //do injury rolls for spellcasters with injured status, check if they receive lost eye again and give dead status
+        //spellcasters with close call lose all their equipped items
+        //spellcaster with badly wounded have option to pay 150(50 with apothecary) to go to ready status (can go into negative gold);
+        //if the wizard died and was above level 5 the apprentice becomes the wizard and remove the apprentice if they have one. reset new wizard to lvl 0.
+        //if they don't have apprentice or wizard was below lvl 6, retire the warband
+    }
+
+    private void GiveInjuryToSoldier(RuntimeSoldierData soldier)
+    {
+        int currentRoll = Random.Range(1, 20);
+        if(currentRoll < 19)
+        {
+            bool usable = false;
+            while(!usable)
+            {
+                InjuryScriptable currentInjury = GenerateRandomInjury();
+                if(currentInjury.injuryName != "Smashed Jaw" || currentInjury.injuryName != "Lost Eye")
+                {
+                    int total = 0;
+                    foreach(var item in soldier.soldierPermanentInjuries)
+                    {
+                        if(item.injuryName == currentInjury.injuryName)
+                        {
+                            total++;
+                        }
+                    }
+                    if(total < currentInjury.injuryMax)
+                    {
+                        soldier.soldierPermanentInjuries.Add(currentInjury);
+                        usable = true;
+                    }
+                }
+            }
+            
+        }
+        else if(currentRoll == 19)
+        {
+            soldier.soldierPermanentInjuries.Add(GetInjuryScriptableByName("Smashed Jaw"));
+        }
+        else if(currentRoll == 20)
+        {
+            soldier.soldierPermanentInjuries.Add(GetInjuryScriptableByName("Lost Eye"));
+        }
+    }
+    private InjuryScriptable GetInjuryScriptableByName(string name)
+    {
+        foreach(var item in LoadAssets.allInjuries)
+        {
+            if(item.injuryName == name)
+            {
+                return item;
+            }
+        }
+        return null;
+    }
+    private InjuryScriptable GenerateRandomInjury()
+    {
+        int currentRoll = Random.Range(0, LoadAssets.allInjuries.Length);
+        return LoadAssets.allInjuries[currentRoll];
+    }
 
     private void FillCureSelectionPopup()
     {
@@ -222,36 +453,180 @@ public class PostGameManager : MonoBehaviour
         {
             if(spell.referenceSpell.Name == "Miraculous Cure")
             {
-                CreateBasicButtonAndAttach("Miraculous Cure", cureSelectionPopup, delegate {MiraculousCureEvent(spell);});
+                CreateBasicButtonAndAttach("Miraculous Cure", cureSelectionPopupContents, delegate {MiraculousCureEvent(spell);});
                 break;
             }
         }
 
         foreach(var item in currentWarband.warbandVault)
         {
-            if(item.itemName == "Potion of Preservation")
+            if(item.itemName == "Potion Of Preservation")
             {
-                CreateBasicButtonAndAttach("Potion of Preservation", cureSelectionPopup, delegate {PreservationPotionEvent();});
+                CreateBasicButtonAndAttach("Potion Of Preservation", cureSelectionPopupContents, delegate {PreservationPotionEvent();});
             }
-            if(item.itemName == "Elixir of Life")
+            if(item.itemName == "Elixir Of Life")
             {
-                CreateBasicButtonAndAttach("Elixir of Life", cureSelectionPopup, delegate {ElixirOfLifeEvent();});
+                CreateBasicButtonAndAttach("Elixir Of Life", cureSelectionPopupContents, delegate {ElixirOfLifeEvent();});
             }
         }
     }
 
     public void MiraculousCureEvent(WizardRuntimeSpell spell)
     {
-        //choose type of cure (injury or dead)
-        //make spell roll and show result
+        RuntimeSoldierData rsd = currentlySelectedSoldier.GetStoredSoldier();
+        if(rsd.soldierType == "Wizard" || rsd.soldierType == "Apprentice")
+        {
+            if(rsd.status == SoldierStatus.dead || rsd.status == SoldierStatus.preserved)
+            {
+                if(SpellRoller.MakeRollForSpell(spell, -4))
+                {
+                    rsd.status = SoldierStatus.ready;
+                    string output = rsd.soldierName + " has been brought back to life";
+                    string fullDisplay = rsd.soldierName + " | " + "<color=green>Full Recovery</color>";
+                    currentlySelectedSoldier.UpdateText(fullDisplay);
+                    cureResultPopup.SetActive(true);
+                    cureResultPopup.GetComponent<BasicPopup>().UpdatePopupText(output);
+                }
+                else{
+                    cureResultPopup.SetActive(true);
+                    cureResultPopup.GetComponent<BasicPopup>().UpdatePopupText("Miraculous Cure Failed to bring spellcaster back to life");
+                }
+
+            }
+            else{
+                if(rsd.status == SoldierStatus.injured)
+                {
+                    if(SpellRoller.MakeRollForSpell(spell))
+                    {
+                        rsd.status = SoldierStatus.ready;
+                        string output = rsd.soldierName + " has recovered from their current injury";
+                        string fullDisplay = rsd.soldierName + " | " + "<color=green>Full Recovery</color>";
+                        currentlySelectedSoldier.UpdateText(fullDisplay);
+                        cureResultPopup.SetActive(true);
+                        cureResultPopup.GetComponent<BasicPopup>().UpdatePopupText(output);
+                    }
+                    else{
+                        cureResultPopup.SetActive(true);
+                        cureResultPopup.GetComponent<BasicPopup>().UpdatePopupText("Miraculous Cure failed to prevent current injury");
+                    }
+                }
+                else{
+                    if(SpellRoller.MakeRollForSpell(spell))
+                    {
+                        string output = rsd.soldierName + " has recovered from their last injury";
+                        // string fullDisplay = rsd.soldierName + " | " + "<color=green>Full Recovery</color>";
+                        // currentlySelectedSoldier.UpdateText(fullDisplay);
+                        cureResultPopup.SetActive(true);
+                        cureResultPopup.GetComponent<BasicPopup>().UpdatePopupText(output);
+                        int lastInjury = rsd.soldierPermanentInjuries.Count;
+                        if(lastInjury > 0)
+                        {
+                            rsd.soldierPermanentInjuries.RemoveAt(lastInjury - 1);
+                        }
+                    }
+                    else{
+                        cureResultPopup.SetActive(true);
+                        cureResultPopup.GetComponent<BasicPopup>().UpdatePopupText("Miraculous Cure failed to remove last injury");
+                    }
+                } 
+            }
+            FindButtonInWindowAndDisable("Miraculous Cure", cureSelectionPopupContents);
+        }
+        else{
+            //its a dead soldier
+            if(rsd.status == SoldierStatus.dead || rsd.status == SoldierStatus.preserved)
+            {
+                if(SpellRoller.MakeRollForSpell(spell, -4))
+                {
+                    rsd.status = SoldierStatus.ready;
+                    string output = rsd.soldierName + " has been brought back to life";
+                    string fullDisplay = rsd.soldierName + " | " + "<color=green>Full Recovery</color>";
+                    currentlySelectedSoldier.UpdateText(fullDisplay);
+                    cureResultPopup.SetActive(true);
+                    cureResultPopup.GetComponent<BasicPopup>().UpdatePopupText(output);
+                }
+                else{
+                    cureResultPopup.SetActive(true);
+                    cureResultPopup.GetComponent<BasicPopup>().UpdatePopupText("Miraculous Cure Failed to bring soldier back to life");
+                }
+                FindButtonInWindowAndDisable("Miraculous Cure", cureSelectionPopupContents);
+            }
+            else{
+                cureResultPopup.SetActive(true);
+                cureResultPopup.GetComponent<BasicPopup>().UpdatePopupText("Soldier is not dead or preserved, can't use miraculous cure");
+            }
+        }
+        cureSelectionPopup.SetActive(false);
     }
+
     public void PreservationPotionEvent()
     {
-        //move to extra slot and keep dead status
+        RuntimeSoldierData rsd = currentlySelectedSoldier.GetStoredSoldier();
+        if(rsd.status == SoldierStatus.dead)
+        {
+            rsd.status = SoldierStatus.preserved;
+            string output = rsd.soldierName + " has been preserved and added to bench";
+            string fullDisplay = rsd.soldierName + " | " + "<color=orange>Preserved</color>";
+            currentlySelectedSoldier.UpdateText(fullDisplay);
+            cureResultPopup.SetActive(true);
+            cureResultPopup.GetComponent<BasicPopup>().UpdatePopupText(output);
+
+            currentWarband.warbandBonusSoldiers.Add(rsd);
+            currentWarband.warbandSoldiers.Remove(rsd);
+            FindButtonInWindowAndDisable("Potion Of Preservation", cureSelectionPopupContents);
+            int foundLocation = -1;
+            for(int i = currentWarband.warbandVault.Count; i > 0; i--)
+            {
+                if(currentWarband.warbandVault[i].itemName == "Potion Of Preservation")
+                {
+                    foundLocation = i;
+                    break;
+                }
+            }
+            if(foundLocation > -1)
+            {
+                currentWarband.warbandVault.RemoveAt(foundLocation);
+            }
+        }
+        else{
+            string output = "Soldier needs to be Dead to use this potion on them";
+            cureResultPopup.SetActive(true);
+            cureResultPopup.GetComponent<BasicPopup>().UpdatePopupText(output);
+        }
+        cureSelectionPopup.SetActive(false);    
     }
     public void ElixirOfLifeEvent()
     {
-        //set status to living
+        RuntimeSoldierData rsd = currentlySelectedSoldier.GetStoredSoldier();
+        if(rsd.status == SoldierStatus.dead || rsd.status == SoldierStatus.preserved)
+        {
+            rsd.status = SoldierStatus.ready;
+            string output = rsd.soldierName + " has been brought back to life";
+            string fullDisplay = rsd.soldierName + " | " + "<color=green>Full Recovery</color>";
+            currentlySelectedSoldier.UpdateText(fullDisplay);
+            cureResultPopup.SetActive(true);
+            cureResultPopup.GetComponent<BasicPopup>().UpdatePopupText(output);
+            FindButtonInWindowAndDisable("Elixir Of Life", cureSelectionPopupContents);
+            int foundLocation = -1;
+            for(int i = currentWarband.warbandVault.Count; i > 0; i--)
+            {
+                if(currentWarband.warbandVault[i].itemName == "Elixir Of Life")
+                {
+                    foundLocation = i;
+                    break;
+                }
+            }
+            if(foundLocation > -1)
+            {
+                currentWarband.warbandVault.RemoveAt(foundLocation);
+            }
+        }
+        else{
+            string output = "Soldier needs to be Dead or Preserved";
+            cureResultPopup.SetActive(true);
+            cureResultPopup.GetComponent<BasicPopup>().UpdatePopupText(output);
+        }
+        cureSelectionPopup.SetActive(false);    
     }
 
     public void CureSelectionPopupEvent()
@@ -262,19 +637,34 @@ public class PostGameManager : MonoBehaviour
     //we will come back to this, will take lots of stuff to do
     public void SelectSoldierEvent(PostgameSoldierButton psb)
     {
-        // currentlySelectedSoldier = psb;
-        // CureSelectionPopupEvent();
+        currentlySelectedSoldier = psb;
+        CureSelectionPopupEvent();
     }
     #endregion
 
-    public void FindButtonInWindowAndDestroy(string buttonName, GameObject window)
+    // public void FindButtonInWindowAndDestroy(string buttonName, GameObject window)
+    // {
+    //     foreach(Transform child in window.transform)
+    //     {
+    //         if(child.gameObject.name == buttonName)
+    //         {
+    //             Destroy(child);
+    //             break;
+    //         }
+    //     }
+    // }
+
+    public void FindButtonInWindowAndDisable(string buttonName, GameObject window)
     {
         foreach(Transform child in window.transform)
         {
             if(child.gameObject.name == buttonName)
             {
-                Destroy(child);
-                break;
+                if(child.TryGetComponent<Button>(out Button gameButton))
+                {
+                    gameButton.interactable = false;
+                    break;
+                }
             }
         }
     }
@@ -291,12 +681,16 @@ public class PostGameManager : MonoBehaviour
         {
             mainScroll.SetActive(true);
             FillMainWithSoldierInjuries();
+            FillCureSelectionPopup();
         }
         else if(currentStep == 1)
         {
             FinalizeWarbandInjuries();
+            ClearContent(mainScrollContents);
+            ClearContent(cureSelectionPopupContents);
             mainScroll.SetActive(false);
             experiencePanel.SetActive(true);
+            ClearContent(experiencePanelContents);
             SetUpExperiencePanel();
         }
         else if(currentStep == 2)
@@ -305,7 +699,9 @@ public class PostGameManager : MonoBehaviour
             experiencePanel.SetActive(false);
 
             treasureTrackerPanel.SetActive(true);
+            ClearContent(treasureTrackerContents);
             FillTreasureTracker();
+            ClearContent(treasureSelectionPopupContents);
             FillTreasureSelectionPopup();
         }
         else if(currentStep == 3)
@@ -314,6 +710,7 @@ public class PostGameManager : MonoBehaviour
 
             //check for illegal treasure combinations (multiple central treasures for ex)
             treasureFinalizerPanel.SetActive(true);
+            ClearContent(treasureFinalizerPanelContents);
             FillTreasureFinalizer();
             treasureTrackerPanel.SetActive(false);
         }
@@ -341,11 +738,9 @@ public class PostGameManager : MonoBehaviour
            ClearMainContent();
            SetUpWizardSpellLearner(); 
         }
-        else if(currentStep == 7)
-        {
-           FinalizeWizardSpellLearner();
-        }
         else{
+            FinalizeWizardSpellLearner();
+            ClearMainContent();
             warbandUIManager.SaveWarbandChanges();
             warbandUIManager.BackToWarbandMain();
         }
@@ -376,6 +771,7 @@ public class PostGameManager : MonoBehaviour
 
     private void FinalizeExperienceGained()
     {
+        Debug.Log("current wizard xp before adding xp: " + currentWarband.warbandWizard.playerWizardExperience);
         int totalXpGained = 40; //always 40 per game
         foreach(Transform item in experiencePanelContents.transform)
         {
@@ -387,6 +783,7 @@ public class PostGameManager : MonoBehaviour
             totalXpGained = 300;
         }
         currentWarband.warbandWizard.playerWizardExperience += totalXpGained;
+        Debug.Log("current wizard xp after adding xp: " + currentWarband.warbandWizard.playerWizardExperience);
     }
 
     private int GenerateExperienceBasedOnName(string name, int amount)
@@ -441,7 +838,7 @@ public class PostGameManager : MonoBehaviour
     public void SelectTreasureType(string treasureType)
     {
         currentTreasureTrackerButton.GetComponentInChildren<TextMeshProUGUI>().text = treasureType;
-        // FindButtonInWindowAndDestroy(treasureType, treasureSelectionPopupContents);
+        // FindButtonInWindowAndDisable(treasureType, treasureSelectionPopupContents);
         treasureSelectionPopup.SetActive(false);
     }
 
@@ -558,6 +955,7 @@ public class PostGameManager : MonoBehaviour
 
         if(currentWarband.warbandWizard.playerWizardExperience < 100)
         {
+            Debug.Log("not enough experience to enable toggles");
             fightToggle.interactable = false;
             shootToggle.interactable = false;
             willToggle.interactable = false;
@@ -581,6 +979,8 @@ public class PostGameManager : MonoBehaviour
                 healthToggle.interactable = false;
             }
         }
+
+        invisibleToggle.isOn = true;
         
     }
 
@@ -591,23 +991,80 @@ public class PostGameManager : MonoBehaviour
             Toggle activeToggle = allToggles.GetFirstActiveToggle();
             string name = activeToggle.name;
             // string name = activeToggle.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text;
-            if(name == "FightToggle")
+
+            RuntimeSoldierData apprentice = null;
+            foreach(var soldier in currentWarband.warbandSoldiers)
             {
-                currentWarband.warbandWizard.playerWizardProfile.fight += 1;
+                if(soldier.soldierType == "Apprentice")
+                {
+                    apprentice = soldier;
+                }
             }
-            else if(name == "ShootToggle")
+
+            if(name == "InvisibleToggle")
             {
-                currentWarband.warbandWizard.playerWizardProfile.shoot += 1;
+                //do nothing
             }
-            else if(name == "WillToggle")
-            {
-                currentWarband.warbandWizard.playerWizardProfile.will += 1;
+            else{
+                if(name == "FightToggle")
+                {
+                    if(currentWarband.warbandWizard.playerWizardProfile.fight < 5)
+                    {
+                        currentWarband.warbandWizard.playerWizardProfile.fight += 1;
+                        if(!CheckIfSoldierIsNull(apprentice))
+                        {
+                            apprentice.fight += 1;
+                        }
+                    }
+                    
+                }
+                else if(name == "ShootToggle")
+                {
+                    if(currentWarband.warbandWizard.playerWizardProfile.shoot < 5)
+                    {
+                        currentWarband.warbandWizard.playerWizardProfile.shoot += 1;
+                        if(!CheckIfSoldierIsNull(apprentice))
+                        {
+                            apprentice.shoot += 1;
+                        }
+                    }
+                }
+                else if(name == "WillToggle")
+                {
+                    if(currentWarband.warbandWizard.playerWizardProfile.will < 8)
+                    {
+                        currentWarband.warbandWizard.playerWizardProfile.will += 1;
+                        if(!CheckIfSoldierIsNull(apprentice))
+                        {
+                            apprentice.will += 1;
+                        }
+                    }
+                    
+                }
+                else if(name == "HealthToggle")
+                {
+                    if(currentWarband.warbandWizard.playerWizardProfile.health < 20)
+                    {
+                        currentWarband.warbandWizard.playerWizardProfile.health += 1;
+                        if(!CheckIfSoldierIsNull(apprentice))
+                        {
+                            apprentice.health += 1;
+                        }
+                    }   
+                }
+                currentWarband.warbandWizard.playerWizardExperience -= 100;
             }
-            else if(name == "HealthToggle")
-            {
-                currentWarband.warbandWizard.playerWizardProfile.health += 1;
-            }
-            currentWarband.warbandWizard.playerWizardExperience -= 100;
+        }
+    }
+
+    private bool CheckIfSoldierIsNull(RuntimeSoldierData rsd)
+    {
+        if(rsd == null)
+        {
+            return true;
+        }
+        else{
+            return false;
         }
     }
 
@@ -618,7 +1075,10 @@ public class PostGameManager : MonoBehaviour
         if(currentWarband.warbandWizard.playerWizardExperience < 100)
         {
             spellSelectionHandler.DisableAllUntoggledToggles();
-            // CreateBasicButtonAndAttach("Not Enough Experience", mainScrollContents, null);
+            CreateBasicButtonAndAttach("Not Enough Experience", mainScrollContents, null);
+        }
+        else{
+            CreateBasicButtonAndAttach("Select 1 spell to reduce it's Casting Number", mainScrollContents, delegate {DoNothingEvent();});
         }
     }
 
@@ -646,16 +1106,29 @@ public class PostGameManager : MonoBehaviour
         int maxPossibleCanLearn = (int)Mathf.Round((currentWarband.warbandWizard.playerWizardExperience / 100));
         if(maxPossibleCanLearn <= 0)
         {
-            // CreateBasicButtonAndAttach("Not Enough Experience to Learn Spells", mainScrollContents, null);
+            CreateBasicButtonAndAttach("Not Enough Experience to Learn Spells", mainScrollContents, delegate {DoNothingEvent();});
         }
         else{
-            spellSelectionHandler.SetMaxSelectable(maxPossibleCanLearn);
-            spellSelectionHandler.GenerateContainersForGrimoiresInWizardVault(currentWarband.warbandVault, currentWarband.warbandWizard.playerWizardSpellbook);
-        }
-        
+            int totalGrimoires = 0;
+            foreach(var item in currentWarband.warbandVault)
+            {
+                if(item.itemType == MagicItemType.Grimoire)
+                {
+                    totalGrimoires++;
+                }
+            }
 
-        
-        
+            Debug.Log("total grimoires detected by spell learner " + totalGrimoires);
+            if(totalGrimoires > 0)
+            {
+                spellSelectionHandler.SetMaxSelectable(maxPossibleCanLearn);
+                spellSelectionHandler.GenerateContainersForGrimoiresInWizardVault(currentWarband.warbandVault, currentWarband.warbandWizard.playerWizardSpellbook);
+                CreateBasicButtonAndAttach("Choose Grimoires to Learn", mainScrollContents, delegate {DoNothingEvent();});
+            }
+            else{
+                CreateBasicButtonAndAttach("No Grimoires in Inventory", mainScrollContents, delegate {DoNothingEvent();});
+            }
+        }    
     }
 
     private void FinalizeWizardSpellLearner()
@@ -701,6 +1174,18 @@ public class PostGameManager : MonoBehaviour
         {
             Destroy(item.gameObject);
         }
+    }
+    public void ClearContent(GameObject window)
+    {
+        foreach(Transform item in window.transform)
+        {
+            Destroy(item.gameObject);
+        }
+    }
+
+    public void DoNothingEvent()
+    {
+        //can't pass null delegates so this instead
     }
 
     

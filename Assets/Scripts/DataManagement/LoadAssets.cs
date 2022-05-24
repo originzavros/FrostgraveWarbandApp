@@ -17,6 +17,7 @@ public class LoadAssets : MonoBehaviour
     public static MonsterScriptable[] allMonsterObjects;
     public static MonsterKeywordScriptable[] allMonsterKeywordObjects;
     public static MagicItemScriptable[] allMagicItemObjects;
+    public static InjuryScriptable[] allInjuries;
 
     void Start()
     {
@@ -32,6 +33,7 @@ public class LoadAssets : MonoBehaviour
         allMonsterObjects =  Resources.LoadAll<MonsterScriptable>("MonsterScriptables");
         allMonsterKeywordObjects = Resources.LoadAll<MonsterKeywordScriptable>("MonsterKeywordScriptables");
         allMagicItemObjects = Resources.LoadAll<MagicItemScriptable>("ItemScriptables");
+        allInjuries = Resources.LoadAll<InjuryScriptable>("InjuryScriptables");
 
 
 

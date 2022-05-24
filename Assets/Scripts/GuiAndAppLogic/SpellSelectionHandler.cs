@@ -95,11 +95,13 @@ public class SpellSelectionHandler : MonoBehaviour
     {
         foreach(Transform item in scrollContainer.transform)
         {
-            CheckButtonContainer cbc = item.GetComponent<CheckButtonContainer>();
-            if(cbc.selectedItem.isOn == false)
+            if(item.TryGetComponent<CheckButtonContainer>(out CheckButtonContainer cbc))
             {
-                cbc.selectedItem.interactable = false;
-            }       
+                if(cbc.selectedItem.isOn == false)
+                {
+                    cbc.selectedItem.interactable = false;
+                }    
+            } 
         }
     }
 
@@ -108,13 +110,13 @@ public class SpellSelectionHandler : MonoBehaviour
         Debug.Log("EnableAllTogglesNormal called");
         foreach(Transform item in scrollContainer.transform)
         {
-            try{
-                item.gameObject.GetComponent<CheckButtonContainer>().selectedItem.interactable = true;
+            if(item.TryGetComponent<CheckButtonContainer>(out CheckButtonContainer cbc))
+            {
+                cbc.selectedItem.interactable = true;
             }
-            catch{
-                Debug.Log("failed to get component i think");
+            else{
+                 Debug.Log("failed to get component in EnableAllTogglesNormal");
             }
-            
         }
     }
     public void AtMaxSelectedNormal()
@@ -127,17 +129,18 @@ public class SpellSelectionHandler : MonoBehaviour
         List<SpellScriptable> temp = new List<SpellScriptable>();
         foreach(Transform item in scrollContainer.transform)
         {
-            CheckButtonContainer cbc = item.GetComponent<CheckButtonContainer>();
-            if(cbc.selectedItem.isOn)
+            if(item.TryGetComponent<CheckButtonContainer>(out CheckButtonContainer cbc))
             {
-                if(cbc.spellButton.referenceScriptable != null)
+                if(cbc.selectedItem.isOn)
                 {
-                    temp.Add(cbc.spellButton.referenceScriptable);
+                    if(cbc.spellButton.referenceScriptable != null)
+                    {
+                        temp.Add(cbc.spellButton.referenceScriptable);
+                    }
+                    else{
+                        temp.Add(cbc.spellButton.referenceRuntimeSpell.referenceSpell);
+                    }
                 }
-                else{
-                    temp.Add(cbc.spellButton.referenceRuntimeSpell.referenceSpell);
-                }
-                
             }
         }
         return temp;
@@ -148,11 +151,13 @@ public class SpellSelectionHandler : MonoBehaviour
         List<EquipmentScriptable> temp = new List<EquipmentScriptable>();
         foreach(Transform item in scrollContainer.transform)
         {
-            CheckButtonContainer cbc = item.GetComponent<CheckButtonContainer>();
-            if(cbc.selectedItem.isOn)
+            if(item.TryGetComponent<CheckButtonContainer>(out CheckButtonContainer cbc))
             {
-                temp.Add(cbc.equipmentButton.GetEquipment());
-            }
+                if(cbc.selectedItem.isOn)
+                {
+                    temp.Add(cbc.equipmentButton.GetEquipment());
+                }
+            } 
         }
         return temp;
     }
@@ -207,17 +212,23 @@ public class SpellSelectionHandler : MonoBehaviour
     // will not include spells the wizard already knows
     public void GenerateContainersForGrimoiresInWizardVault(List<MagicItemScriptable> vault, WizardSpellbook spellbook)
     {
+        Debug.Log("Generating spell containers for grimoires in spellSelectionHandler");
         List<SpellScriptable> spells = new List<SpellScriptable>();
         foreach(var item in vault)
         {
             if(item.itemType == MagicItemType.Grimoire)
             {
+                Debug.Log("grimoire name in vault :" + item.itemName);
                 SpellScriptable refSpell = DetermineSpellFromGrimoire(item);
                 if(refSpell != null)
                 {
+                    Debug.Log("Determined spell from grimoire: " + refSpell.Name);
                     if(!CheckIfSpellIsInSpellbook(refSpell, spellbook))
                     {
                         spells.Add(refSpell);
+                    }
+                    else{
+                        Debug.Log("Spell is already in spellbook");
                     }
                 }
             }
@@ -237,8 +248,11 @@ public class SpellSelectionHandler : MonoBehaviour
     private SpellScriptable DetermineSpellFromGrimoire(MagicItemScriptable grimoire)
     {
         string grimSpellName = grimoire.itemName;
-        char[] removeChar = {'G','r','i','m','o','i','r','e',' '};
-        grimSpellName = grimSpellName.TrimEnd(removeChar);
+        // char[] removeChar = {'G','r','i','m','o','i','r','e',' '};
+        // grimSpellName = grimSpellName.TrimEnd(removeChar);
+        grimSpellName = grimSpellName.Substring(0, grimSpellName.Length - 9);
+
+        Debug.Log("trimmed spell name: " + grimSpellName);
 
         foreach(var spell in LoadAssets.spellObjects)
         {
@@ -354,24 +368,26 @@ public class SpellSelectionHandler : MonoBehaviour
     {
         foreach(Transform item in scrollContainer.transform)
             {
-                CheckButtonContainer cbc = item.GetComponent<CheckButtonContainer>();
-                if(cbc.spellButton.referenceScriptable.School == _wizardSchool)
+                if(item.TryGetComponent<CheckButtonContainer>(out CheckButtonContainer cbc))
                 {
-                    if(cbc.selectedItem.isOn == false)
+                    if(cbc.spellButton.referenceScriptable.School == _wizardSchool)
                     {
-                        cbc.gameObject.SetActive(false);
-                        // cbc.selectedItem.interactable = false;
-                    }     
+                        if(cbc.selectedItem.isOn == false)
+                        {
+                            cbc.gameObject.SetActive(false);
+                            // cbc.selectedItem.interactable = false;
+                        }     
+                    }
                 }
-                  
             }
     }
 
     public void ResetAllContainersForSelectedSpellSchool(WizardSchools _wizardSchool)
     {
         foreach(Transform item in scrollContainer.transform)
+        {
+            if(item.TryGetComponent<CheckButtonContainer>(out CheckButtonContainer cbc))
             {
-                CheckButtonContainer cbc = item.GetComponent<CheckButtonContainer>();
                 if(cbc.spellButton.referenceScriptable.School == _wizardSchool)
                 {
                     cbc.gameObject.SetActive(true);
@@ -381,8 +397,8 @@ public class SpellSelectionHandler : MonoBehaviour
                     //     // cbc.selectedItem.interactable = false;
                     // }     
                 }
-                  
-            }
+            }  
+        }
     }
     
 }

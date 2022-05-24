@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 954dcc204d6369c43a97955b517f7fd5, type: 3}
+  m_Name: Smashed Jaw
+  m_EditorClassIdentifier: 
+  injuryName: Smashed Jaw
+  injuryStat: none
+  injuryMod: 0
+  injuryMax: 1
+  injuryDescription: "The spellcaster suffered a broken jaw that never quite healed
+    properly. The spellcaster has some difficulty with speaking, which affects their
+    ability to lead their warband. Whenever this figure activates, it can only activate
+    a maximum of two soldiers in its phase (instead of the normal three). So, an
+    apprentice with a Smashed Jaw could only activate two soldiers in the Apprentice
+    phase. If this injury is received a second time, the number of soldiers that
+    may also activate in the phase is decreased to one. Any further Smashed Jaw results
+    must be re-rolled.\r"

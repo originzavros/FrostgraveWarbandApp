@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 954dcc204d6369c43a97955b517f7fd5, type: 3}
+  m_Name: Lost Eye
+  m_EditorClassIdentifier: 
+  injuryName: Lost Eye
+  injuryStat: none
+  injuryMod: 0
+  injuryMax: 2
+  injuryDescription: "One of the figure\u2019s eyes has been damaged and rendered
+    useless. It suffers a -1 to its Combat Roll whenever it is the target of a shooting
+    attack. If a spellcaster receives two Lost Eye permanent injuries, they are effectively
+    blind. If the warband\u2019s wizard fails to successfully cast Miraculous Cure
+    to remove permanent injuries (note that a wizard may cast this spell on themselves
+    or on their apprentice) in the following Out of Game spells step of the post-game
+    sequence, the spellcaster must retire from exploring Frostgrave and is considered
+    \u2018dead\u2019 for game purposes"

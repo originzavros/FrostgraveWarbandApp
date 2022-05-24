@@ -220,5 +220,25 @@ public class easySpreadsheetImport : MonoBehaviour
         AssetDatabase.SaveAssets();
     }
 
+    [Button]
+    public void GeneratePermanentInjuries()
+    {
+        var sheet = new ES3Spreadsheet();
+        sheet.Load("C:/Users/Nicholas Alaniz/Downloads/Injuries - Sheet1.csv");
+
+        for(int row=1;row<sheet.RowCount;row++)
+        {
+            InjuryScriptable ss = ScriptableObject.CreateInstance<InjuryScriptable>();
+            ss.injuryName = sheet.GetCell<string>(0, row);
+            ss.injuryStat = sheet.GetCell<string>(1, row);
+            ss.injuryMod = sheet.GetCell<int>(2, row);
+            ss.injuryMax = sheet.GetCell<int>(3, row);
+            ss.injuryDescription = sheet.GetCell<string>(4, row);
+
+            AssetDatabase.CreateAsset(ss, $"Assets/Resources/InjuryScriptables/{ss.injuryName}.asset"); 
+        }
+        AssetDatabase.SaveAssets();
+    }
+
     #endif
 }
