@@ -27,6 +27,7 @@ public class PlayModeManager : MonoBehaviour
     [BoxGroup("Popups")][SerializeField] GameObject changeSoldierNamePopup;
     [BoxGroup("Popups")][SerializeField] SpellTextPopup spellTextPopup;
     [BoxGroup("Popups")][SerializeField] MonsterKeywordPopup monsterKeywordPopup;
+    [BoxGroup("Popups")][SerializeField] InjuryKeywordPopup injuryKeywordPopup;
     [BoxGroup("Popups")][SerializeField] AddMonsterPopup addMonsterPopup;
     [BoxGroup("Popups")][SerializeField] GameObject itemDescriptionPopup;
 
@@ -35,6 +36,7 @@ public class PlayModeManager : MonoBehaviour
 
     [BoxGroup("Prefabs")][SerializeField] GameObject monsterKeywordButtonPrefab;
     [BoxGroup("Prefabs")][SerializeField] GameObject modNumberPanelPrefab;
+    [BoxGroup("Prefabs")][SerializeField] GameObject injuryKeywordButtonPrefab;
 
 
     private PlayerWarband currentGameWarband;
@@ -251,6 +253,11 @@ public class PlayModeManager : MonoBehaviour
             }
         }
 
+        foreach(var _keyword in incoming.soldierPermanentInjuries)
+        {
+            AddInjuryKeywordToSoldier(csw, _keyword);
+        }
+
         csw.SetBodyPermaActive();
         
         
@@ -322,6 +329,12 @@ public class PlayModeManager : MonoBehaviour
         monsterKeywordPopup.Init(_keyword);
     }
 
+    public void AddInjuryKeywordTextPopup(InjuryScriptable _keyword)
+    {
+        injuryKeywordPopup.gameObject.SetActive(true);
+        injuryKeywordPopup.Init(_keyword);
+    }
+
     public void DeleteMonsterEvent(PlaymodeWindow _playmodeWindow)
     {
         // monsterKillCount++;
@@ -340,6 +353,16 @@ public class PlayModeManager : MonoBehaviour
         temp.GetComponent<MonsterKeywordButton>().Init(_keyword);
 
         temp.GetComponent<MonsterKeywordButton>().SetPopupEvent(delegate {AddMonsterKeywordTextPopup(_keyword);});
+
+        _playmodeWindow.AddItemToContents(temp);
+    }
+
+    public void AddInjuryKeywordToSoldier(PlaymodeWindow _playmodeWindow, InjuryScriptable _keyword)
+    {
+        GameObject temp = Instantiate(injuryKeywordButtonPrefab);
+        temp.GetComponent<InjuryKeywordButton>().Init(_keyword);
+
+        temp.GetComponent<InjuryKeywordButton>().SetPopupEvent(delegate {AddInjuryKeywordTextPopup(_keyword);});
 
         _playmodeWindow.AddItemToContents(temp);
     }

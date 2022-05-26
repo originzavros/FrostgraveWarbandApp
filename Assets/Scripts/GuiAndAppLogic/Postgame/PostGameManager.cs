@@ -50,12 +50,12 @@ public class PostGameManager : MonoBehaviour
     [BoxGroup("injury")][SerializeField] GameObject cureSelectionPopupContents;
     [BoxGroup("injury")][SerializeField] GameObject cureResultPopup;
 
-    
-    [BoxGroup("prefabs")][SerializeField] GameObject displayElementPrefab;
     [BoxGroup("prefabs")][SerializeField] GameObject basicButtonPrefab;
     [BoxGroup("prefabs")][SerializeField] GameObject postgameSoldierButtonPrefab;
     [BoxGroup("prefabs")][SerializeField] GameObject modNumberPanelPrefab;
     [BoxGroup("prefabs")][SerializeField] GameObject treasureSelectWindowPrefab;
+    [BoxGroup("prefabs")][SerializeField] GameObject infoDisplayElementPrefab;
+    [BoxGroup("prefabs")][SerializeField] MagicItemScriptable craftedScrollForWriteScrollPrefab;
 
     [SerializeField] TreasureGenerator treasureGenerator;
     [SerializeField] WarbandUIManager warbandUIManager;
@@ -188,6 +188,7 @@ public class PostGameManager : MonoBehaviour
             }
         }
 
+        int injuredCount = 0;
         foreach(var soldier in currentWarband.warbandSoldiers)
         {
             //reset all soldiers that missed last game
@@ -217,16 +218,19 @@ public class PostGameManager : MonoBehaviour
                 }
                 string fullDisplay = soldier.soldierName + " | " + statusDisplay;
                 CreateSoldierButtonAndAttach(fullDisplay, mainScrollContents, soldier);
+                injuredCount++;
             }
             else if(soldier.status == SoldierStatus.knockout && soldier.soldierType == "Apprentice")
             {
                 StatusRollForSpellcaster(soldier);
+                injuredCount++;
             }
         }
 
         if(currentWarband.warbandWizard.playerWizardProfile.status == SoldierStatus.knockout)
         {
             StatusRollForSpellcaster(currentWarband.warbandWizard.playerWizardProfile);
+            injuredCount++;
         }
 
         //we'll add in bonus soldiers here too for attempted healing if they are dead
@@ -237,7 +241,12 @@ public class PostGameManager : MonoBehaviour
                 string statusDisplay = "<color=orange>Preserved</color>";
                 string fullDisplay = soldier.soldierName + " | " + statusDisplay;
                 CreateSoldierButtonAndAttach(fullDisplay, mainScrollContents, soldier);
+                injuredCount++;
             }
+        }
+        if(injuredCount < 1)
+        {
+            CreateBasicButtonAndAttach("No Soldiers were KO'd last game. Lucky You!", mainScrollContents,delegate {DoNothingEvent();});
         }
     }
 
@@ -679,6 +688,7 @@ public class PostGameManager : MonoBehaviour
     {
         if(currentStep == 0)
         {
+            ClearMainContent();
             mainScroll.SetActive(true);
             FillMainWithSoldierInjuries();
             FillCureSelectionPopup();
@@ -738,9 +748,17 @@ public class PostGameManager : MonoBehaviour
            ClearMainContent();
            SetUpWizardSpellLearner(); 
         }
-        else{
+        else if(currentStep == 7)
+        {
             FinalizeWizardSpellLearner();
             ClearMainContent();
+
+            ClearContent(treasureFinalizerPanelContents);
+            mainScroll.SetActive(false);
+            treasureFinalizerPanel.SetActive(true);
+            RollForPostgameSpells();
+        }
+        else{
             warbandUIManager.SaveWarbandChanges();
             warbandUIManager.BackToWarbandMain();
         }
@@ -873,6 +891,11 @@ public class PostGameManager : MonoBehaviour
         */
         // Debug.Log("in fill treasure finalizer");
 
+        if(treasureTrackerContents.transform.childCount == 0)
+        {
+            CreateBasicButtonAndAttach("No treasure gained", treasureFinalizerPanelContents, delegate {DoNothingEvent();});
+        }
+
         foreach(Transform child in treasureTrackerContents.transform)
         {
             // Debug.Log("loop with child: " + child.name.ToString());
@@ -907,18 +930,16 @@ public class PostGameManager : MonoBehaviour
 
         foreach(Transform child in treasureFinalizerPanelContents.transform)
         {
-            TreasureSelectWindow selectWindow = child.GetComponent<TreasureSelectWindow>();
-            var tempTreasure = selectWindow.GetFinalTreasure();
-            Debug.Log("adding treasure from treasure window");
-            currentWarband.warbandVault.AddRange(tempTreasure.items);
-            currentWarband.warbandGold += tempTreasure.goldAmount;
+            if(child.TryGetComponent<TreasureSelectWindow>(out TreasureSelectWindow selectWindow))
+            {
+                var tempTreasure = selectWindow.GetFinalTreasure();
+                Debug.Log("adding treasure from treasure window");
+                currentWarband.warbandVault.AddRange(tempTreasure.items);
+                currentWarband.warbandGold += tempTreasure.goldAmount;
+            }
+            // TreasureSelectWindow selectWindow = child.GetComponent<TreasureSelectWindow>();
+            
         }
-    }
-
-    //for deleting the other group in the window
-    public void SelectTreasureGroup(TreasureSelectWindow tsw, string groupName)
-    {
-
     }
 
     private void CreateAndAddTreasureSelectWindowToWindow(string treasureType, GameObject parent)
@@ -1187,6 +1208,82 @@ public class PostGameManager : MonoBehaviour
     {
         //can't pass null delegates so this instead
     }
+
+    public void RollForPostgameSpells()
+    {
+        
+        foreach(var item in currentWarband.warbandWizard.playerWizardSpellbook.wizardSpellbookSpells)
+        {
+            if(item.referenceSpell.Restriction == "Out of Game(A)")
+            {
+                string result = "";
+                string extra = "";
+                if(SpellRoller.MakeRollForSpell(item))
+                {
+                    if(item.referenceSpell.Name == "Absorb Knowledge")
+                    {
+                        currentWarband.warbandWizard.playerWizardExperience += 40;
+                        extra = "| Added Experience.";
+                    }
+                    else if(item.referenceSpell.Name == "Write Scroll")
+                    {
+                        currentWarband.warbandVault.Add(craftedScrollForWriteScrollPrefab);
+                    }
+                    else{
+
+                    }
+                    result = "Wizard <color=green>Success</color>: ";
+                }
+                else{
+                    result = "Wizard <color=red>Fail</color>: ";
+                }
+                GameObject temp = Instantiate(infoDisplayElementPrefab);
+                temp.GetComponent<InfoDisplayElement>().UpdateText(result + SpellRoller.GetCurrentRoll().ToString() + "\nSpell: " + item.referenceSpell.Name + extra);
+                temp.transform.SetParent(treasureFinalizerPanelContents.transform);
+
+                bool wizardOnlySpell = false;
+                if(item.referenceSpell.Name == "Absorb Knowledge"){wizardOnlySpell = true;}
+
+                if(!wizardOnlySpell)
+                {
+                    if(SpellRoller.MakeRollForSpell(item, -2))
+                    {
+                        if(item.referenceSpell.Name == "Write Scroll")
+                        {
+                            currentWarband.warbandVault.Add(craftedScrollForWriteScrollPrefab);
+                        }
+                        else{
+
+                        }
+                        result = "Apprentice <color=green>Success</color>: ";
+                    }
+                    else{
+                        result = "Apprentice <color=red>Fail</color>: ";
+                    }
+
+                    GameObject temp2 = Instantiate(infoDisplayElementPrefab);
+                    temp2.GetComponent<InfoDisplayElement>().UpdateText(result + SpellRoller.GetCurrentRoll().ToString() + "\nSpell: " + item.referenceSpell.Name + extra);
+                    temp2.transform.SetParent(treasureFinalizerPanelContents.transform); 
+                }
+            }
+        }
+    }
+
+    public void RollForPostgameBaseResources()
+    {
+
+        
+    }
+    // private void EnableWriteScrollSelection(int selectTotal)
+    // {
+    //     //fill with buttons of known spells
+    //     // mainScroll.SetActive(true);
+    // }
+
+    // public void ChooseSpellEvent(SpellScriptable spell)
+    // {
+
+    // }
 
     
 

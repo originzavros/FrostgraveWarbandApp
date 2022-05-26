@@ -8,9 +8,12 @@ public class WarbandLister : MonoBehaviour
     [SerializeField] GameObject contentBox;
 
     [SerializeField] GameObject basicButtonPrefab;
+    [SerializeField] GameObject warbandContainerPrefab;
+    [SerializeField] GameObject confirmationPopup;
 
     [SerializeField] WarbandUIManager warbandUIManager;
     
+    private string currentlySelectedWarband = "";
     public void PopulateListerWithWarbands()
     {
         foreach(Transform item in contentBox.transform)
@@ -20,16 +23,14 @@ public class WarbandLister : MonoBehaviour
         LoadAssets.LoadWarbandNames();
         foreach(var item in LoadAssets.warbandNames)
         {
-            GameObject temp = Instantiate(basicButtonPrefab);
-            temp.GetComponentInChildren<TMP_Text>().text = item;
+            GameObject temp = Instantiate(warbandContainerPrefab);
+            GameObject warbandButton = temp.GetComponent<WarbandContainer>().GetWarbandButton();
+            warbandButton.GetComponentInChildren<TMP_Text>().text = item;
 
-            temp.GetComponent<Button>().onClick.AddListener(delegate {GoToNextWindow(temp.GetComponentInChildren<TMP_Text>().text);});
-            
-            
-            // WizardSchoolButton wb = temp.GetComponent<WizardSchoolButton>();
-            // wb.SetWizardSchool(item.primarySchool);
-            // wb.schoolScriptableReference = item;
-            // temp.transform.parent = scrollContainer.transform;
+            warbandButton.GetComponent<Button>().onClick.AddListener(delegate {GoToNextWindow(temp.GetComponentInChildren<TMP_Text>().text);});
+
+            temp.GetComponent<WarbandContainer>().GetDeleteButton().GetComponent<Button>().onClick.AddListener(delegate {ConfirmationPopupInit(item);});
+
             temp.transform.SetParent(contentBox.transform, false);
         }
     }
@@ -41,6 +42,33 @@ public class WarbandLister : MonoBehaviour
             warbandUIManager.WarbandSelected(name);
         }
     }
+
+    public void DeleteWarband()
+    {
+        LoadAssets.warbandNames.Remove(currentlySelectedWarband);
+        currentlySelectedWarband = "";
+        ConfirmationPopup.OnConfirmChosen -= Confirmed;
+        ES3.Save("warbandNames", LoadAssets.warbandNames);
+        PopulateListerWithWarbands();
+    }
+
+    public void ConfirmationPopupInit(string name)
+    {
+        currentlySelectedWarband = name;
+        confirmationPopup.SetActive(true);
+        confirmationPopup.GetComponent<ConfirmationPopup>().Init("Delete " + name);
+        ConfirmationPopup.OnConfirmChosen += Confirmed;
+    }
+
+    public void Confirmed(bool result)
+    {
+        if(result)
+        {
+            DeleteWarband();
+        }
+    }
+
+
 
 
 
