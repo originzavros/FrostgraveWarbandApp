@@ -125,6 +125,10 @@ public class ShopVaultManager : MonoBehaviour
 
     private void FillShopBuyWithItems(string shopType)
     {
+        foreach(Transform child in shopBuyContents.transform)
+        {
+            Destroy(child.gameObject);
+        }
         if(shopType == "Potions")
         {
             foreach(var item in LoadAssets.allMagicItemObjects)
@@ -140,16 +144,53 @@ public class ShopVaultManager : MonoBehaviour
             }
         }
         else if(shopType == "Grimoires"){
-            
+            foreach(var item in LoadAssets.allMagicItemObjects)
+            {
+                if(item.itemType == MagicItemType.Grimoire)
+                {
+                    if(item.itemPurchasePrice > 0)
+                    {
+                        InstanceItemContainerAndAttach(item, shopBuyContents, ItemContainerMode.buy);
+                    }
+                }
+            }
         }
         else if(shopType == "MagicEquipment"){
-            
+            foreach(var item in LoadAssets.allMagicItemObjects)
+            {
+                if(item.itemType == MagicItemType.MagicEquipment)
+                {
+                    if(item.itemPurchasePrice > 0)
+                    {
+                        InstanceItemContainerAndAttach(item, shopBuyContents, ItemContainerMode.buy);
+                    }
+                }
+            }
         }
         else if(shopType == "MagicItems"){
-            
+            foreach(var item in LoadAssets.allMagicItemObjects)
+            {
+                if(item.itemType == MagicItemType.Artifact)
+                {
+                    if(item.itemPurchasePrice > 0)
+                    {
+                        InstanceItemContainerAndAttach(item, shopBuyContents, ItemContainerMode.buy);
+                    }
+                }
+            }
         }
         else if(shopType == "BaseResources"){
             
+        }
+        else if(shopType == "Black Market"){
+            for(int i = 0; i < 4; i++)
+            {
+                MagicItemScriptable randomItem = LoadAssets.allMagicItemObjects[Random.Range(0,LoadAssets.allMagicItemObjects.Length)];
+                if(randomItem.itemPurchasePrice > 0)
+                {
+                    InstanceItemContainerAndAttach(randomItem, shopBuyContents, ItemContainerMode.buy);
+                }
+            }
         }
 
         shopBuyPanel.gameObject.SetActive(true);
@@ -273,19 +314,23 @@ public class ShopVaultManager : MonoBehaviour
     }
     public void OnClickGrimoireShop()
     {
-
+        FillShopBuyWithItems("Grimoires");
     }
     public void OnClickMagicEquipmentShop()
     {
-
+        FillShopBuyWithItems("MagicEquipment");
     }
     public void OnClickMagicItemShop()
     {
-
+        FillShopBuyWithItems("MagicItems");
     }
     public void OnClickBaseResourcesShop()
     {
 
+    }
+    public void OnClickBlackMarketShop()
+    {
+        FillShopBuyWithItems("Black Market");
     }
     #endregion
 

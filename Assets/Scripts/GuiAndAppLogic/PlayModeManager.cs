@@ -30,9 +30,12 @@ public class PlayModeManager : MonoBehaviour
     [BoxGroup("Popups")][SerializeField] InjuryKeywordPopup injuryKeywordPopup;
     [BoxGroup("Popups")][SerializeField] AddMonsterPopup addMonsterPopup;
     [BoxGroup("Popups")][SerializeField] GameObject itemDescriptionPopup;
+    [BoxGroup("Popups")][SerializeField] GameObject confirmationPopup;
+    
 
     [BoxGroup("GameButtons")][SerializeField] GameObject newGameButton;
     [BoxGroup("GameButtons")][SerializeField] GameObject endGameButton;
+    [BoxGroup("GameButtons")][SerializeField] GameObject cancelGameButton;
 
     [BoxGroup("Prefabs")][SerializeField] GameObject monsterKeywordButtonPrefab;
     [BoxGroup("Prefabs")][SerializeField] GameObject modNumberPanelPrefab;
@@ -91,6 +94,8 @@ public class PlayModeManager : MonoBehaviour
         NewGameSetup(currentGameWarband);
         newGameButton.GetComponent<Button>().interactable = false;
         endGameButton.GetComponent<Button>().interactable = true;
+        cancelGameButton.GetComponent<Button>().interactable = true;
+        OnClickWizardButton();
     }
 
     public void ClearContent(GameObject window)
@@ -108,12 +113,36 @@ public class PlayModeManager : MonoBehaviour
         UpdateWarbandInfoWithGameInfo();
         newGameButton.GetComponent<Button>().interactable = true;
         endGameButton.GetComponent<Button>().interactable = false;
+        cancelGameButton.GetComponent<Button>().interactable = false;
         warbandUIManager.SwitchToPostgameAndInit(gameInfo);
     }
 
     public void OnClickCancelGame()
     {
         //go through each window and clear it's contents, reset new game button
+        confirmationPopup.SetActive(true);
+        ConfirmationPopup.OnConfirmChosen += ReceiveCancelConfirmation;
+    }
+
+    public void CancelCurrentGame()
+    {
+        ClearContent(wizardViewContents);
+        ClearContent(warbandViewContents);
+        ClearContent(monsterViewContents);
+        newGameButton.GetComponent<Button>().interactable = true;
+        endGameButton.GetComponent<Button>().interactable = false;
+        cancelGameButton.GetComponent<Button>().interactable = false;
+        warbandUIManager.BackToWarbandMain();
+    }
+
+    public void ReceiveCancelConfirmation(bool result)
+    {
+        if(result)
+        {
+            CancelCurrentGame();
+        }
+        ConfirmationPopup.OnConfirmChosen -= ReceiveCancelConfirmation;
+        confirmationPopup.SetActive(false);
     }
 
     //just want to grab their status info for postgame.

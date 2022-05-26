@@ -17,7 +17,8 @@ public enum WizardSchools{
     Soothsayer,
     Summoner,
     Thaumaturge,
-    Witch
+    Witch,
+    Random
 }
 
 public enum FrostgraveBook{

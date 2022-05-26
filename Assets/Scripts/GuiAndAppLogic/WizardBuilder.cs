@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Sirenix.OdinInspector;
+using System.Linq;
 
 public class WizardBuilder : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class WizardBuilder : MonoBehaviour
     [SerializeField] GameObject nextButtonNav;
     [SerializeField] NavBox navBox;
     [SerializeField] WarbandInfoManager warbandInfoManager;
+    [SerializeField] WizardSchoolScriptable randomSchoolPrefab;
+    [SerializeField] GameObject infoPopup;
 
     [SerializeField][ReadOnly]
     int currentStep = 0;
@@ -57,22 +60,93 @@ public class WizardBuilder : MonoBehaviour
     {
         foreach(var item in LoadAssets.wizardSchoolObjects)
         {
-            // Debug.Log("Wizard School: " + item.primarySchool.ToString());
-
-            GameObject temp = Instantiate(wizardSchoolButton);
-            temp.GetComponent<Button>().onClick.AddListener(delegate {OnClickWizardSchoolButton(temp);});
-            WizardSchoolButton wb = temp.GetComponent<WizardSchoolButton>();
-            wb.SetWizardSchool(item.primarySchool);
-            wb.schoolScriptableReference = item;
-            // temp.transform.parent = scrollContainer.transform;
-            temp.transform.SetParent(scrollContainer.transform, false);
+            CreateAndAttachSchoolButton(item);
         }
+        CreateAndAttachSchoolButton(randomSchoolPrefab);
+    }
+
+    public void CreateAndAttachSchoolButton(WizardSchoolScriptable _schoolScriptable)
+    {
+        GameObject temp = Instantiate(wizardSchoolButton);
+        temp.GetComponent<Button>().onClick.AddListener(delegate {OnClickWizardSchoolButton(temp);});
+        WizardSchoolButton wb = temp.GetComponent<WizardSchoolButton>();
+        wb.SetWizardSchool(_schoolScriptable.primarySchool);
+        wb.schoolScriptableReference = _schoolScriptable;
+        // temp.transform.parent = scrollContainer.transform;
+        temp.transform.SetParent(scrollContainer.transform, false);
     }
 
     public void OnClickWizardSchoolButton(GameObject go)
     {
         selectedSchool = go.GetComponent<WizardSchoolButton>().schoolScriptableReference;
-        BuilderToNextStep();
+        if(selectedSchool.primarySchool == WizardSchools.Random)
+        {
+            CreateRandomWizard();
+        }
+        else{
+            BuilderToNextStep();
+        } 
+    }
+
+    public void CreateRandomWizard()
+    {
+        //do all selection and naming
+        //popup event that it was completed
+        // Debug.Log(LoadAssets.wizardSchoolObjects[0].primarySchool.ToString());
+        int selection = Random.Range(0, LoadAssets.wizardSchoolObjects.Length);
+        // LoadAssets.wizardSchoolObjects.OrderBy(x => Random.Range(0f,1f));
+        
+        selectedSchool = LoadAssets.wizardSchoolObjects[selection];
+        selectedPrimarySpells = new List<SpellScriptable>();
+        selectedPrimarySpells.AddRange(GetRandomSpellsFromSchool(3, selectedSchool.primarySchool));
+        selectedAlignedSpells = new List<SpellScriptable>();
+        foreach(var item in selectedSchool.alignedSchools)
+        {
+            selectedAlignedSpells.AddRange(GetRandomSpellsFromSchool(1, item));
+        }
+        IEnumerable<int> chosenNeutralSchools = Enumerable.Range(0,selectedSchool.neutralSchools.Count).OrderBy(x => Random.Range(0f, 1f)).Take(2);
+        int[] neutralChoices = chosenNeutralSchools.ToArray();
+        Debug.Log("neutralChoices :" + neutralChoices[0].ToString() + " and " + neutralChoices[1].ToString());
+        selectedNeutralSpells = new List<SpellScriptable>();
+        selectedNeutralSpells.AddRange(GetRandomSpellsFromSchool(1, selectedSchool.neutralSchools[neutralChoices[0]]));
+        selectedNeutralSpells.AddRange(GetRandomSpellsFromSchool(1, selectedSchool.neutralSchools[neutralChoices[1]]));
+
+        
+        // NameGeneratorInputBox.GetComponent<NameGenerator>().OnClickRandomOldeMaleName();
+        NameGeneratorInputBox.GetComponent<NameGenerator>().OnClickRandomMaleName();
+        playerWizard.playerWizardProfile.soldierName = NameGeneratorInputBox.GetComponent<NameGenerator>().GetName();
+        WarbandInput.GetComponent<BasicInput>().nameEntry.text = playerWizard.playerWizardProfile.soldierName + "'s Warband";
+        FinishWarband();
+        infoPopup.SetActive(true);
+        string info = "Completed Random Wizard: " + playerWizard.playerWizardProfile.soldierName;
+        infoPopup.GetComponent<BasicPopup>().UpdatePopupText(info);
+    }
+
+    public List<SpellScriptable> GetRandomSpellsFromSchool(int amount, WizardSchools _school)
+    {
+        List<SpellScriptable> temp = new List<SpellScriptable>();
+        foreach(var spell in LoadAssets.spellObjects)
+        {
+            if(spell.School == _school)
+            {
+                temp.Add(spell);
+            }
+        }
+        if(temp.Count <= amount)
+        {
+            Debug.Log("got less than count in randomspellfromschool");
+            return temp;
+        }
+        else{
+            int target = temp.Count;
+            while(target > amount)
+            {
+                int remove = Random.Range(0, target);
+                temp.RemoveAt(remove);
+                target--;
+            }
+            return temp;
+        }
     }
 
     public void ClearContent()
