@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 907e81a9cda2ab54c9d56fbb810687fa, type: 3}
+  m_Name: Frost Giant
+  m_EditorClassIdentifier: 
+  soldierName: Frost Giant
+  inventoryLimit: 1
+  move: 6
+  fight: 5
+  shoot: 0
+  armor: 15
+  will: 4
+  health: 25
+  cost: 0
+  hiringName: Frost Giant
+  soldierType: 
+  isHired: 0
+  description: 
+  status: 0
+  bookEdition: 0
+  baseSoldierEquipment: []
+  soldierInventory: []
+  monsterKeywordList:
+  - {fileID: 11400000, guid: 1b509c1daa1b2a949ae26fb72c1fd510, type: 2}
+  - {fileID: 11400000, guid: 4c37daaee42037c42979f6ee56c94094, type: 2}
+  - {fileID: 11400000, guid: da6d6bb6defa0054f8e8e06c4315bb67, type: 2}

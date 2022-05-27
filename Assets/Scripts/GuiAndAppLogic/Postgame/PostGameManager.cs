@@ -128,7 +128,9 @@ public class PostGameManager : MonoBehaviour
 
     private void CreateDisplayElementAndAttach(string display, GameObject parent)
     {
-
+        GameObject temp = Instantiate(infoDisplayElementPrefab);
+        temp.GetComponent<InfoDisplayElement>().UpdateText(display);
+        temp.transform.SetParent(parent.transform);
     }
 
     private void CreateBasicButtonAndAttach(string buttonText, GameObject parent, UnityEngine.Events.UnityAction call)
@@ -246,7 +248,8 @@ public class PostGameManager : MonoBehaviour
         }
         if(injuredCount < 1)
         {
-            CreateBasicButtonAndAttach("No Soldiers were KO'd last game. Lucky You!", mainScrollContents,delegate {DoNothingEvent();});
+            // CreateBasicButtonAndAttach("No Soldiers were KO'd last game. Lucky You!", mainScrollContents,delegate {DoNothingEvent();});
+            CreateDisplayElementAndAttach("No Soldiers were KO'd last game. Lucky You!", mainScrollContents);
         }
     }
 
@@ -893,7 +896,8 @@ public class PostGameManager : MonoBehaviour
 
         if(treasureTrackerContents.transform.childCount == 0)
         {
-            CreateBasicButtonAndAttach("No treasure gained", treasureFinalizerPanelContents, delegate {DoNothingEvent();});
+            // CreateBasicButtonAndAttach("No treasure gained", treasureFinalizerPanelContents, delegate {DoNothingEvent();});
+            CreateDisplayElementAndAttach("No treasure gained", treasureFinalizerPanelContents);
         }
 
         foreach(Transform child in treasureTrackerContents.transform)
@@ -1096,10 +1100,12 @@ public class PostGameManager : MonoBehaviour
         if(currentWarband.warbandWizard.playerWizardExperience < 100)
         {
             spellSelectionHandler.DisableAllUntoggledToggles();
-            CreateBasicButtonAndAttach("Not Enough Experience", mainScrollContents, null);
+            CreateDisplayElementAndAttach("Not Enough Experience", mainScrollContents);
+            // CreateBasicButtonAndAttach("Not Enough Experience", mainScrollContents, null);
         }
         else{
-            CreateBasicButtonAndAttach("Select 1 spell to reduce it's Casting Number", mainScrollContents, delegate {DoNothingEvent();});
+            // CreateBasicButtonAndAttach("Select 1 spell to reduce it's Casting Number", mainScrollContents, delegate {DoNothingEvent();});
+            CreateDisplayElementAndAttach("Select 1 spell to reduce it's Casting Number", mainScrollContents);
         }
     }
 
@@ -1127,7 +1133,8 @@ public class PostGameManager : MonoBehaviour
         int maxPossibleCanLearn = (int)Mathf.Round((currentWarband.warbandWizard.playerWizardExperience / 100));
         if(maxPossibleCanLearn <= 0)
         {
-            CreateBasicButtonAndAttach("Not Enough Experience to Learn Spells", mainScrollContents, delegate {DoNothingEvent();});
+            // CreateBasicButtonAndAttach("Not Enough Experience to Learn Spells", mainScrollContents, delegate {DoNothingEvent();});
+            CreateDisplayElementAndAttach("Not Enough Experience to Learn Spells", mainScrollContents);
         }
         else{
             int totalGrimoires = 0;
@@ -1144,10 +1151,12 @@ public class PostGameManager : MonoBehaviour
             {
                 spellSelectionHandler.SetMaxSelectable(maxPossibleCanLearn);
                 spellSelectionHandler.GenerateContainersForGrimoiresInWizardVault(currentWarband.warbandVault, currentWarband.warbandWizard.playerWizardSpellbook);
-                CreateBasicButtonAndAttach("Choose Grimoires to Learn", mainScrollContents, delegate {DoNothingEvent();});
+                // CreateBasicButtonAndAttach("Choose Grimoires to Learn", mainScrollContents, delegate {DoNothingEvent();});
+                CreateDisplayElementAndAttach("Choose Grimoires to Learn", mainScrollContents);
             }
             else{
-                CreateBasicButtonAndAttach("No Grimoires in Inventory", mainScrollContents, delegate {DoNothingEvent();});
+                // CreateBasicButtonAndAttach("No Grimoires in Inventory", mainScrollContents, delegate {DoNothingEvent();});
+                CreateDisplayElementAndAttach("No Grimoires in Inventory", mainScrollContents);
             }
         }    
     }
@@ -1211,11 +1220,12 @@ public class PostGameManager : MonoBehaviour
 
     public void RollForPostgameSpells()
     {
-        
+        int afterGameSpellCount = 0;
         foreach(var item in currentWarband.warbandWizard.playerWizardSpellbook.wizardSpellbookSpells)
         {
             if(item.referenceSpell.Restriction == "Out of Game(A)")
             {
+                afterGameSpellCount++;
                 string result = "";
                 string extra = "";
                 if(SpellRoller.MakeRollForSpell(item))
@@ -1237,9 +1247,8 @@ public class PostGameManager : MonoBehaviour
                 else{
                     result = "Wizard <color=red>Fail</color>: ";
                 }
-                GameObject temp = Instantiate(infoDisplayElementPrefab);
-                temp.GetComponent<InfoDisplayElement>().UpdateText(result + SpellRoller.GetCurrentRoll().ToString() + "\nSpell: " + item.referenceSpell.Name + extra);
-                temp.transform.SetParent(treasureFinalizerPanelContents.transform);
+                string displayText = result + SpellRoller.GetCurrentRoll().ToString() + "\nSpell: " + item.referenceSpell.Name + extra;
+                CreateDisplayElementAndAttach(displayText, treasureFinalizerPanelContents);
 
                 bool wizardOnlySpell = false;
                 if(item.referenceSpell.Name == "Absorb Knowledge"){wizardOnlySpell = true;}
@@ -1260,12 +1269,14 @@ public class PostGameManager : MonoBehaviour
                     else{
                         result = "Apprentice <color=red>Fail</color>: ";
                     }
-
-                    GameObject temp2 = Instantiate(infoDisplayElementPrefab);
-                    temp2.GetComponent<InfoDisplayElement>().UpdateText(result + SpellRoller.GetCurrentRoll().ToString() + "\nSpell: " + item.referenceSpell.Name + extra);
-                    temp2.transform.SetParent(treasureFinalizerPanelContents.transform); 
+                    displayText = result + SpellRoller.GetCurrentRoll().ToString() + "\nSpell: " + item.referenceSpell.Name + extra;
+                    CreateDisplayElementAndAttach(displayText, treasureFinalizerPanelContents); 
                 }
             }
+        }
+        if(afterGameSpellCount < 1)
+        {
+            CreateDisplayElementAndAttach("No After Game Spells Known", treasureFinalizerPanelContents);
         }
     }
 

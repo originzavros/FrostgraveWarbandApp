@@ -24,7 +24,9 @@ MonoBehaviour:
   hiringName: Bear
   soldierType: 
   isHired: 0
-  description: 
+  description: Northern bears are mostly peaceful creatures but are easily spooked.
+    If a bear is encountered in the city, it is safe to assume that it is already
+    unhappy and desperate to leave.
   status: 0
   bookEdition: 0
   baseSoldierEquipment: []

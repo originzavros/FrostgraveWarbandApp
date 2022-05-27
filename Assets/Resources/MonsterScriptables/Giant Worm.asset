@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 907e81a9cda2ab54c9d56fbb810687fa, type: 3}
+  m_Name: Giant Worm
+  m_EditorClassIdentifier: 
+  soldierName: Giant Worm
+  inventoryLimit: 1
+  move: 7
+  fight: 4
+  shoot: 0
+  armor: 10
+  will: 5
+  health: 20
+  cost: 0
+  hiringName: Giant Worm
+  soldierType: 
+  isHired: 0
+  description: 
+  status: 0
+  bookEdition: 0
+  baseSoldierEquipment: []
+  soldierInventory: []
+  monsterKeywordList:
+  - {fileID: 11400000, guid: a710ea5999ec6f24e8eba339e0df350f, type: 2}
+  - {fileID: 11400000, guid: 4c37daaee42037c42979f6ee56c94094, type: 2}

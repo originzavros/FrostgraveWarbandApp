@@ -111,6 +111,9 @@ public class PlayModeManager : MonoBehaviour
         //save game data (monsters killed, treasures captured ?)
         //go to post game?
         UpdateWarbandInfoWithGameInfo();
+        ClearContent(wizardViewContents);
+        ClearContent(warbandViewContents);
+        ClearContent(monsterViewContents);
         newGameButton.GetComponent<Button>().interactable = true;
         endGameButton.GetComponent<Button>().interactable = false;
         cancelGameButton.GetComponent<Button>().interactable = false;
@@ -121,6 +124,7 @@ public class PlayModeManager : MonoBehaviour
     {
         //go through each window and clear it's contents, reset new game button
         confirmationPopup.SetActive(true);
+        confirmationPopup.GetComponent<ConfirmationPopup>().Init("Cancel Current Game?");
         ConfirmationPopup.OnConfirmChosen += ReceiveCancelConfirmation;
     }
 

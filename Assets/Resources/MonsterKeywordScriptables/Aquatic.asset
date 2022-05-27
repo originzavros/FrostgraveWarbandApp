@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d48272a0de5a6d4681bb6603fbacb31, type: 3}
+  m_Name: Aquatic
+  m_EditorClassIdentifier: 
+  keywordName: Aquatic
+  keywordDescription: "This creature can only live in the water and will never willingly
+    move onto land. If forced onto land, it treats all ground as rough ground for
+    the purposes of movement and must pass a Will Roll (TN16) every time it activates
+    or suffer 5 points of damage. Aquatic creatures never have to make Swimming Rolls,
+    treat water as normal instead of rough ground, and suffer no Fight penalties
+    for being in the water.\r"

@@ -198,6 +198,10 @@ public class ShopVaultManager : MonoBehaviour
 
     private void FillWarbandPanelWithSoldiers()
     {
+        foreach(Transform child in warbandContents.transform)
+        {
+            Destroy(child.gameObject);
+        }
         CreateAndAttachPlaymodeSoldierContainer(currentWarband.warbandWizard.playerWizardProfile, warbandContents);
         foreach(var item in currentWarband.warbandSoldiers)
         {

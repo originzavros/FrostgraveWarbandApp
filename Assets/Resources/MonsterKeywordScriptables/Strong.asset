@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Strong
   m_EditorClassIdentifier: 
   keywordName: Strong
-  keywordDescription: This creature does +2 damage.
+  keywordDescription: "This creature does +2 damage.\r"
