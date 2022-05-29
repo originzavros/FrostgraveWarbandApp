@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Sirenix.OdinInspector;
+using TMPro;
 
 public class SpellSelectionHandler : MonoBehaviour
 {
@@ -21,6 +22,19 @@ public class SpellSelectionHandler : MonoBehaviour
     [SerializeField] [ReadOnly] private int currentSelected = 0;
 
     public SelectionHandlerMode selectionHandlerMode = SelectionHandlerMode.normal;
+
+    // Color32 midGreen = new Color32(58,169,17,255);
+    // Color32 bloodRed = new Color32(154,12,12,255);
+    // Color32 darkTeal = new Color32(12,138,154,255);
+    // Color32 purple = new Color32(140,11,166,255);
+    // Color32 darkGreen = new Color32(39,121,48,255);
+    // Color32 darkOrange = new Color32(198,65,0,255);
+    // Color32 darkBlue = new Color32(39,54,166,255);
+    // Color32 darkMagenta = new Color32(191,21,76,255);
+    // Color32 goldenYellow = new Color32(217,153,0,255);
+    // Color32 veryDarkBlue = new Color32(32,41,70,255);
+
+    // Color32 lightGrey = new Color32(215,215,215,255);
 
     public void SetMaxSelectable(int max)
     {
@@ -162,13 +176,63 @@ public class SpellSelectionHandler : MonoBehaviour
         return temp;
     }
 
-   
+    // public Color32 GetColorBasedOnWizardSchool(WizardSchools _wizardSchool)
+    // {
+    //     if( _wizardSchool == WizardSchools.Chronomancer)
+    //     {
+    //         return midGreen;
+    //     }
+    //     else if( _wizardSchool == WizardSchools.Elementalist)
+    //     {
+    //         return bloodRed;
+    //     }
+    //     else if( _wizardSchool == WizardSchools.Enchanter)
+    //     {
+    //         return darkTeal;
+    //     }
+    //     else if( _wizardSchool == WizardSchools.Illusionist)
+    //     {
+    //         return purple;
+    //     }
+    //     else if( _wizardSchool == WizardSchools.Necromancer)
+    //     {
+    //         return darkGreen;
+    //     }
+    //     else if( _wizardSchool == WizardSchools.Sigilist)
+    //     {
+    //         return darkOrange;
+    //     }
+    //     else if( _wizardSchool == WizardSchools.Soothsayer)
+    //     {
+    //         return darkBlue;
+    //     }
+    //     else if( _wizardSchool == WizardSchools.Summoner)
+    //     {
+    //         return darkMagenta;
+    //     }
+    //     else if( _wizardSchool == WizardSchools.Thaumaturge)
+    //     {
+    //         return goldenYellow;
+    //     }
+    //     else if( _wizardSchool == WizardSchools.Witch)
+    //     {
+    //         return veryDarkBlue;
+    //     }
+    //     else{
+    //         return lightGrey;
+    //         // cbctemp.spellButton.GetComponent<Button>().image.color = Color.white;
+    //         // cbctemp.spellButton.SpellNameText.color = Color.black;
+    //         // cbctemp.spellButton.CastingNumberText.color = Color.black;
+    //     }
+    // }
 
     public void GenerateContainersForSpellsFromSchool(WizardSchools _wizardSchool)
     {
+        
         foreach(var item in LoadAssets.spellObjects)
         {
             // Debug.Log("Wizard School: " + item.primarySchool.ToString());
+
 
             if(item.School == _wizardSchool)
             {
@@ -177,6 +241,21 @@ public class SpellSelectionHandler : MonoBehaviour
                 cbctemp.selectedItem.onValueChanged.AddListener(delegate {OnToggleSelectSpell(cbctemp.selectedItem.isOn);});
                 cbctemp.spellButton.GetComponent<Button>().onClick.AddListener(delegate {EnableAndFillDescriptionPopUp(cbctemp.spellButton.gameObject, SpellSelectionType.scriptable);});
                 cbctemp.spellButton.LoadSpellInfo(item);
+
+                
+                // Color32 incomingColor = GetColorBasedOnWizardSchool(item.School);
+                // if(incomingColor.CompareRGB(lightGrey))
+                // {
+                //     cbctemp.spellButton.SpellNameText.color = Color.black;
+                //     cbctemp.spellButton.CastingNumberText.color = Color.black;
+                //     cbctemp.spellButton.GetComponent<Button>().image.color = incomingColor;
+                // }
+                // else{
+                //     cbctemp.spellButton.SpellNameText.color = Color.white;
+                //     cbctemp.spellButton.CastingNumberText.color = Color.white;
+                //     cbctemp.spellButton.GetComponent<Button>().image.color = incomingColor;
+                // }
+
                 temp.transform.SetParent(scrollContainer.transform, false);
                 // temp.transform.parent = scrollContainer.transform;
             }
@@ -304,38 +383,58 @@ public class SpellSelectionHandler : MonoBehaviour
 
     public void GenerateContainersForSpellsFromMultipleSchools(List<WizardSchools> _wizardSchools)
     {
-        foreach(var item in LoadAssets.spellObjects)
-        {
-            // Debug.Log("Wizard School: " + item.primarySchool.ToString());
-            bool matchesASchool = false;
 
-            foreach(WizardSchools schoolItem in _wizardSchools)
+        foreach(var schoolItem in _wizardSchools)
+        {
+            foreach(var item in LoadAssets.spellObjects) //unfortunate to loop it this way but should be about the same cost as getting all of them and sorting
             {
+
+                // Debug.Log("Wizard School: " + item.primarySchool.ToString());
+                // bool matchesASchool = false;
+
+                // foreach(WizardSchools schoolItem in _wizardSchools)
+                // {
+                //     if(item.School == schoolItem)
+                //     {
+                //         matchesASchool = true;
+                //         break;
+                //     }
+                // }
+
                 if(item.School == schoolItem)
                 {
-                    matchesASchool = true;
-                    break;
-                }
-            }
+                    GameObject temp = Instantiate(CheckButtonContainerSpellPrefab);
+                    CheckButtonContainer cbctemp = temp.GetComponent<CheckButtonContainer>();
+                    if(selectionHandlerMode == SelectionHandlerMode.single)
+                    {
+                        cbctemp.selectedItem.onValueChanged.AddListener(delegate {OnSelectSpellSingle(temp,SpellSelectionType.scriptable);});
+                    }
+                    else{
+                        cbctemp.selectedItem.onValueChanged.AddListener(delegate {OnToggleSelectSpell(cbctemp.selectedItem.isOn);});
+                    }
+                    // temp.GetComponent<Button>().onClick.AddListener(delegate {OnClickWizardSchoolButton(temp);});
+                    cbctemp.spellButton.GetComponent<Button>().onClick.AddListener(delegate {EnableAndFillDescriptionPopUp(cbctemp.spellButton.gameObject, SpellSelectionType.scriptable);});
+                    cbctemp.spellButton.LoadSpellInfo(item);
 
-            if(matchesASchool)
-            {
-                GameObject temp = Instantiate(CheckButtonContainerSpellPrefab);
-                CheckButtonContainer cbctemp = temp.GetComponent<CheckButtonContainer>();
-                if(selectionHandlerMode == SelectionHandlerMode.single)
-                {
-                    cbctemp.selectedItem.onValueChanged.AddListener(delegate {OnSelectSpellSingle(temp,SpellSelectionType.scriptable);});
+                    // Color32 incomingColor = GetColorBasedOnWizardSchool(item.School);
+                    // if(incomingColor.CompareRGB(lightGrey))
+                    // {
+                    //     cbctemp.spellButton.SpellNameText.color = Color.black;
+                    //     cbctemp.spellButton.CastingNumberText.color = Color.black;
+                    //     cbctemp.spellButton.GetComponent<Button>().image.color = incomingColor;
+                    // }
+                    // else{
+                    //     cbctemp.spellButton.SpellNameText.color = Color.white;
+                    //     cbctemp.spellButton.CastingNumberText.color = Color.white;
+                    //     cbctemp.spellButton.GetComponent<Button>().image.color = incomingColor;
+                    // }
+
+                    temp.transform.SetParent(scrollContainer.transform, false);
+                    // temp.transform.parent = scrollContainer.transform;
                 }
-                else{
-                    cbctemp.selectedItem.onValueChanged.AddListener(delegate {OnToggleSelectSpell(cbctemp.selectedItem.isOn);});
-                }
-                // temp.GetComponent<Button>().onClick.AddListener(delegate {OnClickWizardSchoolButton(temp);});
-                cbctemp.spellButton.GetComponent<Button>().onClick.AddListener(delegate {EnableAndFillDescriptionPopUp(cbctemp.spellButton.gameObject, SpellSelectionType.scriptable);});
-                cbctemp.spellButton.LoadSpellInfo(item);
-                temp.transform.SetParent(scrollContainer.transform, false);
-                // temp.transform.parent = scrollContainer.transform;
             }
         }
+        
     }
 
 

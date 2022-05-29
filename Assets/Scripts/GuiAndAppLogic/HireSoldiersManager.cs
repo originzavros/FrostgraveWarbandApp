@@ -18,6 +18,7 @@ public class HireSoldiersManager : MonoBehaviour
     [SerializeField] WarbandUIManager warbandUIManager;
     [SerializeField] TMP_Dropdown soldierTypeDropdown;
     [SerializeField] TextMeshProUGUI goldTrackerText;
+    [SerializeField] GameObject CoinAnimation;
 
 
 
@@ -174,6 +175,7 @@ public class HireSoldiersManager : MonoBehaviour
             ErrorPopup("Already Hired Apprentice");
         }
         else{
+            PlayCoinAnimation();
             CreateAndAttachSoliderContainer(hiredSoldier, currentSoldiersContent, false);
             currentHiredSoldierCount++;
             UpdateGoldAmount(-1 * hiredSoldier.cost);
@@ -185,7 +187,9 @@ public class HireSoldiersManager : MonoBehaviour
             {
                 apprenticeHired = true;
             }
+            
         }
+        
 
         
         
@@ -314,7 +318,11 @@ public class HireSoldiersManager : MonoBehaviour
     //     CheckRestrictions(rangeType: temp);
     // }
 
-
+    public void PlayCoinAnimation()
+    {
+        // CoinAnimation.GetComponent<Animation>().Play();
+        CoinAnimation.GetComponent<Animator>().SetTrigger("playOnce");
+    }
 
 
 

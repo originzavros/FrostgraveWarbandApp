@@ -62,6 +62,8 @@ public class LoadAssets : MonoBehaviour
         warbandNames = ES3.Load("warbandNames", new List<string>());
     }
 
+    
+
 
 
 }
