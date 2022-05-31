@@ -23,6 +23,7 @@ public class WizardBuilder : MonoBehaviour
     [SerializeField] WarbandInfoManager warbandInfoManager;
     [SerializeField] WizardSchoolScriptable randomSchoolPrefab;
     [SerializeField] GameObject infoPopup;
+    [SerializeField] GameObject errorPopup;
 
     [SerializeField][ReadOnly]
     int currentStep = 0;
@@ -86,6 +87,12 @@ public class WizardBuilder : MonoBehaviour
         else{
             BuilderToNextStep();
         } 
+    }
+
+    public void EnableErrorPopup(string popupText)
+    {
+        errorPopup.SetActive(true);
+        errorPopup.GetComponent<BasicPopup>().UpdatePopupText(popupText);
     }
 
     public void CreateRandomWizard()
@@ -168,6 +175,7 @@ public class WizardBuilder : MonoBehaviour
                 BuilderToNextStep();
             }
             else{
+                EnableErrorPopup("Please Select Enough Spells");
                 Debug.Log("didn't select enough");
             }
             
@@ -181,6 +189,7 @@ public class WizardBuilder : MonoBehaviour
                 BuilderToNextStep();
             }
             else{
+                EnableErrorPopup("Please Select Enough Spells");
                 Debug.Log("didn't select enough");
             }
         }
@@ -193,6 +202,7 @@ public class WizardBuilder : MonoBehaviour
                 BuilderToNextStep();
             }
             else{
+                EnableErrorPopup("Please Select Enough Spells");
                 Debug.Log("didn't select enough");
             }
         }
@@ -293,6 +303,8 @@ public class WizardBuilder : MonoBehaviour
 
         warbandInfoManager.Init(playerWarband);
         warbandInfoManager.SaveCurrentWarband();
+
+        WarbandInput.SetActive(false);
 
         navBox.OnClickNavHome();
     }

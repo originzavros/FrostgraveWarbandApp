@@ -10,6 +10,7 @@ public class ItemSlotSoldier : MonoBehaviour
     [SerializeField] GameObject addItemButton;
     [SerializeField] GameObject itemDescriptionButton;
     [SerializeField] GameObject removeItemButton;
+    [SerializeField] GameObject useItemButton;
 
     private MagicItemScriptable referenceItem;
     private bool isHoldingItem = false;
@@ -51,6 +52,11 @@ public class ItemSlotSoldier : MonoBehaviour
         removeItemButton.GetComponent<Button>().onClick.AddListener(call);
     }
 
+    public void SetUseItemEvent(UnityEngine.Events.UnityAction call)
+    {
+        useItemButton.GetComponent<Button>().onClick.AddListener(call);
+    }
+
     public void OnClickRemoveItem()
     {
         itemNameText.text = "Empty Item Slot";
@@ -58,6 +64,11 @@ public class ItemSlotSoldier : MonoBehaviour
         itemDescriptionButton.SetActive(false);
         addItemButton.SetActive(true);
         isHoldingItem = false;
+    }
+
+    public void OnClickUseItem()
+    {
+        useItemButton.GetComponent<Button>().interactable = false;
     }
 
     public MagicItemScriptable GetStoredItem()
@@ -73,10 +84,13 @@ public class ItemSlotSoldier : MonoBehaviour
     public void SetItemToPlaymode()
     {
         removeItemButton.SetActive(false);
+        useItemButton.SetActive(true);
+        itemDescriptionButton.SetActive(true);
     }
     public void SetItemToVaultMode()
     {
         removeItemButton.SetActive(true);
+        itemDescriptionButton.SetActive(true);
     }
 
     

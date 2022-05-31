@@ -103,7 +103,11 @@ public class NavBox : MonoBehaviour
 
         if(currentLocation == AppFragment.WarbandManagerCategory)
         {
-            
+            GoToWarbandManagerMain();
+        }
+        if(currentLocation == AppFragment.WarbandManagerMain)
+        {
+            GoToWarbandManager();
         }
     }
 
@@ -114,9 +118,24 @@ public class NavBox : MonoBehaviour
         {
             string hometext = "Frostgrave is owned by Joseph A. McCullough and Published by Osprey Games.\n";
             hometext += "Please support Frostgrave by purchasing the books.\n";
-            hometext += "This app is provided for free by me OriginZavros. If you would like to support me, Donate!\n";
+            hometext += "This app is provided for free. If you would like to support me, paypal.me/NicholasAlaniz\n";
             hometext += "\n";
-            hometext += "Use the wizard builder to set up your first wizard. Then go to the warband manager to hire soldiers inlcuding an Apprentice\n";
+            hometext += "Use the wizard builder to set up your first wizard. Then go to the warband manager to hire soldiers including an Apprentice\n";
+            infoPopup.UpdatePopupText(hometext);
+        }
+        else if(currentLocation == AppFragment.SpellReference)
+        {
+            
+        }
+        else if(currentLocation == AppFragment.WizardBuilder)
+        {
+            
+        }
+        else if(currentLocation == AppFragment.WarbandManagerMain)
+        {
+            string hometext = "Use Hire soldiers to manage who is in your warband, remember to unequip any items attached to them using the vault.\n";
+            hometext += "Shop/Vault lets you buy items and equip your soldiers with items. To finalize changes go to save/settings tab and save changes button\n";
+            hometext += "Playgame will start a game with new game button. Ending game leads to post game.\n";
             infoPopup.UpdatePopupText(hometext);
         }
     }

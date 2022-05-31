@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Sirenix.OdinInspector;
+using System.Linq;
 
 public class PlayModeManager : MonoBehaviour
 {
@@ -48,6 +49,7 @@ public class PlayModeManager : MonoBehaviour
     private int spellsPassed = 0;
     private int spellsFailed = 0;
     private int treasuresCaptured = 0;
+    private List<ItemRemove> itemsToRemove = new List<ItemRemove>();
 
     public void Init()
     {
@@ -90,6 +92,7 @@ public class PlayModeManager : MonoBehaviour
         ClearContent(wizardViewContents);
         ClearContent(warbandViewContents);
         ClearContent(monsterViewContents);
+        itemsToRemove.Clear();
         currentGameWarband = warbandInfoManager.GetCurrentlyLoadedWarband();
         NewGameSetup(currentGameWarband);
         newGameButton.GetComponent<Button>().interactable = false;
@@ -161,6 +164,10 @@ public class PlayModeManager : MonoBehaviour
         //     currentGameWarband.warbandSoldiers.Add(rsd);
         // }
         // currentGameWarband.warbandWizard.playerWizardProfile = wizardViewContents.GetComponentInChildren<PlaymodeWindow>().GetStoredSoldier();
+
+        RemoveItemsFromSoldiers();
+        itemsToRemove.Clear();
+
         warbandInfoManager.SaveCurrentWarband();
 
         spellsPassed = FindAndRetrieveInfoFromModPanel("Spells Passed", wizardViewContents);
@@ -281,6 +288,7 @@ public class PlayModeManager : MonoBehaviour
                 ItemSlotSoldier iss = newItemSlot.GetComponent<ItemSlotSoldier>();
                 iss.SetItemDescriptionButtonEvent(delegate { AddItemInfoToItemPopup(item);});
                 iss.SetItem(item);
+                iss.SetUseItemEvent(delegate {UseItemEvent(item, iss, incoming);});
                 iss.SetItemToPlaymode();
                 csw.AddItemToContents(newItemSlot);
             }
@@ -411,6 +419,35 @@ public class PlayModeManager : MonoBehaviour
         itemDescriptionPopup.GetComponent<ItemDescriptionPopup>().Init(itemScriptable);
     }
 
+    public void UseItemEvent(MagicItemScriptable _item, ItemSlotSoldier iss, RuntimeSoldierData rsd)
+    {
+        if(_item.itemType == MagicItemType.Scroll || _item.itemType == MagicItemType.LesserPotion || _item.itemType == MagicItemType.GreaterPotion)
+        {
+            // Destroy(iss.gameObject);
+            // var match = rsd.soldierInventory.FirstOrDefault(x => x.itemName == _item.itemName);
+            // if(match != null)
+            // {
+            //     rsd.soldierInventory.Remove(match);
+            // }
+            ItemRemove temp = new ItemRemove();
+            temp.soldier = rsd;
+            temp.item = _item;
+            itemsToRemove.Add(temp);
+        }
+    }
+
+    public void RemoveItemsFromSoldiers()
+    {
+        foreach(var remove in itemsToRemove)
+        {
+            var match = remove.soldier.soldierInventory.FirstOrDefault(x => x.itemName == remove.item.itemName);
+            if(match != null)
+            {
+                remove.soldier.soldierInventory.Remove(match);
+            }
+        }
+    }
+
     public int FindAndRetrieveInfoFromModPanel(string panelName, GameObject parentObject)
     {
         foreach(Transform item in parentObject.transform)
@@ -421,6 +458,11 @@ public class PlayModeManager : MonoBehaviour
             }
         }
         return -1;
+    }
+
+    public struct ItemRemove{
+        public RuntimeSoldierData soldier;
+        public MagicItemScriptable item;
     }
 
 }
