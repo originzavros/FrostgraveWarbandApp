@@ -22,7 +22,7 @@ public class CustomItemPopup : MonoBehaviour
             itemDescriptionInput.text = "Custom Item Description";
         }
 
-        shopVaultManager.AddCustomItem(itemNameInput.text, itemDescriptionInput.text);
+        // shopVaultManager.AddCustomItem(itemNameInput.text, itemDescriptionInput.text);
     }
 
 }

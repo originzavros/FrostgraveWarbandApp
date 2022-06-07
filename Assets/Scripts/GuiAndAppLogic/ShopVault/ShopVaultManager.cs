@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using Sirenix.OdinInspector;
 using UnityEngine.UI;
-using UnityEditor;
+// using UnityEditor;
 
 public class ShopVaultManager : MonoBehaviour
 {
@@ -476,15 +476,15 @@ public class ShopVaultManager : MonoBehaviour
         warbandInfoManager.SaveCurrentWarband();
     }
 
-    public void AddCustomItem(string itemName, string itemDescription)
-    {
-        MagicItemScriptable tempItem = ScriptableObject.CreateInstance<MagicItemScriptable>();
-        tempItem.itemName = itemName;
-        tempItem.itemDescription = itemDescription;
-        tempItem.itemType = MagicItemType.Custom;
-        AssetDatabase.CreateAsset(tempItem, $"Assets/Resources/ItemScriptables/{tempItem.itemName}.asset");
+    // public void AddCustomItem(string itemName, string itemDescription)
+    // {
+    //     MagicItemScriptable tempItem = ScriptableObject.CreateInstance<MagicItemScriptable>();
+    //     tempItem.itemName = itemName;
+    //     tempItem.itemDescription = itemDescription;
+    //     tempItem.itemType = MagicItemType.Custom;
+    //     AssetDatabase.CreateAsset(tempItem, $"Assets/Resources/ItemScriptables/{tempItem.itemName}.asset");
         
-        currentWarband.warbandVault.Add(tempItem);
-    }
+    //     currentWarband.warbandVault.Add(tempItem);
+    // }
 
 }
