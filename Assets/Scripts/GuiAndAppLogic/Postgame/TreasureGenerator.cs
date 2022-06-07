@@ -136,6 +136,20 @@ public class TreasureGenerator : MonoBehaviour
         }
     }
 
+    public RuntimeTreasure GetRandomScroll()
+    {
+        RuntimeTreasure generatedTreasure = new RuntimeTreasure();
+        generatedTreasure.items.Add(GetTreasureBasedOnType(MagicItemType.Scroll));
+        return generatedTreasure;
+    }
+
+    public RuntimeTreasure GetRandomGrimoire()
+    {
+        RuntimeTreasure generatedTreasure = new RuntimeTreasure();
+        generatedTreasure.items.Add(GetTreasureBasedOnType(MagicItemType.Grimoire));
+        return generatedTreasure;
+    }
+
 }
 
 //meant to temporarily hold treasure, its a mono so we can attach it to gui stuff temporarily for reference
@@ -144,3 +158,5 @@ public class RuntimeTreasure : MonoBehaviour
     public List<MagicItemScriptable> items = new List<MagicItemScriptable>();
     public int goldAmount = 0;
 }
+
+

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Library
+  m_EditorClassIdentifier: 
+  itemName: Library
+  itemDescription: "This is one of the many libraries scattered throughout the city.
+    The volumes contained within this one have fallen to the ravages of weather and
+    time. A few valuable texts have survived, however. After each game the warband
+    may roll one die. On a 15\u201318, they find a random scroll. On a 19\u201320
+    they discover a random grimoire."
+  itemPurchasePrice: 0
+  itemSalePrice: 0
+  itemBook: 0
+  itemType: 7

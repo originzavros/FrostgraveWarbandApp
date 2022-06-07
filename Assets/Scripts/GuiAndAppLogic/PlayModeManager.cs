@@ -41,6 +41,7 @@ public class PlayModeManager : MonoBehaviour
     [BoxGroup("Prefabs")][SerializeField] GameObject monsterKeywordButtonPrefab;
     [BoxGroup("Prefabs")][SerializeField] GameObject modNumberPanelPrefab;
     [BoxGroup("Prefabs")][SerializeField] GameObject injuryKeywordButtonPrefab;
+    [BoxGroup("Prefabs")][SerializeField] SoldierScriptable warhoundPrefab;
 
 
     private PlayerWarband currentGameWarband;
@@ -200,6 +201,16 @@ public class PlayModeManager : MonoBehaviour
         foreach(var item in currentGameWarband.warbandSoldiers)
         {
             CreateAndAttachPlaymodeSoldierContainer(item, warbandViewContents);    
+        }
+        foreach(var item in currentGameWarband.warbandVault)
+        {
+            if(item.itemName == "Kennel")
+            {
+                RuntimeSoldierData doggo = new RuntimeSoldierData();
+                doggo.Init(warhoundPrefab);
+                doggo.soldierName = "Kennel Hound";
+                CreateAndAttachPlaymodeSoldierContainer(doggo, warbandViewContents);
+            }
         }
     }
 

@@ -56,6 +56,8 @@ public class PostGameManager : MonoBehaviour
     [BoxGroup("prefabs")][SerializeField] GameObject treasureSelectWindowPrefab;
     [BoxGroup("prefabs")][SerializeField] GameObject infoDisplayElementPrefab;
     [BoxGroup("prefabs")][SerializeField] MagicItemScriptable craftedScrollForWriteScrollPrefab;
+    [BoxGroup("prefabs")][SerializeField] MagicItemScriptable healingPotionPrefab;
+
 
     [SerializeField] TreasureGenerator treasureGenerator;
     [SerializeField] WarbandUIManager warbandUIManager;
@@ -485,12 +487,17 @@ public class PostGameManager : MonoBehaviour
 
     public void MiraculousCureEvent(WizardRuntimeSpell spell)
     {
+        bool hasTemple = false;
+        foreach(var item in currentWarband.warbandVault)
+        {
+            if(item.itemName == "Temple"){hasTemple = true;}
+        }
         RuntimeSoldierData rsd = currentlySelectedSoldier.GetStoredSoldier();
         if(rsd.soldierType == "Wizard" || rsd.soldierType == "Apprentice")
         {
             if(rsd.status == SoldierStatus.dead || rsd.status == SoldierStatus.preserved)
             {
-                if(SpellRoller.MakeRollForSpell(spell, -4))
+                if(SpellRoller.MakeRollForSpell(spell, (hasTemple ? -1 : -4)))
                 {
                     rsd.status = SoldierStatus.ready;
                     string output = rsd.soldierName + " has been brought back to life";
@@ -508,7 +515,7 @@ public class PostGameManager : MonoBehaviour
             else{
                 if(rsd.status == SoldierStatus.injured)
                 {
-                    if(SpellRoller.MakeRollForSpell(spell))
+                    if(SpellRoller.MakeRollForSpell(spell, (hasTemple ? 3 : 0)))
                     {
                         rsd.status = SoldierStatus.ready;
                         string output = rsd.soldierName + " has recovered from their current injury";
@@ -523,7 +530,7 @@ public class PostGameManager : MonoBehaviour
                     }
                 }
                 else{
-                    if(SpellRoller.MakeRollForSpell(spell))
+                    if(SpellRoller.MakeRollForSpell(spell, (hasTemple ? 3 : 0)))
                     {
                         string output = rsd.soldierName + " has recovered from their last injury";
                         // string fullDisplay = rsd.soldierName + " | " + "<color=green>Full Recovery</color>";
@@ -548,7 +555,7 @@ public class PostGameManager : MonoBehaviour
             //its a dead soldier
             if(rsd.status == SoldierStatus.dead || rsd.status == SoldierStatus.preserved)
             {
-                if(SpellRoller.MakeRollForSpell(spell, -4))
+                if(SpellRoller.MakeRollForSpell(spell, (hasTemple ? -1 : -4)))
                 {
                     rsd.status = SoldierStatus.ready;
                     string output = rsd.soldierName + " has been brought back to life";
@@ -760,8 +767,10 @@ public class PostGameManager : MonoBehaviour
             mainScroll.SetActive(false);
             treasureFinalizerPanel.SetActive(true);
             RollForPostgameSpells();
+            RollForPostgameBaseResources();
         }
         else{
+            treasureFinalizerPanel.SetActive(false);
             warbandUIManager.SaveWarbandChanges();
             warbandUIManager.BackToWarbandMain();
         }
@@ -1282,8 +1291,105 @@ public class PostGameManager : MonoBehaviour
 
     public void RollForPostgameBaseResources()
     {
+        int baseCount = 0;
+        foreach(var item in currentWarband.warbandVault)
+        {
+            if(item.itemType == MagicItemType.Base)
+            {
+                baseCount++;
+                if(item.itemName == "Treasury")
+                {
+                    int treausuryRoll = SpellRoller.RollDice();
+                    if(treausuryRoll > 1 && treausuryRoll < 17)
+                    {
+                        currentWarband.warbandGold += treausuryRoll;
+                        CreateDisplayElementAndAttach("Gained from Treasury: " + treausuryRoll + " gold.", treasureFinalizerPanelContents);
+                    }
+                    else if(treausuryRoll > 16 && treausuryRoll < 19)
+                    {
+                        int total = treausuryRoll + 100;
+                        currentWarband.warbandGold += total;
+                        CreateDisplayElementAndAttach("Gained from Treasury: " + total  + " gold.", treasureFinalizerPanelContents);
+                    }
+                    else if(treausuryRoll > 18){
+                        CreateDisplayElementAndAttach("Gained treasure from Treasury!", treasureFinalizerPanelContents);
+                        GetSingleTreasure();
+                    }
+                    else{
+                        CreateDisplayElementAndAttach("Didn't find anything in treasury :(", treasureFinalizerPanelContents);
+                    }
+                }
+                else if(item.itemName == "Library")
+                {
+                    int libraryRoll = SpellRoller.RollDice();
+                    if(libraryRoll < 15)
+                    {
+                        CreateDisplayElementAndAttach("Didn't find anything in Library :(", treasureFinalizerPanelContents);
+                    }
+                    else if(libraryRoll > 14 && libraryRoll < 19)
+                    {
+                        CreateDisplayElementAndAttach("Found a scroll in Library!", treasureFinalizerPanelContents);
+                        RuntimeTreasure temp = treasureGenerator.GetRandomScroll();
+                        AddSingleDisplayTreasure(temp);
+                    }
+                    else if(libraryRoll > 18)
+                    {
+                        CreateDisplayElementAndAttach("Found a Grimoire in Library!", treasureFinalizerPanelContents);
+                        RuntimeTreasure temp = treasureGenerator.GetRandomGrimoire();
+                        AddSingleDisplayTreasure(temp);
+                    }
+                }
+                else if(item.itemName == "Laboratory")
+                {
+                    currentWarband.warbandWizard.playerWizardExperience += 20;
+                    CreateDisplayElementAndAttach("Wizard gained 20xp for Laboratory!", treasureFinalizerPanelContents);
+                }
+                else if(item.itemName == "Temple")
+                {
+                    int templeRoll = SpellRoller.RollDice();
+                    if(templeRoll > 15)
+                    {
+                        currentWarband.warbandVault.Add(healingPotionPrefab);
+                        CreateDisplayElementAndAttach("Found a Healing Potion in Temple!", treasureFinalizerPanelContents);
+                    }
+                    else{
+                        CreateDisplayElementAndAttach("Found nothing in Temple!", treasureFinalizerPanelContents);
+                    }
+                }
+                else if(item.itemName == "Brewery")
+                {
+                    currentWarband.warbandGold += 20;
+                    CreateDisplayElementAndAttach("Gained 20 gold for Brewery!", treasureFinalizerPanelContents);
+                }
 
-        
+            }
+        }
+
+        if(baseCount < 1)
+        {
+            CreateDisplayElementAndAttach("No Base effects.", treasureFinalizerPanelContents);
+        }
+    }
+
+    private void GetSingleTreasure()
+    {
+        GameObject temp = Instantiate(treasureSelectWindowPrefab);
+        RuntimeTreasure tempTreasure = treasureGenerator.GenerateTreasureCoreBook();
+        TreasureSelectWindow selectWindow = temp.GetComponent<TreasureSelectWindow>();
+        selectWindow.Init(name, this);
+        selectWindow.AddItemGroup("Treasury Treasure", tempTreasure, TreasureSelectGroupType.normal);
+            
+        temp.transform.SetParent(treasureFinalizerPanelContents.transform);
+    }
+
+    private void AddSingleDisplayTreasure(RuntimeTreasure rt)
+    {
+        GameObject temp = Instantiate(treasureSelectWindowPrefab);
+        TreasureSelectWindow selectWindow = temp.GetComponent<TreasureSelectWindow>();
+        selectWindow.Init(name, this);
+        selectWindow.AddItemGroup("Library Treasure", rt, TreasureSelectGroupType.normal);
+            
+        temp.transform.SetParent(treasureFinalizerPanelContents.transform);
     }
     // private void EnableWriteScrollSelection(int selectTotal)
     // {

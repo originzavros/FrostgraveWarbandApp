@@ -11,6 +11,7 @@ public class SpellButton : MonoBehaviour
 
     public SpellScriptable referenceScriptable;
     public WizardRuntimeSpell referenceRuntimeSpell;
+    
 
     public void LoadSpellInfo(SpellScriptable _spell)
     {

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Treasury
+  m_EditorClassIdentifier: 
+  itemName: Treasury
+  itemDescription: "This treasury has remained relatively untouched and many of its
+    vaults are still sealed. After each game, the warband may attempt to open a vault.
+    Roll one die. If the result is 2\u201316 add that many gold crowns to the warband\u2019s
+    treasury. If a 17\u201318 is rolled, add 100gc to that number. If a 19\u201320
+    is rolled, the warband finds a treasure \u2013 determine the nature of this treasure
+    in the same way as rolling for a treasure token secured during a game."
+  itemPurchasePrice: 0
+  itemSalePrice: 0
+  itemBook: 0
+  itemType: 7

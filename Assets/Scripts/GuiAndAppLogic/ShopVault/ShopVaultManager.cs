@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using Sirenix.OdinInspector;
 using UnityEngine.UI;
+using UnityEditor;
 
 public class ShopVaultManager : MonoBehaviour
 {
@@ -27,6 +28,7 @@ public class ShopVaultManager : MonoBehaviour
     [BoxGroup("Popups")][SerializeField] ItemDescriptionPopup itemDescriptionPopup;
     [BoxGroup("Popups")][SerializeField] GameObject errorPopupContainer;
     [BoxGroup("Popups")][SerializeField] GameObject itemSelectPopup;
+    [BoxGroup("Popups")][SerializeField] GameObject customItemPopup;
 
     [BoxGroup("Prefabs")] [SerializeField] GameObject buySellButtonContainerPrefab;
     [BoxGroup("Prefabs")] [SerializeField] GameObject itemSlotPrefab;
@@ -180,17 +182,37 @@ public class ShopVaultManager : MonoBehaviour
             }
         }
         else if(shopType == "BaseResources"){
-            
-        }
-        else if(shopType == "Black Market"){
-            for(int i = 0; i < 4; i++)
+            foreach(var item in LoadAssets.allMagicItemObjects)
             {
-                MagicItemScriptable randomItem = LoadAssets.allMagicItemObjects[Random.Range(0,LoadAssets.allMagicItemObjects.Length)];
-                if(randomItem.itemPurchasePrice > 0)
+                if(item.itemType == MagicItemType.Base || item.itemType == MagicItemType.BaseResource)
                 {
-                    InstanceItemContainerAndAttach(randomItem, shopBuyContents, ItemContainerMode.buy);
+                    InstanceItemContainerAndAttach(item, shopBuyContents, ItemContainerMode.buy);
                 }
             }
+        }
+        else if(shopType == "Black Market"){
+            int totalItemsFound = 0;
+            while(totalItemsFound < 4)
+            {
+                bool usableItem = true;
+                MagicItemScriptable randomItem = LoadAssets.allMagicItemObjects[Random.Range(0,LoadAssets.allMagicItemObjects.Length)];
+                if(randomItem.itemPurchasePrice < 1){usableItem = false;}
+                if(randomItem.itemType == MagicItemType.Base || randomItem.itemType == MagicItemType.BaseResource){ usableItem = false;}
+                if(randomItem.itemName == "Crafted Scroll"){usableItem = false;}
+                if(usableItem)
+                {
+                    InstanceItemContainerAndAttach(randomItem, shopBuyContents, ItemContainerMode.buy);
+                    totalItemsFound++;
+                }
+            }
+            // for(int i = 0; i < 4; i++)
+            // {
+            //     MagicItemScriptable randomItem = LoadAssets.allMagicItemObjects[Random.Range(0,LoadAssets.allMagicItemObjects.Length)];
+            //     if(randomItem.itemPurchasePrice > 0 && randomItem.MagicItemType != MagicItemType.Base && randomItem.MagicItemType != MagicItemType.BaseResource)
+            //     {
+            //         InstanceItemContainerAndAttach(randomItem, shopBuyContents, ItemContainerMode.buy);
+            //     }
+            // }
         }
 
         shopBuyPanel.gameObject.SetActive(true);
@@ -330,11 +352,15 @@ public class ShopVaultManager : MonoBehaviour
     }
     public void OnClickBaseResourcesShop()
     {
-
+        FillShopBuyWithItems("BaseResources");
     }
     public void OnClickBlackMarketShop()
     {
         FillShopBuyWithItems("Black Market");
+    }
+    public void OnClickCustomItemShop()
+    {
+        customItemPopup.SetActive(true);
     }
     #endregion
 
@@ -371,6 +397,18 @@ public class ShopVaultManager : MonoBehaviour
 
     private void BuyItem(SoldierHireWindow shw)
     {
+        if(shw.GetComponentInChildren<ItemButton>().GetItemReference().itemType == MagicItemType.Base)
+        {
+            foreach(var item in currentWarband.warbandVault)
+            {
+                if(item.itemType == MagicItemType.Base)
+                {
+                    ErrorPopup("Already Own a Base, Sell it to get a new one");
+                    return;
+                }
+            }
+        }
+
         if(CheckIfPurchaseable(shw.GetComponentInChildren<ItemButton>().GetItemReference().itemPurchasePrice))
         {
             // InstanceItemContainerAndAttach(shw.GetComponentInChildren<ItemButton>().GetItemReference(), vaultContents, ItemContainerMode.sell);
@@ -436,6 +474,17 @@ public class ShopVaultManager : MonoBehaviour
         //     }
         // }
         warbandInfoManager.SaveCurrentWarband();
+    }
+
+    public void AddCustomItem(string itemName, string itemDescription)
+    {
+        MagicItemScriptable tempItem = ScriptableObject.CreateInstance<MagicItemScriptable>();
+        tempItem.itemName = itemName;
+        tempItem.itemDescription = itemDescription;
+        tempItem.itemType = MagicItemType.Custom;
+        AssetDatabase.CreateAsset(tempItem, $"Assets/Resources/ItemScriptables/{tempItem.itemName}.asset");
+        
+        currentWarband.warbandVault.Add(tempItem);
     }
 
 }

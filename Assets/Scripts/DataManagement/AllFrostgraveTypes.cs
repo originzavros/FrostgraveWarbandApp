@@ -52,7 +52,10 @@ public enum MagicItemType{
     Artifact,
     Grimoire,
     Scroll,
-    BasicEquipment
+    BasicEquipment,
+    Base,
+    BaseResource,
+    Custom
 }
 
 
