@@ -31,7 +31,7 @@ public class TreasureSelectWindow : MonoBehaviour
         postGameManager = postGameManagerReference;
     }
 
-    private void AddItem(MagicItemScriptable itemScriptable, string groupName)
+    private void AddItem(MagicItemRuntime itemScriptable, string groupName)
     {
         GameObject temp = Instantiate(itemButtonPrefab);
         temp.GetComponent<ItemButton>().Init(itemScriptable);
@@ -99,9 +99,9 @@ public class TreasureSelectWindow : MonoBehaviour
         } 
     }
 
-    public List<MagicItemScriptable> GetEachItemInGroup(string groupName)
+    public List<MagicItemRuntime> GetEachItemInGroup(string groupName)
     {
-        List<MagicItemScriptable> temp = new List<MagicItemScriptable>();
+        List<MagicItemRuntime> temp = new List<MagicItemRuntime>();
         foreach(Transform child in bodyContents.transform)
         {
             if(child.name == groupName)
@@ -195,7 +195,7 @@ public class TreasureSelectWindow : MonoBehaviour
         
     }
 
-    public void InternalPopupCall(MagicItemScriptable magicItem)
+    public void InternalPopupCall(MagicItemRuntime magicItem)
     {
         postGameManager.ItemDescriptionPopupEvent(magicItem);
     }

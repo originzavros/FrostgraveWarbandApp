@@ -12,7 +12,7 @@ public class ItemSlotSoldier : MonoBehaviour
     [SerializeField] GameObject removeItemButton;
     [SerializeField] GameObject useItemButton;
 
-    private MagicItemScriptable referenceItem;
+    private MagicItemRuntime referenceItem;
     private bool isHoldingItem = false;
 
     public void Init()
@@ -27,7 +27,7 @@ public class ItemSlotSoldier : MonoBehaviour
         removeItemButton.SetActive(true);
     }
 
-    public void SetItem(MagicItemScriptable item)
+    public void SetItem(MagicItemRuntime item)
     {
         referenceItem = item;
         itemNameText.text = referenceItem.itemName;
@@ -71,7 +71,7 @@ public class ItemSlotSoldier : MonoBehaviour
         useItemButton.GetComponent<Button>().interactable = false;
     }
 
-    public MagicItemScriptable GetStoredItem()
+    public MagicItemRuntime GetStoredItem()
     {
         return referenceItem;
     }

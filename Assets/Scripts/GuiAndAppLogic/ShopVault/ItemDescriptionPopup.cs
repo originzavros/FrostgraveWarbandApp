@@ -8,7 +8,7 @@ public class ItemDescriptionPopup : MonoBehaviour
     [SerializeField] TextMeshProUGUI itemNameText;
     [SerializeField] TextMeshProUGUI itemDescriptionText;
 
-    public void Init(MagicItemScriptable item)
+    public void Init(MagicItemRuntime item)
     {
         itemNameText.text = item.itemName;
         itemDescriptionText.text = item.itemDescription;

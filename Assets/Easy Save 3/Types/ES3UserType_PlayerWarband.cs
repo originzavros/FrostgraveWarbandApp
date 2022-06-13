@@ -52,7 +52,7 @@ namespace ES3Types
 						instance.warbandMaxSoldiers = reader.Read<System.Int32>(ES3Type_int.Instance);
 						break;
 					case "warbandVault":
-						instance.warbandVault = reader.Read<System.Collections.Generic.List<MagicItemScriptable>>();
+						instance.warbandVault = reader.Read<System.Collections.Generic.List<MagicItemRuntime>>();
 						break;
 					default:
 						reader.Skip();

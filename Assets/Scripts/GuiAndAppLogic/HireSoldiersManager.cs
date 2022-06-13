@@ -27,6 +27,7 @@ public class HireSoldiersManager : MonoBehaviour
     private int currentHiredSpecialistsSoldierCount;
     private int currentHiredSoldierCount;
     private bool apprenticeHired;
+    private bool hasCarrierPigeons = false;
     public void Init(PlayerWarband playerWarband)
     {
         currentHiredSpecialistsSoldierCount = 0;
@@ -59,6 +60,12 @@ public class HireSoldiersManager : MonoBehaviour
                 }
             }
         }
+
+        hasCarrierPigeons = false;
+        foreach(var item in playerWarband.warbandVault)
+        {
+            if(item.itemName == "Carrier Pigeons"){ hasCarrierPigeons = true;}
+        }
         
 
         //init hiring soldiers
@@ -86,7 +93,7 @@ public class HireSoldiersManager : MonoBehaviour
             else{
                 RuntimeSoldierData newSoldier = new RuntimeSoldierData();
                 newSoldier.Init(item);
-                CreateAndAttachSoliderContainer(newSoldier, soldierHiringContent);
+                CreateAndAttachSoliderContainer(newSoldier, soldierHiringContent, hiringCostMod: (hasCarrierPigeons ? -10:0));
             }
             
             // CreateAndAttachCollapsableWindow(item, soldierHiringContent);
@@ -121,13 +128,13 @@ public class HireSoldiersManager : MonoBehaviour
     //     temp.transform.SetParent(attachedTo.transform);
     // }
 
-    private void CreateAndAttachSoliderContainer(RuntimeSoldierData incoming, GameObject attachedTo, bool hireMode = true)
+    private void CreateAndAttachSoliderContainer(RuntimeSoldierData incoming, GameObject attachedTo, bool hireMode = true, int hiringCostMod = 0)
     {
         // RuntimeSoldierData newsoldier = new RuntimeSoldierData();
         // newsoldier.Init(incoming);
         GameObject temp = Instantiate(soldierHiringContainerPrefab);
         SoldierInfoWindow csw = temp.GetComponentInChildren<SoldierInfoWindow>();
-        csw.UpdatePanelInfo(incoming);
+        csw.UpdatePanelInfo(incoming,hiringCostMod);
 
         SoldierHireWindow shw = temp.GetComponent<SoldierHireWindow>();
         if(hireMode)
@@ -158,7 +165,8 @@ public class HireSoldiersManager : MonoBehaviour
 
         RuntimeSoldierData hiredSoldier = siw.GetStoredSoldier();
         hiredSoldier.soldierName = hiredSoldier.hiringName; //give them a default name
-        if(hiredSoldier.cost > currentGoldTotal)
+        int realSoldierCost = hiredSoldier.cost + (hasCarrierPigeons ? -10:0);
+        if(realSoldierCost > currentGoldTotal)
         {
             ErrorPopup("Not enough gold to hire soldier!");
         }
@@ -178,7 +186,8 @@ public class HireSoldiersManager : MonoBehaviour
             PlayCoinAnimation();
             CreateAndAttachSoliderContainer(hiredSoldier, currentSoldiersContent, false);
             currentHiredSoldierCount++;
-            UpdateGoldAmount(-1 * hiredSoldier.cost);
+            if(realSoldierCost < 0){ realSoldierCost = 0;}
+            UpdateGoldAmount(-1 * realSoldierCost);
             if(hiredSoldier.soldierType == "Specialist")
             {
                 currentHiredSpecialistsSoldierCount++;

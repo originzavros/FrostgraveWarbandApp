@@ -27,7 +27,7 @@ public class SoldierScriptable : ScriptableObject
         description = ss.description;
         bookEdition = ss.bookEdition;
         baseSoldierEquipment = ss.baseSoldierEquipment;
-        soldierInventory = ss.soldierInventory;
+        // soldierInventory = ss.soldierInventory;
         status = ss.status;
     }
     public string soldierName;

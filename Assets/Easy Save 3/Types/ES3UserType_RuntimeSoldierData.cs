@@ -93,7 +93,7 @@ namespace ES3Types
 						instance.baseSoldierEquipment = reader.Read<System.Collections.Generic.List<EquipmentScriptable>>();
 						break;
 					case "soldierInventory":
-						instance.soldierInventory = reader.Read<System.Collections.Generic.List<MagicItemScriptable>>();
+						instance.soldierInventory = reader.Read<System.Collections.Generic.List<MagicItemRuntime>>();
 						break;
 					case "soldierPermanentInjuries":
 						instance.soldierPermanentInjuries = reader.Read<System.Collections.Generic.List<InjuryScriptable>>();

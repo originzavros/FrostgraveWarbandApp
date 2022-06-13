@@ -12,7 +12,7 @@ public class PlayerWarband
         warbandGold = 400;
         warbandMaxSoldiers = 9;
         warbandSoldiers = new List<RuntimeSoldierData>();
-        warbandVault = new List<MagicItemScriptable>();
+        warbandVault = new List<MagicItemRuntime>();
         warbandBonusSoldiers = new List<RuntimeSoldierData>();
     }
     public string warbandName;
@@ -25,5 +25,5 @@ public class PlayerWarband
     public int warbandGold;
     public int warbandMaxSoldiers;
 
-    public List<MagicItemScriptable> warbandVault;
+    public List<MagicItemRuntime> warbandVault;
 }

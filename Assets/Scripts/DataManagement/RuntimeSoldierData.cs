@@ -22,7 +22,7 @@ public class RuntimeSoldierData
         description = ss.description;
         bookEdition = ss.bookEdition;
         baseSoldierEquipment = ss.baseSoldierEquipment;
-        soldierInventory = ss.soldierInventory;
+        // soldierInventory = ss.soldierInventory;
         status = ss.status;
     }
 
@@ -43,6 +43,6 @@ public class RuntimeSoldierData
     public SoldierStatus status = SoldierStatus.ready;
     public FrostgraveBook bookEdition;
     public List<EquipmentScriptable> baseSoldierEquipment = new List<EquipmentScriptable>();
-    public List<MagicItemScriptable> soldierInventory = new List<MagicItemScriptable>();
+    public List<MagicItemRuntime> soldierInventory = new List<MagicItemRuntime>();
     public List<InjuryScriptable> soldierPermanentInjuries = new List<InjuryScriptable>();
 }

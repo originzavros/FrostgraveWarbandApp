@@ -9,14 +9,14 @@ public class ItemButton : MonoBehaviour
     [SerializeField] TextMeshProUGUI itemNameText;
     [SerializeField] TextMeshProUGUI itemCostText;
 
-    private MagicItemScriptable itemReference;
+    private MagicItemRuntime itemReference;
 
-    public MagicItemScriptable GetItemReference()
+    public MagicItemRuntime GetItemReference()
     {
         return itemReference;
     }
 
-    public void Init(MagicItemScriptable itemScriptable)
+    public void Init(MagicItemRuntime itemScriptable)
     {
         itemReference = itemScriptable;
         itemNameText.text = itemReference.itemName;

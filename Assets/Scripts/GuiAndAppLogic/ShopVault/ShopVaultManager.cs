@@ -139,7 +139,9 @@ public class ShopVaultManager : MonoBehaviour
                 {
                     if(item.itemPurchasePrice > 0) //filter out potions that you can only get as treasure/craft
                     {
-                        InstanceItemContainerAndAttach(item, shopBuyContents, ItemContainerMode.buy);
+                        MagicItemRuntime temp = new MagicItemRuntime();
+                        temp.Init(item);
+                        InstanceItemContainerAndAttach(temp, shopBuyContents, ItemContainerMode.buy);
                     }
                     
                 }
@@ -152,7 +154,9 @@ public class ShopVaultManager : MonoBehaviour
                 {
                     if(item.itemPurchasePrice > 0)
                     {
-                        InstanceItemContainerAndAttach(item, shopBuyContents, ItemContainerMode.buy);
+                        MagicItemRuntime temp = new MagicItemRuntime();
+                        temp.Init(item);
+                        InstanceItemContainerAndAttach(temp, shopBuyContents, ItemContainerMode.buy);
                     }
                 }
             }
@@ -164,7 +168,9 @@ public class ShopVaultManager : MonoBehaviour
                 {
                     if(item.itemPurchasePrice > 0)
                     {
-                        InstanceItemContainerAndAttach(item, shopBuyContents, ItemContainerMode.buy);
+                        MagicItemRuntime temp = new MagicItemRuntime();
+                        temp.Init(item);
+                        InstanceItemContainerAndAttach(temp, shopBuyContents, ItemContainerMode.buy);
                     }
                 }
             }
@@ -176,7 +182,9 @@ public class ShopVaultManager : MonoBehaviour
                 {
                     if(item.itemPurchasePrice > 0)
                     {
-                        InstanceItemContainerAndAttach(item, shopBuyContents, ItemContainerMode.buy);
+                        MagicItemRuntime temp = new MagicItemRuntime();
+                        temp.Init(item);
+                        InstanceItemContainerAndAttach(temp, shopBuyContents, ItemContainerMode.buy);
                     }
                 }
             }
@@ -186,7 +194,9 @@ public class ShopVaultManager : MonoBehaviour
             {
                 if(item.itemType == MagicItemType.Base || item.itemType == MagicItemType.BaseResource)
                 {
-                    InstanceItemContainerAndAttach(item, shopBuyContents, ItemContainerMode.buy);
+                    MagicItemRuntime temp = new MagicItemRuntime();
+                        temp.Init(item);
+                    InstanceItemContainerAndAttach(temp, shopBuyContents, ItemContainerMode.buy);
                 }
             }
         }
@@ -201,7 +211,9 @@ public class ShopVaultManager : MonoBehaviour
                 if(randomItem.itemName == "Crafted Scroll"){usableItem = false;}
                 if(usableItem)
                 {
-                    InstanceItemContainerAndAttach(randomItem, shopBuyContents, ItemContainerMode.buy);
+                    MagicItemRuntime temp = new MagicItemRuntime();
+                        temp.Init(randomItem);
+                    InstanceItemContainerAndAttach(temp, shopBuyContents, ItemContainerMode.buy);
                     totalItemsFound++;
                 }
             }
@@ -231,10 +243,12 @@ public class ShopVaultManager : MonoBehaviour
         }
     }
 
-    private void InstanceItemContainerAndAttach(MagicItemScriptable itemScriptable, GameObject parentWindow, ItemContainerMode buymode)
+    private void InstanceItemContainerAndAttach(MagicItemRuntime itemScriptable, GameObject parentWindow, ItemContainerMode buymode)
     {
         GameObject temp = Instantiate(buySellButtonContainerPrefab);
         ItemButton newItemButton =  temp.GetComponentInChildren<ItemButton>();
+        // MagicItemRuntime runtimeItem = new MagicItemRuntime();
+        // runtimeItem.Init(itemScriptable);
         newItemButton.Init(itemScriptable);
         newItemButton.SetButtonEvent(delegate {AddItemInfoToItemPopup(newItemButton.GetItemReference());});
 
@@ -249,7 +263,7 @@ public class ShopVaultManager : MonoBehaviour
         temp.transform.SetParent(parentWindow.transform);
     }
 
-    private void InstanceItemSelectButtonAndAttach(MagicItemScriptable itemScriptable, GameObject parentWindow)
+    private void InstanceItemSelectButtonAndAttach(MagicItemRuntime itemScriptable, GameObject parentWindow)
     {
         GameObject temp = Instantiate(itemButtonPrefab);
         ItemButton newItemButton =  temp.GetComponent<ItemButton>();
@@ -389,7 +403,7 @@ public class ShopVaultManager : MonoBehaviour
     {
         AddItemInfoToItemPopup(iss.GetStoredItem());
     }
-    public void AddItemInfoToItemPopup(MagicItemScriptable itemScriptable)
+    public void AddItemInfoToItemPopup(MagicItemRuntime itemScriptable)
     {
         itemDescriptionPopup.gameObject.SetActive(true);
         itemDescriptionPopup.GetComponent<ItemDescriptionPopup>().Init(itemScriptable);
@@ -442,7 +456,7 @@ public class ShopVaultManager : MonoBehaviour
         use
     }
 
-    private void RemoveItemFromPlayerVault(MagicItemScriptable itemScriptable)
+    private void RemoveItemFromPlayerVault(MagicItemRuntime itemScriptable)
     {
         foreach(var item in currentWarband.warbandVault)
         {
@@ -476,15 +490,14 @@ public class ShopVaultManager : MonoBehaviour
         warbandInfoManager.SaveCurrentWarband();
     }
 
-    // public void AddCustomItem(string itemName, string itemDescription)
-    // {
-    //     MagicItemScriptable tempItem = ScriptableObject.CreateInstance<MagicItemScriptable>();
-    //     tempItem.itemName = itemName;
-    //     tempItem.itemDescription = itemDescription;
-    //     tempItem.itemType = MagicItemType.Custom;
-    //     AssetDatabase.CreateAsset(tempItem, $"Assets/Resources/ItemScriptables/{tempItem.itemName}.asset");
-        
-    //     currentWarband.warbandVault.Add(tempItem);
-    // }
+    public void AddCustomItem(string itemName, string itemDescription)
+    {
+        MagicItemRuntime tempItem = new MagicItemRuntime();
+        tempItem.itemName = itemName;
+        tempItem.itemDescription = itemDescription;
+        tempItem.itemType = MagicItemType.Custom;
+        currentWarband.warbandVault.Add(tempItem);
+        customItemPopup.SetActive(false);
+    }
 
 }

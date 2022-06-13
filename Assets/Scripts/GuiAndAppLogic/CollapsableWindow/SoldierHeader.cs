@@ -9,10 +9,12 @@ public class SoldierHeader : MonoBehaviour
     [SerializeField] TextMeshProUGUI soldierType;
     [SerializeField] TextMeshProUGUI soldierCost;
 
-    public void UpdateInfo(RuntimeSoldierData soldier)
+    public void UpdateInfo(RuntimeSoldierData soldier, int hiringCostMod = 0)
     {
         soldierName.text = soldier.hiringName;
         soldierType.text = soldier.soldierType;
-        soldierCost.text = soldier.cost.ToString();
+        int moddedCost = soldier.cost + hiringCostMod;
+        if(moddedCost < 0){moddedCost = 0;}
+        soldierCost.text = moddedCost.ToString();
     }
 }

@@ -56,7 +56,7 @@ public class TreasureGenerator : MonoBehaviour
     public RuntimeTreasure GenerateTreasureCoreBook()
     {
         RuntimeTreasure generatedTreasure = new RuntimeTreasure();
-        List<MagicItemScriptable> temp = new List<MagicItemScriptable>();
+        List<MagicItemRuntime> temp = new List<MagicItemRuntime>();
         TreasureTableEntryScriptable randomEntry = GetRandomEntryInTreasureTable(MainTreasureTable);
         if(randomEntry.variableGold)
         {
@@ -93,9 +93,9 @@ public class TreasureGenerator : MonoBehaviour
         return table.treasureList[Random.Range(0, table.treasureList.Count)];
     }
 
-    private List<MagicItemScriptable> GenerateTreasuresFromTableEntry(TreasureTableEntryScriptable entry)
+    private List<MagicItemRuntime> GenerateTreasuresFromTableEntry(TreasureTableEntryScriptable entry)
     {
-        List<MagicItemScriptable> temp = new List<MagicItemScriptable>();
+        List<MagicItemRuntime> temp = new List<MagicItemRuntime>();
         foreach(var item in entry.entryList)
         {
             temp.Add(GetTreasureBasedOnType(item));
@@ -103,37 +103,38 @@ public class TreasureGenerator : MonoBehaviour
         return temp;
     }
 
-    private MagicItemScriptable GetTreasureBasedOnType(MagicItemType itemType)
+    private MagicItemRuntime GetTreasureBasedOnType(MagicItemType itemType)
     {
-        
+        MagicItemRuntime treasureItem = new MagicItemRuntime();
         if(itemType == MagicItemType.LesserPotion)
         {
-            return allLesserPotionsCoreBook[Random.Range(0, allLesserPotionsCoreBook.Count)];
+            treasureItem.Init(allLesserPotionsCoreBook[Random.Range(0, allLesserPotionsCoreBook.Count)]);
         }
         else if(itemType == MagicItemType.GreaterPotion)
         {
-            return allGreaterPotionsCoreBook[Random.Range(0, allGreaterPotionsCoreBook.Count)];
+            treasureItem.Init(allGreaterPotionsCoreBook[Random.Range(0, allGreaterPotionsCoreBook.Count)]);
         }
         else if(itemType == MagicItemType.MagicEquipment)
         {
-            return allMagicEquipmentCoreBook[Random.Range(0, allMagicEquipmentCoreBook.Count)];
+            treasureItem.Init(allMagicEquipmentCoreBook[Random.Range(0, allMagicEquipmentCoreBook.Count)]);
         }
         else if(itemType == MagicItemType.Artifact)
         {
-            return allArtifactsCoreBook[Random.Range(0, allArtifactsCoreBook.Count)];
+            treasureItem.Init(allArtifactsCoreBook[Random.Range(0, allArtifactsCoreBook.Count)]);
         }
         else if(itemType == MagicItemType.Scroll)
         {
-            return allScrollsCoreBook[Random.Range(0, allScrollsCoreBook.Count)];
+            treasureItem.Init(allScrollsCoreBook[Random.Range(0, allScrollsCoreBook.Count)]);
         }
         else if(itemType == MagicItemType.Grimoire)
         {
-            return allGrimoiresCoreBook[Random.Range(0, allGrimoiresCoreBook.Count)];
+            treasureItem.Init(allGrimoiresCoreBook[Random.Range(0, allGrimoiresCoreBook.Count)]);
         }
         else{
             Debug.Log("Somehow got null when getting treasure by type");
             return null;
         }
+        return treasureItem;
     }
 
     public RuntimeTreasure GetRandomScroll()
@@ -155,7 +156,7 @@ public class TreasureGenerator : MonoBehaviour
 //meant to temporarily hold treasure, its a mono so we can attach it to gui stuff temporarily for reference
 public class RuntimeTreasure : MonoBehaviour
 {
-    public List<MagicItemScriptable> items = new List<MagicItemScriptable>();
+    public List<MagicItemRuntime> items = new List<MagicItemRuntime>();
     public int goldAmount = 0;
 }
 

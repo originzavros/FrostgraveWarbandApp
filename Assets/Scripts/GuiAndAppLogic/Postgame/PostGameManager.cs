@@ -93,7 +93,9 @@ public class PostGameManager : MonoBehaviour
         {
             if(item.itemName == name)
             {
-                currentWarband.warbandVault.Add(item);
+                MagicItemRuntime temp = new MagicItemRuntime();
+                temp.Init(item);
+                currentWarband.warbandVault.Add(temp);
                 break;
             }
         }
@@ -961,7 +963,7 @@ public class PostGameManager : MonoBehaviour
         
     }
 
-    public void ItemDescriptionPopupEvent(MagicItemScriptable item)
+    public void ItemDescriptionPopupEvent(MagicItemRuntime item)
     {
         itemDescriptionPopup.SetActive(true);
         itemDescriptionPopup.GetComponent<ItemDescriptionPopup>().Init(item);
@@ -1246,7 +1248,9 @@ public class PostGameManager : MonoBehaviour
                     }
                     else if(item.referenceSpell.Name == "Write Scroll")
                     {
-                        currentWarband.warbandVault.Add(craftedScrollForWriteScrollPrefab);
+                        MagicItemRuntime temp = new MagicItemRuntime();
+                        temp.Init(craftedScrollForWriteScrollPrefab);
+                        currentWarband.warbandVault.Add(temp);
                     }
                     else{
 
@@ -1268,7 +1272,9 @@ public class PostGameManager : MonoBehaviour
                     {
                         if(item.referenceSpell.Name == "Write Scroll")
                         {
-                            currentWarband.warbandVault.Add(craftedScrollForWriteScrollPrefab);
+                            MagicItemRuntime temp = new MagicItemRuntime();
+                            temp.Init(craftedScrollForWriteScrollPrefab);
+                            currentWarband.warbandVault.Add(temp);
                         }
                         else{
 
@@ -1349,7 +1355,9 @@ public class PostGameManager : MonoBehaviour
                     int templeRoll = SpellRoller.RollDice();
                     if(templeRoll > 15)
                     {
-                        currentWarband.warbandVault.Add(healingPotionPrefab);
+                        MagicItemRuntime temp = new MagicItemRuntime();
+                        temp.Init(healingPotionPrefab);
+                        currentWarband.warbandVault.Add(temp);
                         CreateDisplayElementAndAttach("Found a Healing Potion in Temple!", treasureFinalizerPanelContents);
                     }
                     else{

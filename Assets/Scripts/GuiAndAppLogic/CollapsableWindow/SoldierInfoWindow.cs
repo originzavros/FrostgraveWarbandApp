@@ -12,13 +12,13 @@ public class SoldierInfoWindow : MonoBehaviour
 
     private RuntimeSoldierData storedSoldier;
 
-    public void UpdatePanelInfo(RuntimeSoldierData soldier)
+    public void UpdatePanelInfo(RuntimeSoldierData soldier, int hiringCostMod = 0)
     {
         storedSoldier = soldier;
         descriptionPanel.UpdateDescription(soldier);
         equipmentList.UpdateEquipment(soldier);
         statCollapsablePanel.UpdateStats(soldier);
-        soldierHeader.UpdateInfo(soldier);
+        soldierHeader.UpdateInfo(soldier, hiringCostMod);
     }
 
     public RuntimeSoldierData GetStoredSoldier()

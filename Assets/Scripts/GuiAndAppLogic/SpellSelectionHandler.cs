@@ -289,7 +289,7 @@ public class SpellSelectionHandler : MonoBehaviour
     }
 
     // will not include spells the wizard already knows
-    public void GenerateContainersForGrimoiresInWizardVault(List<MagicItemScriptable> vault, WizardSpellbook spellbook)
+    public void GenerateContainersForGrimoiresInWizardVault(List<MagicItemRuntime> vault, WizardSpellbook spellbook)
     {
         Debug.Log("Generating spell containers for grimoires in spellSelectionHandler");
         List<SpellScriptable> spells = new List<SpellScriptable>();
@@ -324,7 +324,7 @@ public class SpellSelectionHandler : MonoBehaviour
         }
     }
 
-    private SpellScriptable DetermineSpellFromGrimoire(MagicItemScriptable grimoire)
+    private SpellScriptable DetermineSpellFromGrimoire(MagicItemRuntime grimoire)
     {
         string grimSpellName = grimoire.itemName;
         // char[] removeChar = {'G','r','i','m','o','i','r','e',' '};

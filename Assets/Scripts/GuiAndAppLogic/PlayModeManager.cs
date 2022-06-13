@@ -424,13 +424,13 @@ public class PlayModeManager : MonoBehaviour
         addMonsterPopup.gameObject.SetActive(true);
     }
 
-    public void AddItemInfoToItemPopup(MagicItemScriptable itemScriptable)
+    public void AddItemInfoToItemPopup(MagicItemRuntime itemScriptable)
     {
         itemDescriptionPopup.gameObject.SetActive(true);
         itemDescriptionPopup.GetComponent<ItemDescriptionPopup>().Init(itemScriptable);
     }
 
-    public void UseItemEvent(MagicItemScriptable _item, ItemSlotSoldier iss, RuntimeSoldierData rsd)
+    public void UseItemEvent(MagicItemRuntime _item, ItemSlotSoldier iss, RuntimeSoldierData rsd)
     {
         if(_item.itemType == MagicItemType.Scroll || _item.itemType == MagicItemType.LesserPotion || _item.itemType == MagicItemType.GreaterPotion)
         {
@@ -473,7 +473,7 @@ public class PlayModeManager : MonoBehaviour
 
     public struct ItemRemove{
         public RuntimeSoldierData soldier;
-        public MagicItemScriptable item;
+        public MagicItemRuntime item;
     }
 
 }
