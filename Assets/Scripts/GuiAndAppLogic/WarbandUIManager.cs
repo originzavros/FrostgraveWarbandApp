@@ -11,6 +11,7 @@ public class WarbandUIManager : MonoBehaviour
     [SerializeField] GameObject warbandShopVaultUI;
     [SerializeField] GameObject warbandPlayGameUI;
     [SerializeField] GameObject warbandPostgameUi;
+    [SerializeField] GameObject warbandManageSoldiersUI;
     [SerializeField] GameObject basicButtonPrefab;
 
     [SerializeField] NavBox navBox;
@@ -22,6 +23,7 @@ public class WarbandUIManager : MonoBehaviour
    [SerializeField] ShopVaultManager shopVaultManager;
    [SerializeField] PlayModeManager playModeManager;
    [SerializeField] PostGameManager postGameManager;
+   [SerializeField] SoldierManager soldierManager;
 
 
     public void Init()
@@ -60,6 +62,14 @@ public class WarbandUIManager : MonoBehaviour
 
     }
 
+    public void OnClickManageSoldiers()
+    {
+        DisableAllContentWindows();
+        warbandManageSoldiersUI.SetActive(true);
+        soldierManager.Init();
+        soldierManager.OnClickViewWarband();
+    }
+
     public void BackToMain()
     {
         DisableAllContentWindows();
@@ -86,6 +96,7 @@ public class WarbandUIManager : MonoBehaviour
         warbandPlayGameUI.SetActive(false);
         warbandShopVaultUI.SetActive(false);
         warbandPostgameUi.SetActive(false);
+        warbandManageSoldiersUI.SetActive(false);
     }
 
     public void SwitchToPostgameAndInit(RuntimeGameInfo gameInfo)

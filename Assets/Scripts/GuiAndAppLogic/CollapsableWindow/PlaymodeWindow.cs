@@ -104,6 +104,13 @@ public class PlaymodeWindow : MonoBehaviour
 
     }
 
+    public void SetWindowToManageMode()
+    {
+        rollDiceButton.SetActive(false);
+        statusButton.SetActive(false);
+        deathEscapeButton.SetActive(false);
+    }
+
 
 
     

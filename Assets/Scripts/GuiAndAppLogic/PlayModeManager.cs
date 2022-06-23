@@ -200,7 +200,11 @@ public class PlayModeManager : MonoBehaviour
     {
         foreach(var item in currentGameWarband.warbandSoldiers)
         {
-            CreateAndAttachPlaymodeSoldierContainer(item, warbandViewContents);    
+            if(item.status == SoldierStatus.ready)
+            {
+                CreateAndAttachPlaymodeSoldierContainer(item, warbandViewContents);
+            }
+                
         }
         foreach(var item in currentGameWarband.warbandVault)
         {

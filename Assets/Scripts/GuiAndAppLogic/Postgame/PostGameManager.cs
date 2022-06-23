@@ -358,6 +358,8 @@ public class PostGameManager : MonoBehaviour
                     currentWarband.warbandGold -= 150;
                 }
             }
+
+            foundApprentice.status = SoldierStatus.ready;
         }
 
         if(currentWarband.warbandWizard.playerWizardProfile.status == SoldierStatus.injured)
@@ -402,6 +404,8 @@ public class PostGameManager : MonoBehaviour
                 }
             }
         }
+
+        currentWarband.warbandWizard.playerWizardProfile.status = SoldierStatus.ready;
         //do injury rolls for spellcasters with injured status, check if they receive lost eye again and give dead status
         //spellcasters with close call lose all their equipped items
         //spellcaster with badly wounded have option to pay 150(50 with apothecary) to go to ready status (can go into negative gold);

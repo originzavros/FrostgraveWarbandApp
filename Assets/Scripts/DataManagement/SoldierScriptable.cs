@@ -47,4 +47,5 @@ public class SoldierScriptable : ScriptableObject
     public FrostgraveBook bookEdition;
     public List<EquipmentScriptable> baseSoldierEquipment = new List<EquipmentScriptable>();
     public List<MagicItemScriptable> soldierInventory = new List<MagicItemScriptable>();
+    // public List<MonsterKeywordScriptable> monsterKeywordList = new List<MonsterKeywordScriptable>();
 }

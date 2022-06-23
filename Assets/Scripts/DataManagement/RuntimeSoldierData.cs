@@ -45,4 +45,5 @@ public class RuntimeSoldierData
     public List<EquipmentScriptable> baseSoldierEquipment = new List<EquipmentScriptable>();
     public List<MagicItemRuntime> soldierInventory = new List<MagicItemRuntime>();
     public List<InjuryScriptable> soldierPermanentInjuries = new List<InjuryScriptable>();
+    // public List<MonsterKeywordScriptable> monsterKeywordList = new List<MonsterKeywordScriptable>();
 }
