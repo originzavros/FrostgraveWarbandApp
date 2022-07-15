@@ -61,6 +61,7 @@ public class PostGameManager : MonoBehaviour
 
     [SerializeField] TreasureGenerator treasureGenerator;
     [SerializeField] WarbandUIManager warbandUIManager;
+    [SerializeField] CampaignSettingsManager campaignSettingsManager;
 
     private PlayerWarband currentWarband;
     private RuntimeGameInfo lastGameInfo;
@@ -868,6 +869,20 @@ public class PostGameManager : MonoBehaviour
         CreateTreasureTypeButtonAndAttach("Normal",treasureSelectionPopupContents);
         CreateTreasureTypeButtonAndAttach("Central",treasureSelectionPopupContents);
         CreateTreasureTypeButtonAndAttach("Reveal Secret",treasureSelectionPopupContents);
+
+        foreach(var book in campaignSettingsManager.GetEnabledCampaigns())
+        {
+            if(book == FrostgraveBook.TheMazeOfMalcor)
+            {
+                CreateTreasureTypeButtonAndAttach(book.ToString(), treasureSelectionPopupContents);
+                CreateTreasureTypeButtonAndAttach(book.ToString(), treasureSelectionPopupContents);
+            }
+            else{
+                CreateTreasureTypeButtonAndAttach(book.ToString(), treasureSelectionPopupContents);
+            }
+            
+        }
+        
         //later for each campaign enabled, add option
     }
 
@@ -929,15 +944,20 @@ public class PostGameManager : MonoBehaviour
                 selectWindow.AddItemGroup("Normal", tempTreasure, TreasureSelectGroupType.normal);
                 
             }
-            if(name == "Central")
+            else if(name == "Central")
             {
                 selectWindow.AddItemGroup("Central", tempTreasure, TreasureSelectGroupType.central);
             }
-            if(name == "Reveal Secret")
+            else if(name == "Reveal Secret")
             {
                 selectWindow.AddItemGroup("secret1", tempTreasure, TreasureSelectGroupType.secret);
                 tempTreasure = treasureGenerator.GenerateTreasureCoreBook();
                 selectWindow.AddItemGroup("secret2", tempTreasure, TreasureSelectGroupType.secret);
+            }
+            else if(name == "TheMazeOfMalcor")
+            {
+                tempTreasure = treasureGenerator.GenerateTreasureCampaign(FrostgraveBook.TheMazeOfMalcor);
+                selectWindow.AddItemGroup("TheMazeOfMalcor", tempTreasure, TreasureSelectGroupType.normal);
             }
         
             temp.transform.SetParent(treasureFinalizerPanelContents.transform);

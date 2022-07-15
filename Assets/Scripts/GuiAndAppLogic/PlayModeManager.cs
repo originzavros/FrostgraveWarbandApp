@@ -241,35 +241,162 @@ public class PlayModeManager : MonoBehaviour
     {
         foreach(var item in currentGameWarband.warbandWizard.playerWizardSpellbook.wizardSpellbookSpells)
         {
-            if(item.referenceSpell.Restriction == "Out of Game(B)" || item.referenceSpell.Restriction == "Out of Game(B) OR Touch")
+            if(CheckIfSpellIsRollableForPregame(item))
             {
-                int  currentRoll = Random.Range(1, 20);
-                if(currentRoll >= item.GetFullModedCastingNumber())
-                {
-                    GameObject temp = Instantiate(infoDisplayElementPrefab);
-                    temp.GetComponent<InfoDisplayElement>().UpdateText("Wizard <color=green>Success</color>: " + currentRoll.ToString() + "\nSpell: " + item.referenceSpell.Name);
-                    temp.transform.SetParent(wizardViewContents.transform);
-                }
-                else{
-                    GameObject temp = Instantiate(infoDisplayElementPrefab);
-                    temp.GetComponent<InfoDisplayElement>().UpdateText("Wizard <color=red>Fail</color>: " + currentRoll.ToString() + "\nSpell: " + item.referenceSpell.Name);
-                    temp.transform.SetParent(wizardViewContents.transform);
-                }
-                currentRoll = Random.Range(1, 20);
-                currentRoll -= 2; //apprentice roll mod
-                if(currentRoll >= item.GetFullModedCastingNumber())
-                {
-                    GameObject temp = Instantiate(infoDisplayElementPrefab);
-                    temp.GetComponent<InfoDisplayElement>().UpdateText("Apprentice <color=green>Success</color>: " + currentRoll.ToString() + "\nSpell: " + item.referenceSpell.Name);
-                    temp.transform.SetParent(wizardViewContents.transform);
-                } 
-                else{
-                    GameObject temp = Instantiate(infoDisplayElementPrefab);
-                    temp.GetComponent<InfoDisplayElement>().UpdateText("Apprentice <color=red>Fail</color>: " + currentRoll.ToString() + "\nSpell: " + item.referenceSpell.Name);
-                    temp.transform.SetParent(wizardViewContents.transform);
-                }
+                SpellRollAndResult(item);
+                SpellRollAndResult(item, true);
             }
         }
+    }
+
+    public bool CheckIfSpellIsRollableForPregame(WizardRuntimeSpell wrs)
+    {
+        if(wrs.referenceSpell.Restriction == "Out of Game(B)")
+        {
+            return true;
+        }
+        else if(wrs.referenceSpell.Restriction == "Out of Game(B) OR Touch")
+        {
+            return true;
+        }
+        else if(wrs.referenceSpell.Name == "Summon Demon")
+        {
+            foreach(var item in currentGameWarband.warbandVault)
+            {
+                if(item.itemName == "Summoning Circle")
+                {
+                   return true;
+                } 
+            }
+            return false;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public void SpellRollAndResult(WizardRuntimeSpell wrs, bool isApprentice = false)
+    {
+        if(wrs.referenceSpell.Name == "Summon Demon") 
+        {
+            if(isApprentice)
+            {
+                RollForSummonDemon(wrs, "Apprentice");
+            }
+            else{
+                RollForSummonDemon(wrs, "Wizard");
+            }
+        }
+        else{
+            int currentRoll = Random.Range(1, 20);
+            string spellcasterType = "Wizard";
+            if(isApprentice){ 
+                spellcasterType = "Apprentice";
+                currentRoll -= 2;    
+            }
+            if(currentRoll >= wrs.GetFullModedCastingNumber())
+            {
+                CreateAndAttachSpellRollSuccess(wrs,spellcasterType,currentRoll);
+            }
+            else{
+                CreateAndAttachSpellRollFail(wrs,spellcasterType,currentRoll);
+            }
+        }
+    }
+
+    public void CreateAndAttachSpellRollSuccess(WizardRuntimeSpell wrs, string spellcasterType, int currentRoll)
+    {
+        GameObject temp = Instantiate(infoDisplayElementPrefab);
+        temp.GetComponent<InfoDisplayElement>().UpdateText(spellcasterType + " <color=green>Success</color>: " + currentRoll.ToString() + "\nSpell: " + wrs.referenceSpell.Name);
+        temp.transform.SetParent(wizardViewContents.transform);
+    }
+
+    public void CreateAndAttachSpellRollFail(WizardRuntimeSpell wrs, string spellcasterType, int currentRoll)
+    {
+        GameObject temp = Instantiate(infoDisplayElementPrefab);
+        temp.GetComponent<InfoDisplayElement>().UpdateText(spellcasterType +" <color=red>Fail</color>: " + currentRoll.ToString() + "\nSpell: " + wrs.referenceSpell.Name);
+        temp.transform.SetParent(wizardViewContents.transform);
+    }
+
+    public void RollForSummonDemon(WizardRuntimeSpell wrs, string spellcasterType)
+    {
+        bool hasArcaneCandle = false;
+        bool hasSummoningCandle = false;
+        WizardRuntimeSpell ControlDemonSpell = null;
+        foreach(var spell in currentGameWarband.warbandWizard.playerWizardSpellbook.wizardSpellbookSpells)
+        {
+            if(spell.referenceSpell.Name == "Control Demon")
+            {
+                ControlDemonSpell = spell;
+            }
+        }
+
+        if(ControlDemonSpell == null)
+        {
+            string displayInfo = "Have Summon Circle But No Control Demon Spell";
+            CreateAndAttachInfoDisplay(displayInfo, wizardViewContents);
+        }
+        else{
+            foreach(var item in currentGameWarband.warbandVault)
+            {
+                if(item.itemName == "Arcane Candle")
+                {
+                    hasArcaneCandle = true;
+                }
+                else if(item.itemName == "Summoning Candle")
+                {
+                    hasSummoningCandle = true;
+                }
+            }
+            
+            int summonRoll = Random.Range(1, 20);
+            int controlRoll = Random.Range(1, 20);
+            if(spellcasterType == "Apprentice")
+            {
+                summonRoll -= 2;
+                controlRoll -= 2;
+            }
+            if(hasSummoningCandle){summonRoll += 1;}
+            if(summonRoll >= wrs.GetFullModedCastingNumber())
+            {
+                CreateAndAttachSpellRollSuccess(wrs, spellcasterType, summonRoll);
+                if(hasArcaneCandle){controlRoll += 1;}
+                if(controlRoll >= ControlDemonSpell.GetFullModedCastingNumber())
+                {
+                    CreateAndAttachSpellRollSuccess(ControlDemonSpell, spellcasterType, controlRoll);
+                    int rollDifference = summonRoll - wrs.GetFullModedCastingNumber();
+                    if( rollDifference < 6 )
+                    {
+                        string displayInfo = "Summoning An Imp";
+                        CreateAndAttachInfoDisplay(displayInfo, wizardViewContents);
+                    }
+                    else if( rollDifference > 5 && rollDifference < 13)
+                    {
+                        string displayInfo = "Summoning A Minor Demon";
+                        CreateAndAttachInfoDisplay(displayInfo, wizardViewContents);
+                    }
+                    else if( rollDifference > 12)
+                    {
+                        string displayInfo = "Summoning A Major Demon";
+                        CreateAndAttachInfoDisplay(displayInfo, wizardViewContents);
+                    }
+                }
+                else{
+                    CreateAndAttachSpellRollFail(wrs, spellcasterType, controlRoll);
+                }
+            }
+            else{
+                CreateAndAttachSpellRollFail(wrs, spellcasterType, summonRoll);
+            }
+        }        
+    }
+
+
+    public void CreateAndAttachInfoDisplay(string displayInfo, GameObject attachTo)
+    {
+        GameObject temp = Instantiate(infoDisplayElementPrefab);
+        temp.GetComponent<InfoDisplayElement>().UpdateText(displayInfo);
+        temp.transform.SetParent(attachTo.transform);
     }
 
     public void PopulateMonsterPopup()

@@ -17,6 +17,8 @@ public class TreasureGenerator : MonoBehaviour
     private List<MagicItemScriptable> allArtifactsCoreBook = new List<MagicItemScriptable>();
     private List<MagicItemScriptable> allScrollsCoreBook = new List<MagicItemScriptable>();
     private List<MagicItemScriptable> allGrimoiresCoreBook = new List<MagicItemScriptable>();
+    private List<MagicItemScriptable> allTheMazeOfMalcor = new List<MagicItemScriptable>();
+    private List<MagicItemScriptable> allTheMazeOfMalcorScrolls = new List<MagicItemScriptable>();
 
 
  
@@ -48,6 +50,19 @@ public class TreasureGenerator : MonoBehaviour
             else if(item.itemType == MagicItemType.Grimoire && item.itemBook == FrostgraveBook.Core)
             {
                 allGrimoiresCoreBook.Add(item);
+            }
+            else if(item.itemBook == FrostgraveBook.TheMazeOfMalcor)
+            {
+                if(item.itemType == MagicItemType.Scroll)
+                {
+                    allTheMazeOfMalcorScrolls.Add(item);
+                }
+                else{
+                    if(item.itemType != MagicItemType.BaseResource)
+                    {
+                        allTheMazeOfMalcor.Add(item);
+                    }
+                }
             }
         }
 
@@ -86,6 +101,25 @@ public class TreasureGenerator : MonoBehaviour
         }
         generatedTreasure.items = temp;
         return generatedTreasure;
+    }
+
+    public RuntimeTreasure GenerateTreasureCampaign(FrostgraveBook book)
+    {
+        RuntimeTreasure generatedTreasure = new RuntimeTreasure();
+        generatedTreasure.goldAmount = 0;
+        if(book == FrostgraveBook.TheMazeOfMalcor)
+        {
+            generatedTreasure.items.Add(ConvertTreasure(allTheMazeOfMalcor[Random.Range(0, allTheMazeOfMalcor.Count)]));
+            generatedTreasure.items.Add(ConvertTreasure(allTheMazeOfMalcorScrolls[Random.Range(0, allTheMazeOfMalcorScrolls.Count)]));
+        }
+        return generatedTreasure;
+    }
+    
+    public MagicItemRuntime ConvertTreasure(MagicItemScriptable mis)
+    {
+        MagicItemRuntime treasureItem = new MagicItemRuntime();
+        treasureItem.Init(mis);
+        return treasureItem;
     }
 
     private TreasureTableEntryScriptable GetRandomEntryInTreasureTable(TreasureTableScriptable table)

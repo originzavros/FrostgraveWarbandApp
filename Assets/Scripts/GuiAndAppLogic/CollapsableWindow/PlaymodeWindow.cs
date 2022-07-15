@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PlaymodeWindow : MonoBehaviour
 {
     [SerializeField] DescriptionPanel descriptionPanel;
+    [SerializeField] SoldierTypeTextPanel soldierTypeTextPanel;
     [SerializeField] EquipmentList equipmentList;
     [SerializeField] StatCollapsablePanel statCollapsablePanel;
     [SerializeField] SoldierHeaderPlaymode soldierHeader;
@@ -22,6 +23,7 @@ public class PlaymodeWindow : MonoBehaviour
     public void UpdatePanelInfo(RuntimeSoldierData soldier)
     {
         storedSoldier = soldier;
+        soldierTypeTextPanel.UpdateDescription(soldier);
         descriptionPanel.UpdateDescription(soldier);
         equipmentList.UpdateEquipment(soldier);
         statCollapsablePanel.UpdateStats(soldier);

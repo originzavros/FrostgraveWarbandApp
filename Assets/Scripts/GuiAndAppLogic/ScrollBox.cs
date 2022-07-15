@@ -35,6 +35,7 @@ public class ScrollBox : MonoBehaviour
             sb.SpellNameText.text = item.Name;
             sb.CastingNumberText.text = item.CastingNumber.ToString();
             sb.referenceScriptable = item;
+            sb.SetColorBasedOnSpellSchool();
             // temp.transform.parent = contentBox.transform;
             temp.transform.SetParent(contentBox.transform, false);
         }

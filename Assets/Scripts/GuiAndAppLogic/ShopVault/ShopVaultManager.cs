@@ -474,6 +474,11 @@ public class ShopVaultManager : MonoBehaviour
         warbandUIManager.BackToWarbandMain();
     }
 
+    public void OnClickCancelButton()
+    {
+        warbandUIManager.BackToWarbandMain();
+    }
+
     private void SaveAllChangesToWarband()
     {
         // foreach(var item in currentWarband.warbandWizard.playerWizardProfile.soldierInventory)

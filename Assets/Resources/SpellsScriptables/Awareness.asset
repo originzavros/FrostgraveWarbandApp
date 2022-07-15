@@ -24,7 +24,7 @@ MonoBehaviour:
   Name: Awareness
   CastingNumber: 12
   School: 6
-  Restriction: 'Out of Game(B) '
+  Restriction: Out of Game(B)
   Description: "If this spellcaster is on the table, its warband may add +2 to its
     Initiative Rolls for the purposes of determining the primary player only.\nThis
     bonus stacks so , if both the wizard and the apprentice have cast this spell

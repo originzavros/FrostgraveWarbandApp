@@ -10,6 +10,7 @@ public class NavBox : MonoBehaviour
     [SerializeField] GameObject spellReferencePanel;
     [SerializeField] GameObject wizardBuilder;
     [SerializeField] GameObject warbandManager;
+    [SerializeField] GameObject campaignSettingsManager;
 
     [SerializeField] GameObject pirateOathStuff;
 
@@ -24,6 +25,7 @@ public class NavBox : MonoBehaviour
         spellReferencePanel.SetActive(false);
         wizardBuilder.SetActive(false);
         warbandManager.SetActive(false);
+        campaignSettingsManager.SetActive(false);
         ChangeScreenName("Home");
         currentLocation = AppFragment.Home;
     }
@@ -56,6 +58,11 @@ public class NavBox : MonoBehaviour
         warbandManager.GetComponent<WarbandUIManager>().Init();
         ChangeScreenName("Warband Manager");
         currentLocation = AppFragment.WarbandManagerSelection;
+    }
+    public void GoToCampaignSettings()
+    {
+        mainButtonMenu.SetActive(false);
+        campaignSettingsManager.SetActive(true);
     }
 
     public void GoToWarbandManagerMain()

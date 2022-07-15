@@ -26,6 +26,11 @@ public class MainNav : MonoBehaviour
         navBox.GoToCrewabilities();
     }
 
+    public void OnClickCampaignSettingsButton()
+    {
+        navBox.GoToCampaignSettings();
+    }
+
 
     // public void OnNavHomeClick()
     // {
