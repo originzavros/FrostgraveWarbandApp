@@ -32,6 +32,7 @@ public class PlayModeManager : MonoBehaviour
     [BoxGroup("Popups")][SerializeField] AddMonsterPopup addMonsterPopup;
     [BoxGroup("Popups")][SerializeField] GameObject itemDescriptionPopup;
     [BoxGroup("Popups")][SerializeField] GameObject confirmationPopup;
+    [BoxGroup("Popups")][SerializeField] GameObject spellRollDicePopup;
     
 
     [BoxGroup("GameButtons")][SerializeField] GameObject newGameButton;
@@ -42,6 +43,8 @@ public class PlayModeManager : MonoBehaviour
     [BoxGroup("Prefabs")][SerializeField] GameObject modNumberPanelPrefab;
     [BoxGroup("Prefabs")][SerializeField] GameObject injuryKeywordButtonPrefab;
     [BoxGroup("Prefabs")][SerializeField] SoldierScriptable warhoundPrefab;
+    [BoxGroup("Prefabs")][SerializeField] GameObject spellDiceContainerPrefab;
+
 
 
     private PlayerWarband currentGameWarband;
@@ -226,11 +229,24 @@ public class PlayModeManager : MonoBehaviour
         CreateAndAttachPlaymodeSoldierContainer(currentGameWarband.warbandWizard.playerWizardProfile, wizardViewContents);
         foreach(var spellItem in currentGameWarband.warbandWizard.playerWizardSpellbook.wizardSpellbookSpells)
         {
-            GameObject temp = Instantiate(spellButtonPrefab);
-            temp.GetComponent<Button>().onClick.AddListener(delegate {EnableAndFillDescriptionPopUp(temp);});
-            SpellButton sb = temp.GetComponent<SpellButton>();
+            GameObject temp = Instantiate(spellDiceContainerPrefab);
+            SpellDiceContainer spellContainerButton = temp.GetComponent<SpellDiceContainer>();
+            
+            
+            SpellButton sb = spellContainerButton.spellButtonPrefab.GetComponent<SpellButton>();
+            spellContainerButton.spellButtonPrefab.GetComponent<Button>().onClick.AddListener(delegate {EnableAndFillDescriptionPopUp(sb);});
             sb.LoadRuntimeSpellInfo(spellItem);
+            // temp.GetComponent<SpellDiceContainer>().rollDiceButton.onClick.AddListener(delegate {SpellRollDicePopup(spellItem);});
+            // spellContainerButton.Init(spellItem);
+            Debug.Log(spellItem.referenceSpell.Name);
+            spellContainerButton.SetRollDiceEvent(delegate {SpellRollDicePopup(spellItem);});
+
             temp.transform.SetParent(wizardViewContents.transform);
+            // GameObject temp = Instantiate(spellButtonPrefab);
+            // temp.GetComponent<Button>().onClick.AddListener(delegate {EnableAndFillDescriptionPopUp(temp);});
+            // SpellButton sb = temp.GetComponent<SpellButton>();
+            // sb.LoadRuntimeSpellInfo(spellItem);
+            // temp.transform.SetParent(wizardViewContents.transform);
         }
 
         CreateAndAttachModNumberPanel("Spells Passed", wizardViewContents);
@@ -403,10 +419,11 @@ public class PlayModeManager : MonoBehaviour
     {
         addMonsterPopup.Init();
     }
-    public void EnableAndFillDescriptionPopUp(GameObject go)
+    public void EnableAndFillDescriptionPopUp(SpellButton sb)
     {
         spellTextPopup.transform.gameObject.SetActive(true);
-        WizardRuntimeSpell tempSpell = go.GetComponent<SpellButton>().referenceRuntimeSpell;
+        WizardRuntimeSpell tempSpell = sb.referenceRuntimeSpell;
+        // go.GetComponent<SpellButton>().referenceRuntimeSpell;
         spellTextPopup.UpdateRuntimeInfo(tempSpell);
     }
 
@@ -487,6 +504,13 @@ public class PlayModeManager : MonoBehaviour
     {
         rollDicePopup.SetActive(true);
         rollDicePopup.GetComponent<RollDicePopup>().Init(_playmodeWindow.GetStoredSoldier());
+    }
+
+    public void SpellRollDicePopup(WizardRuntimeSpell wrs)
+    {
+        spellRollDicePopup.SetActive(true);
+        // Debug.Log(wrs.referenceSpell.Name);
+        spellRollDicePopup.GetComponent<RollSpellPopup>().Init(wrs);
     }
 
     public void AddConditionPop(PlaymodeWindow _playmodeWindow)
