@@ -22,6 +22,7 @@ public class PostGameManager : MonoBehaviour
     [BoxGroup("treasure")][SerializeField] GameObject treasureFinalizerPanelContents;
 
     [BoxGroup("wizard")][SerializeField] GameObject wizardLevelTogglesPanel;
+    [BoxGroup("wizard")][SerializeField] GameObject wizardLevelTogglesContents;
     [BoxGroup("wizard")][SerializeField] Toggle fightToggle;
     [BoxGroup("wizard")][SerializeField] Text fightValueLabel;
     [BoxGroup("wizard")][SerializeField] Toggle shootToggle;
@@ -37,12 +38,6 @@ public class PostGameManager : MonoBehaviour
     // [BoxGroup("wizard")][SerializeField] GameObject wizardSpellLevelContents;
     // [BoxGroup("wizard")][SerializeField] GameObject spellCheckButtonPrefab;
     [BoxGroup("wizard")][SerializeField] SpellSelectionHandler spellSelectionHandler;
-
-
-
-
-
-
 
     [BoxGroup("injury")][SerializeField] GameObject injuryPanel;
     [BoxGroup("injury")][SerializeField] GameObject injuryPanelContents;
@@ -1002,7 +997,6 @@ public class PostGameManager : MonoBehaviour
 
     #endregion
 
-
     #region Wizardleveling
     private void SetUpWizardLevelToggles()
     {
@@ -1015,7 +1009,8 @@ public class PostGameManager : MonoBehaviour
 
         if(currentWarband.warbandWizard.playerWizardExperience < 100)
         {
-            Debug.Log("not enough experience to enable toggles");
+            // Debug.Log("not enough experience to enable toggles");
+            CreateDisplayElementAndAttach("Not Enough XP for Level", wizardLevelTogglesContents);
             fightToggle.interactable = false;
             shootToggle.interactable = false;
             willToggle.interactable = false;
@@ -1038,6 +1033,8 @@ public class PostGameManager : MonoBehaviour
             {
                 healthToggle.interactable = false;
             }
+
+            CreateDisplayElementAndAttach("Total XP: " + currentWarband.warbandWizard.playerWizardExperience, wizardLevelTogglesContents);
         }
 
         invisibleToggle.isOn = true;
@@ -1136,11 +1133,13 @@ public class PostGameManager : MonoBehaviour
         {
             spellSelectionHandler.DisableAllUntoggledToggles();
             CreateDisplayElementAndAttach("Not Enough Experience", mainScrollContents);
+            CreateDisplayElementAndAttach("Total XP: " + currentWarband.warbandWizard.playerWizardExperience, mainScrollContents);
             // CreateBasicButtonAndAttach("Not Enough Experience", mainScrollContents, null);
         }
         else{
             // CreateBasicButtonAndAttach("Select 1 spell to reduce it's Casting Number", mainScrollContents, delegate {DoNothingEvent();});
             CreateDisplayElementAndAttach("Select 1 spell to reduce it's Casting Number", mainScrollContents);
+            CreateDisplayElementAndAttach("Total XP: " + currentWarband.warbandWizard.playerWizardExperience, mainScrollContents);
         }
     }
 
@@ -1170,6 +1169,7 @@ public class PostGameManager : MonoBehaviour
         {
             // CreateBasicButtonAndAttach("Not Enough Experience to Learn Spells", mainScrollContents, delegate {DoNothingEvent();});
             CreateDisplayElementAndAttach("Not Enough Experience to Learn Spells", mainScrollContents);
+            CreateDisplayElementAndAttach("Total XP: " + currentWarband.warbandWizard.playerWizardExperience, mainScrollContents);
         }
         else{
             int totalGrimoires = 0;
@@ -1188,6 +1188,7 @@ public class PostGameManager : MonoBehaviour
                 spellSelectionHandler.GenerateContainersForGrimoiresInWizardVault(currentWarband.warbandVault, currentWarband.warbandWizard.playerWizardSpellbook);
                 // CreateBasicButtonAndAttach("Choose Grimoires to Learn", mainScrollContents, delegate {DoNothingEvent();});
                 CreateDisplayElementAndAttach("Choose Grimoires to Learn", mainScrollContents);
+                CreateDisplayElementAndAttach("Total XP: " + currentWarband.warbandWizard.playerWizardExperience, mainScrollContents);
             }
             else{
                 // CreateBasicButtonAndAttach("No Grimoires in Inventory", mainScrollContents, delegate {DoNothingEvent();});

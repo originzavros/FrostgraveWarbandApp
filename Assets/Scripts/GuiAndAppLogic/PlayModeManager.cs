@@ -63,21 +63,25 @@ public class PlayModeManager : MonoBehaviour
     #region Playgame Tabs
     public void OnClickWarbandButton()
     {
+        // SaveWarbandState();
         DisableAllContents();
         soldierViewScroll.SetActive(true);
     }
     public void OnClickWizardButton()
     {
+        // SaveWarbandState();
         DisableAllContents();
         wizardViewScroll.SetActive(true);
     }
     public void OnClickBeastsButton()
     {
+        // SaveWarbandState();
         DisableAllContents();
         monsterViewScroll.SetActive(true);
     }
     public void OnClickGameButton()
     {
+        // SaveWarbandState();
         DisableAllContents();
         gamePanelContents.SetActive(true);
         
@@ -98,6 +102,7 @@ public class PlayModeManager : MonoBehaviour
         ClearContent(monsterViewContents);
         itemsToRemove.Clear();
         currentGameWarband = warbandInfoManager.GetCurrentlyLoadedWarband();
+        // LoadWarbandState();
         NewGameSetup(currentGameWarband);
         newGameButton.GetComponent<Button>().interactable = false;
         endGameButton.GetComponent<Button>().interactable = true;
@@ -124,6 +129,7 @@ public class PlayModeManager : MonoBehaviour
         newGameButton.GetComponent<Button>().interactable = true;
         endGameButton.GetComponent<Button>().interactable = false;
         cancelGameButton.GetComponent<Button>().interactable = false;
+
         warbandUIManager.SwitchToPostgameAndInit(gameInfo);
     }
 
@@ -143,8 +149,29 @@ public class PlayModeManager : MonoBehaviour
         newGameButton.GetComponent<Button>().interactable = true;
         endGameButton.GetComponent<Button>().interactable = false;
         cancelGameButton.GetComponent<Button>().interactable = false;
+
+        // string id = currentGameWarband.warbandName;
+        // warbandInfoManager.DeleteActiveGame(id);
+
         warbandUIManager.BackToWarbandMain();
     }
+
+    //these both need work, save states for games need a lot more to make it easy to do
+    // public void SaveWarbandState()
+    // {
+    //     warbandInfoManager.SaveActiveGame(currentGameWarband);
+    // }
+
+    // public void LoadWarbandState()
+    // {
+    //     string loadName = currentGameWarband.warbandName;
+    //     currentGameWarband = warbandInfoManager.LoadActiveGame(loadName);
+    //     if(currentGameWarband.warbandName == "temp")
+    //     {
+    //         Debug.Log("Could not load active game");
+    //         currentGameWarband = warbandInfoManager.GetCurrentlyLoadedWarband();
+    //     }
+    // }
 
     public void ReceiveCancelConfirmation(bool result)
     {
@@ -172,7 +199,8 @@ public class PlayModeManager : MonoBehaviour
         RemoveItemsFromSoldiers();
         itemsToRemove.Clear();
 
-        warbandInfoManager.SaveCurrentWarband();
+        // warbandInfoManager.Init(currentGameWarband); //the current game warband should be an active game
+        // warbandInfoManager.SaveCurrentWarband();
 
         spellsPassed = FindAndRetrieveInfoFromModPanel("Spells Passed", wizardViewContents);
         spellsFailed = FindAndRetrieveInfoFromModPanel("Spells Failed", wizardViewContents);
@@ -238,7 +266,7 @@ public class PlayModeManager : MonoBehaviour
             sb.LoadRuntimeSpellInfo(spellItem);
             // temp.GetComponent<SpellDiceContainer>().rollDiceButton.onClick.AddListener(delegate {SpellRollDicePopup(spellItem);});
             // spellContainerButton.Init(spellItem);
-            Debug.Log(spellItem.referenceSpell.Name);
+            // Debug.Log(spellItem.referenceSpell.Name);
             spellContainerButton.SetRollDiceEvent(delegate {SpellRollDicePopup(spellItem);});
 
             temp.transform.SetParent(wizardViewContents.transform);

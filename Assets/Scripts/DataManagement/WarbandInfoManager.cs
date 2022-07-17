@@ -53,6 +53,11 @@ public class WarbandInfoManager : MonoBehaviour
         return playerWarband;
     }
 
+    // public void UpdateCurrentlyLoadedWarbandWithActiveGame(PlayerWarband _playerWarband)
+    // {
+        
+    // }
+
     public void SaveActiveGame(PlayerWarband _playerWarband)
     {
         activeGameWarband = _playerWarband;
@@ -74,6 +79,15 @@ public class WarbandInfoManager : MonoBehaviour
         }
         activeGameWarband = tempwarband;
         return tempwarband;
+    }
+
+    public void DeleteActiveGame(string _warbandName)
+    {
+        string id = _warbandName + "ActiveGameSave";
+        if(ES3.KeyExists(id))
+        {
+            ES3.DeleteKey(id);
+        }
     }
 
 
