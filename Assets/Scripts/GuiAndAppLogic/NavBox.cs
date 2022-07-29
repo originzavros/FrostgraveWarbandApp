@@ -63,6 +63,7 @@ public class NavBox : MonoBehaviour
     {
         mainButtonMenu.SetActive(false);
         campaignSettingsManager.SetActive(true);
+        // campaignSettingsManager.GetComponent<CampaignSettingsManager>().Init();
     }
 
     public void GoToWarbandManagerMain()

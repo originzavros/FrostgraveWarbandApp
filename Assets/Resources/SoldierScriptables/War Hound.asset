@@ -25,6 +25,7 @@ MonoBehaviour:
   soldierType: Standard
   isHired: 0
   description: Cannot pick up treasure and has no item slots.
+  status: 0
   bookEdition: 0
   baseSoldierEquipment: []
   soldierInventory: []

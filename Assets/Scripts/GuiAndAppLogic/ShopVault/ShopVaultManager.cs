@@ -23,6 +23,7 @@ public class ShopVaultManager : MonoBehaviour
     [SerializeField] WarbandInfoManager warbandInfoManager;
     [SerializeField] WarbandUIManager warbandUIManager;
     [SerializeField] TextMeshProUGUI goldValueText;
+    [SerializeField] CampaignSettingsManager campaignSettingsManager;
 
     
     [BoxGroup("Popups")][SerializeField] ItemDescriptionPopup itemDescriptionPopup;
@@ -34,6 +35,8 @@ public class ShopVaultManager : MonoBehaviour
     [BoxGroup("Prefabs")] [SerializeField] GameObject itemSlotPrefab;
     [BoxGroup("Prefabs")] [SerializeField] GameObject collapsableWindowPlaymode;
     [BoxGroup("Prefabs")] [SerializeField] GameObject itemButtonPrefab;
+
+    [BoxGroup("ExpansionButtons")][SerializeField] GameObject mazeOfMalcorButton;
 
     private PlayerWarband currentWarband;
 
@@ -56,6 +59,8 @@ public class ShopVaultManager : MonoBehaviour
         // Debug.Log("filled warband panel with soldiers");
         OnClickShopTab();
         // Debug.Log("clicked shop tab");
+
+        EnableButtonsBasedOnCampaigns();
     }
 
     #region tabsOnClick
@@ -125,106 +130,140 @@ public class ShopVaultManager : MonoBehaviour
 
     }
 
+    private void EnableButtonsBasedOnCampaigns()
+    {
+        mazeOfMalcorButton.SetActive(false); //make sure these are off if we go back and change settings.
+        foreach(var book in campaignSettingsManager.GetEnabledCampaigns())
+        {
+            if(book == FrostgraveBook.TheMazeOfMalcor)
+            {
+                mazeOfMalcorButton.SetActive(true);
+            }
+        }
+    }
+
     private void FillShopBuyWithItems(string shopType)
     {
         foreach(Transform child in shopBuyContents.transform)
         {
             Destroy(child.gameObject);
         }
-        if(shopType == "Potions")
+
+        if(shopType == "Black Market"){
+                int totalItemsFound = 0;
+                while(totalItemsFound < 4)
+                {
+                    bool usableItem = true;
+                    MagicItemScriptable randomItem = LoadAssets.allMagicItemObjects[Random.Range(0,LoadAssets.allMagicItemObjects.Length)];
+                    if(randomItem.itemPurchasePrice < 1){usableItem = false;}
+                    if(randomItem.itemType == MagicItemType.Base || randomItem.itemType == MagicItemType.BaseResource){ usableItem = false;}
+                    if(randomItem.itemName == "Crafted Scroll"){usableItem = false;}
+                    if(usableItem)
+                    {
+                        MagicItemRuntime temp = new MagicItemRuntime();
+                            temp.Init(randomItem);
+                        InstanceItemContainerAndAttach(temp, shopBuyContents, ItemContainerMode.buy);
+                        totalItemsFound++;
+                    }
+                }
+        }
+
+        if(shopType == "TheMazeOfMalcor")
         {
             foreach(var item in LoadAssets.allMagicItemObjects)
             {
-                if(item.itemType == MagicItemType.LesserPotion || item.itemType == MagicItemType.GreaterPotion)
+                if(item.itemBook == FrostgraveBook.TheMazeOfMalcor)
                 {
-                    if(item.itemPurchasePrice > 0) //filter out potions that you can only get as treasure/craft
+                    MagicItemRuntime temp = new MagicItemRuntime();
+                    temp.Init(item);
+                    InstanceItemContainerAndAttach(temp, shopBuyContents, ItemContainerMode.buy);
+                }
+            }
+        }
+        else{
+            foreach(var item in LoadAssets.allMagicItemObjects)
+            {
+                if(item.itemBook != FrostgraveBook.Core)
+                {
+                    // bool canContinue = false;
+                    // foreach(var book in campaignSettingsManager.GetEnabledCampaigns())
+                    // {
+                    //     if(book == item.itemBook)
+                    //     {
+                    //         canContinue = true;
+                    //     }
+                    // }
+                    // if(!canContinue)
+                    // {
+                        continue;//skips the rest of the loop for the current item
+                    // }
+                }
+
+                if(shopType == "Potions")
+                {
+                    if(item.itemType == MagicItemType.LesserPotion || item.itemType == MagicItemType.GreaterPotion)
                     {
-                        MagicItemRuntime temp = new MagicItemRuntime();
-                        temp.Init(item);
-                        InstanceItemContainerAndAttach(temp, shopBuyContents, ItemContainerMode.buy);
+                        if(item.itemPurchasePrice > 0) //filter out potions that you can only get as treasure/craft
+                        {
+                            MagicItemRuntime temp = new MagicItemRuntime();
+                            temp.Init(item);
+                            InstanceItemContainerAndAttach(temp, shopBuyContents, ItemContainerMode.buy);
+                        }
+                        
                     }
                     
                 }
-            }
-        }
-        else if(shopType == "Grimoires"){
-            foreach(var item in LoadAssets.allMagicItemObjects)
-            {
-                if(item.itemType == MagicItemType.Grimoire)
-                {
-                    if(item.itemPurchasePrice > 0)
+                else if(shopType == "Grimoires"){ 
+                    if(item.itemType == MagicItemType.Grimoire)
+                    {
+                        if(item.itemPurchasePrice > 0)
+                        {
+                            MagicItemRuntime temp = new MagicItemRuntime();
+                            temp.Init(item);
+                            InstanceItemContainerAndAttach(temp, shopBuyContents, ItemContainerMode.buy);
+                        }
+                    }
+                    
+                }
+                else if(shopType == "MagicEquipment"){
+                    if(item.itemType == MagicItemType.MagicEquipment)
+                    {
+                        if(item.itemPurchasePrice > 0)
+                        {
+                            MagicItemRuntime temp = new MagicItemRuntime();
+                            temp.Init(item);
+                            InstanceItemContainerAndAttach(temp, shopBuyContents, ItemContainerMode.buy);
+                        }
+                    } 
+                }
+                else if(shopType == "MagicItems"){
+                    if(item.itemType == MagicItemType.Artifact)
+                    {
+                        if(item.itemPurchasePrice > 0)
+                        {
+                            MagicItemRuntime temp = new MagicItemRuntime();
+                            temp.Init(item);
+                            InstanceItemContainerAndAttach(temp, shopBuyContents, ItemContainerMode.buy);
+                        }
+                    }
+                }
+                else if(shopType == "BaseResources"){
+                    if(item.itemType == MagicItemType.Base || item.itemType == MagicItemType.BaseResource)
                     {
                         MagicItemRuntime temp = new MagicItemRuntime();
-                        temp.Init(item);
+                            temp.Init(item);
                         InstanceItemContainerAndAttach(temp, shopBuyContents, ItemContainerMode.buy);
                     }
                 }
+                // for(int i = 0; i < 4; i++)
+                // {
+                //     MagicItemScriptable randomItem = LoadAssets.allMagicItemObjects[Random.Range(0,LoadAssets.allMagicItemObjects.Length)];
+                //     if(randomItem.itemPurchasePrice > 0 && randomItem.MagicItemType != MagicItemType.Base && randomItem.MagicItemType != MagicItemType.BaseResource)
+                //     {
+                //         InstanceItemContainerAndAttach(randomItem, shopBuyContents, ItemContainerMode.buy);
+                //     }
+                // }
             }
-        }
-        else if(shopType == "MagicEquipment"){
-            foreach(var item in LoadAssets.allMagicItemObjects)
-            {
-                if(item.itemType == MagicItemType.MagicEquipment)
-                {
-                    if(item.itemPurchasePrice > 0)
-                    {
-                        MagicItemRuntime temp = new MagicItemRuntime();
-                        temp.Init(item);
-                        InstanceItemContainerAndAttach(temp, shopBuyContents, ItemContainerMode.buy);
-                    }
-                }
-            }
-        }
-        else if(shopType == "MagicItems"){
-            foreach(var item in LoadAssets.allMagicItemObjects)
-            {
-                if(item.itemType == MagicItemType.Artifact)
-                {
-                    if(item.itemPurchasePrice > 0)
-                    {
-                        MagicItemRuntime temp = new MagicItemRuntime();
-                        temp.Init(item);
-                        InstanceItemContainerAndAttach(temp, shopBuyContents, ItemContainerMode.buy);
-                    }
-                }
-            }
-        }
-        else if(shopType == "BaseResources"){
-            foreach(var item in LoadAssets.allMagicItemObjects)
-            {
-                if(item.itemType == MagicItemType.Base || item.itemType == MagicItemType.BaseResource)
-                {
-                    MagicItemRuntime temp = new MagicItemRuntime();
-                        temp.Init(item);
-                    InstanceItemContainerAndAttach(temp, shopBuyContents, ItemContainerMode.buy);
-                }
-            }
-        }
-        else if(shopType == "Black Market"){
-            int totalItemsFound = 0;
-            while(totalItemsFound < 4)
-            {
-                bool usableItem = true;
-                MagicItemScriptable randomItem = LoadAssets.allMagicItemObjects[Random.Range(0,LoadAssets.allMagicItemObjects.Length)];
-                if(randomItem.itemPurchasePrice < 1){usableItem = false;}
-                if(randomItem.itemType == MagicItemType.Base || randomItem.itemType == MagicItemType.BaseResource){ usableItem = false;}
-                if(randomItem.itemName == "Crafted Scroll"){usableItem = false;}
-                if(usableItem)
-                {
-                    MagicItemRuntime temp = new MagicItemRuntime();
-                        temp.Init(randomItem);
-                    InstanceItemContainerAndAttach(temp, shopBuyContents, ItemContainerMode.buy);
-                    totalItemsFound++;
-                }
-            }
-            // for(int i = 0; i < 4; i++)
-            // {
-            //     MagicItemScriptable randomItem = LoadAssets.allMagicItemObjects[Random.Range(0,LoadAssets.allMagicItemObjects.Length)];
-            //     if(randomItem.itemPurchasePrice > 0 && randomItem.MagicItemType != MagicItemType.Base && randomItem.MagicItemType != MagicItemType.BaseResource)
-            //     {
-            //         InstanceItemContainerAndAttach(randomItem, shopBuyContents, ItemContainerMode.buy);
-            //     }
-            // }
         }
 
         shopBuyPanel.gameObject.SetActive(true);
@@ -375,6 +414,10 @@ public class ShopVaultManager : MonoBehaviour
     public void OnClickCustomItemShop()
     {
         customItemPopup.SetActive(true);
+    }
+    public void OnClickMazeOfMalcor()
+    {
+        FillShopBuyWithItems("TheMazeOfMalcor");
     }
     #endregion
 

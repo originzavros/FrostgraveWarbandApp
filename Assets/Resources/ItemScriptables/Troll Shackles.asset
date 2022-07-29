@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Troll Shackles
+  m_EditorClassIdentifier: 
+  itemName: Troll Shackles
+  itemDescription: 'If a figure carrying these shackles ever reduces a troll to 0
+    Health in hand to hand combat, he may choose to use the troll shackles.
+
+    The
+    troll is captured and may be carried off the table as though it were a treasure
+    token.
+
+    The troll may be fielded in a future game as part of your warband,
+    taking up a soldier slot.
+
+    If the troll ever rolls a 1 for any roll during
+    a game, it breaks the shackles and becomes an uncontrolled creature.
+
+    Should
+    a shackled troll ever be reduced to 0 Health, the shackles are destroyed.'
+  itemPurchasePrice: 500
+  itemSalePrice: 0
+  itemBook: 6
+  itemType: 3

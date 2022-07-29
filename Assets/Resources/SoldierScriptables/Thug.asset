@@ -25,6 +25,7 @@ MonoBehaviour:
   soldierType: Standard
   isHired: 0
   description: None
+  status: 0
   bookEdition: 0
   baseSoldierEquipment:
   - {fileID: 11400000, guid: 80014bd668f38354183b52662d765dc1, type: 2}

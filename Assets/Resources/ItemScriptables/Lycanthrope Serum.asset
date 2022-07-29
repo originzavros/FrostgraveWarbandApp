@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Lycanthrope Serum
+  m_EditorClassIdentifier: 
+  itemName: Lycanthrope Serum
+  itemDescription: 'A figure that drinks this potion is immediately replaced witha
+    werewolf (Frostgrave rulebook, page 120). This werewolf still counts as part
+    fo the player''s warband for all intents and purposes, except that it can neither
+    pick up or secure treasure.
+
+    The figure cannot use or be given items, an
+    any it was carrying prior to its transformation are returned to it at the end
+    of the game.
+
+    After the game, the figure reverts to normal. If the figure
+    was not reduced to 0 Health during the game, it must still make a survival roll,
+    but with a +2 modifier.'
+  itemPurchasePrice: 400
+  itemSalePrice: 0
+  itemBook: 6
+  itemType: 3

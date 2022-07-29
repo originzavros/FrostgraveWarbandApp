@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Tatakaka
+  m_EditorClassIdentifier: 
+  itemName: Tatakaka
+  itemDescription: "This is a beautiful and magic songbird, whose feathers can be
+    used as powerful magic enhancers, but only if they are shed naturally.\nIf a
+    wizard has a tatakaka in his vault, he may roll a die after each game. \nOn 19-20,
+    a feather has fallen from the bird. Every time a 20 is rolled, a second roll
+    must be made.\nIf this second roll is a 1, then the tatakaka has died and should
+    be removed from the wizard's vault.\nA tatakaka feather can be used by a spellcaster
+    to add +1 to the Casting Roll of any one Out of Game spell. \nThe player must
+    decide to use the feather before the casting roll is made, and the feather is
+    consumed in the process.\nOnly one feather can be used per casting roll. A tatakaka
+    feather can be sold for 25gc; A bird for 500gc.\nNeither can be bought, save
+    from another player."
+  itemPurchasePrice: 3000
+  itemSalePrice: 0
+  itemBook: 6
+  itemType: 3

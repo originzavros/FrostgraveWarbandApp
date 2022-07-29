@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Ring of Fog Form
+  m_EditorClassIdentifier: 
+  itemName: Ring of Fog Form
+  itemDescription: 'Once per game, the wearer of this ring may activate it as a free
+    action during their activation.
+
+    For the rest of that activation, they may
+    ignore movement penalties for terrain, including climbing, and no figure may
+    force combat with them.
+
+    However, the wearer may not attack any other figure
+    or pick up treasure, and if the figure was carrying treasure, it is dropped at
+    the point at which the ring was activated.'
+  itemPurchasePrice: 350
+  itemSalePrice: 0
+  itemBook: 6
+  itemType: 3

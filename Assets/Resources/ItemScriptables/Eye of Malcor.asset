@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Eye of Malcor
+  m_EditorClassIdentifier: 
+  itemName: Eye of Malcor
+  itemDescription: 'This magic glass eye can only be used by a character that has
+    suffered the Lost Eye permanent injury. While equipped with the Eye of Malcor,
+    the figure suffers no effects from this permanent injury and gains +1 to all
+    Shoot rolls.
+
+    It does however, begin each game with -1 Health.'
+  itemPurchasePrice: 200
+  itemSalePrice: 0
+  itemBook: 6
+  itemType: 3

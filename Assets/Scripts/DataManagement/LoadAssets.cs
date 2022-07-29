@@ -19,6 +19,8 @@ public class LoadAssets : MonoBehaviour
     public static MagicItemScriptable[] allMagicItemObjects;
     public static InjuryScriptable[] allInjuries;
 
+    [SerializeField] CampaignSettingsManager campaignSettingsManager;
+
     void Start()
     {
         
@@ -55,6 +57,7 @@ public class LoadAssets : MonoBehaviour
         spellRangeTypeForDisplay = new string[]{"Line of Sight", "Touch", "Self Only", "Area Effect", "Out of Game(A)", "Out of Game(B)", "Out of Game(B) OR Touch"};
 
         treasureGenerator.Init();
+        campaignSettingsManager.Init();
     }
 
     public static void LoadWarbandNames()

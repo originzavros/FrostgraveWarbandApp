@@ -19,6 +19,7 @@ public class HireSoldiersManager : MonoBehaviour
     [SerializeField] TMP_Dropdown soldierTypeDropdown;
     [SerializeField] TextMeshProUGUI goldTrackerText;
     [SerializeField] GameObject CoinAnimation;
+    [SerializeField] CampaignSettingsManager campaignSettingsManager;
 
 
 
@@ -28,6 +29,7 @@ public class HireSoldiersManager : MonoBehaviour
     private int currentHiredSoldierCount;
     private bool apprenticeHired;
     private bool hasCarrierPigeons = false;
+    private List<FrostgraveBook> enabledCampaignSoldiers = new List<FrostgraveBook>();
     public void Init(PlayerWarband playerWarband)
     {
         currentHiredSpecialistsSoldierCount = 0;
@@ -37,6 +39,9 @@ public class HireSoldiersManager : MonoBehaviour
         apprenticeHired = false;
         // currentGoldTotal = 1000;
         UpdateGoldAmount(0);
+
+        enabledCampaignSoldiers = campaignSettingsManager.GetEnabledCampaigns();
+
         //init current warband
         if(playerWarband.warbandSoldiers.Count > 0)
         {
@@ -91,9 +96,36 @@ public class HireSoldiersManager : MonoBehaviour
 
             }
             else{
-                RuntimeSoldierData newSoldier = new RuntimeSoldierData();
-                newSoldier.Init(item);
-                CreateAndAttachSoliderContainer(newSoldier, soldierHiringContent, hiringCostMod: (hasCarrierPigeons ? -10:0));
+
+                if(campaignSettingsManager.GetAllSoldiersState())
+                {
+                    RuntimeSoldierData newSoldier = new RuntimeSoldierData();
+                    newSoldier.Init(item);
+                    CreateAndAttachSoliderContainer(newSoldier, soldierHiringContent, hiringCostMod: (hasCarrierPigeons ? -10:0));
+                }
+                else{
+                    if(item.bookEdition == FrostgraveBook.Core)
+                    {
+                        RuntimeSoldierData newSoldier = new RuntimeSoldierData();
+                        newSoldier.Init(item);
+                        CreateAndAttachSoliderContainer(newSoldier, soldierHiringContent, hiringCostMod: (hasCarrierPigeons ? -10:0));
+                    }
+                    else{
+                        foreach(var book in enabledCampaignSoldiers)
+                        {
+                            if(item.bookEdition == book)
+                            {
+                                RuntimeSoldierData newSoldier = new RuntimeSoldierData();
+                                newSoldier.Init(item);
+                                CreateAndAttachSoliderContainer(newSoldier, soldierHiringContent, hiringCostMod: (hasCarrierPigeons ? -10:0));
+                            }
+                        }
+
+                    }
+                }
+                // RuntimeSoldierData newSoldier = new RuntimeSoldierData();
+                // newSoldier.Init(item);
+                // CreateAndAttachSoliderContainer(newSoldier, soldierHiringContent, hiringCostMod: (hasCarrierPigeons ? -10:0));
             }
             
             // CreateAndAttachCollapsableWindow(item, soldierHiringContent);

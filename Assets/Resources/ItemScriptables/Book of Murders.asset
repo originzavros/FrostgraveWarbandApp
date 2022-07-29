@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Book of Murders
+  m_EditorClassIdentifier: 
+  itemName: Book of Murders
+  itemDescription: 'Before any game, a wizard with at least one Necromancer spell
+    may read from the Book of Murders. The wizard starts the game at -1 Health, but
+    gains 5 xp after the game.
+
+    A wizard may not keep a Book of Murders and a
+    Book of Charity in his vault at the same time.'
+  itemPurchasePrice: 350
+  itemSalePrice: 0
+  itemBook: 6
+  itemType: 3

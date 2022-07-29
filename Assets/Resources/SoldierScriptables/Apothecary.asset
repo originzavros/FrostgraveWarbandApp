@@ -28,6 +28,7 @@ MonoBehaviour:
 
     Can spend an action
     to use it on an ally within 1".'
+  status: 0
   bookEdition: 0
   baseSoldierEquipment:
   - {fileID: 11400000, guid: 97f988db9c9cf1e49a9b5873ecfad7ef, type: 2}

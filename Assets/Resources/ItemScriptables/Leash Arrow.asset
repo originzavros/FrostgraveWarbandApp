@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Leash Arrow
+  m_EditorClassIdentifier: 
+  itemName: Leash Arrow
+  itemDescription: 'When this item is found or bought, the player may choose if it
+    is an arrow or a crossbow bolt. This choice, once made, is permanent.
+
+    When
+    the figure equipped with this arrow/bolt chooses to use it and successfully hits
+    its target, regardless of whether or not it does damage, the target must make
+    an immediate Fight Roll with a Target Number of 18.
+
+    If it fails, it is immediately
+    pulled 8" directly towards the shooter.'
+  itemPurchasePrice: 100
+  itemSalePrice: 0
+  itemBook: 6
+  itemType: 3

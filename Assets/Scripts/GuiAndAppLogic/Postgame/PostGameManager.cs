@@ -867,6 +867,7 @@ public class PostGameManager : MonoBehaviour
 
         foreach(var book in campaignSettingsManager.GetEnabledCampaigns())
         {
+            Debug.Log("treasure type :" + book);
             if(book == FrostgraveBook.TheMazeOfMalcor)
             {
                 CreateTreasureTypeButtonAndAttach(book.ToString(), treasureSelectionPopupContents);

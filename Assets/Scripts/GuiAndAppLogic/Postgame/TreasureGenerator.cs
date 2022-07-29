@@ -51,7 +51,9 @@ public class TreasureGenerator : MonoBehaviour
             {
                 allGrimoiresCoreBook.Add(item);
             }
-            else if(item.itemBook == FrostgraveBook.TheMazeOfMalcor)
+
+            //handle campaign specific ones
+            if(item.itemBook == FrostgraveBook.TheMazeOfMalcor)
             {
                 if(item.itemType == MagicItemType.Scroll)
                 {
@@ -65,6 +67,8 @@ public class TreasureGenerator : MonoBehaviour
                 }
             }
         }
+
+
 
     }
 
@@ -105,10 +109,12 @@ public class TreasureGenerator : MonoBehaviour
 
     public RuntimeTreasure GenerateTreasureCampaign(FrostgraveBook book)
     {
+        Debug.Log("book passed to GenerateTreasure :" + book);
         RuntimeTreasure generatedTreasure = new RuntimeTreasure();
         generatedTreasure.goldAmount = 0;
         if(book == FrostgraveBook.TheMazeOfMalcor)
         {
+            Debug.Log(allTheMazeOfMalcor.Count + "maze of malcor counts " + allTheMazeOfMalcorScrolls.Count);
             generatedTreasure.items.Add(ConvertTreasure(allTheMazeOfMalcor[Random.Range(0, allTheMazeOfMalcor.Count)]));
             generatedTreasure.items.Add(ConvertTreasure(allTheMazeOfMalcorScrolls[Random.Range(0, allTheMazeOfMalcorScrolls.Count)]));
         }
