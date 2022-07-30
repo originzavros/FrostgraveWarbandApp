@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Fickel Finger Scroll
+  m_EditorClassIdentifier: 
+  itemName: Fickel Finger Scroll
+  itemDescription: "This spell may be cast on any figure within 6\" of the spellcaster.\nWhenever
+    this figure is activated, roll a die: on a 1-5 the figure receives one action
+    fewer (minimum 0), on a 6-15 nothing happens, and on a 16-20 the figure receives
+    one additional action (max 3).\nOn a roll of 1 or 20, the spell ends after the
+    figure's activation.\nOtherwise, the spell remains until the end of the game.\nMultiple
+    castings fo this spell on the same figure have no effect.\r"
+  itemPurchasePrice: 250
+  itemSalePrice: 30
+  itemBook: 6
+  itemType: 5

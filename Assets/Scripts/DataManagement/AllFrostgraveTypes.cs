@@ -18,7 +18,12 @@ public enum WizardSchools{
     Summoner,
     Thaumaturge,
     Witch,
-    Random
+    Random,
+    Astromancer,
+    Distortionist,
+    Fatecaster,
+    Sonancer,
+    Spiritualist
 }
 
 public enum FrostgraveBook{

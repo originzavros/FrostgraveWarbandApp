@@ -89,6 +89,11 @@ public class CampaignSettingsManager : MonoBehaviour
         // Debug.Log("Change state " + settingType + ": " + state);
         settings[settingType] = state;
         SaveSettings();
+
+        foreach(var item in enabledCampaigns)
+        {
+            Debug.Log("This is in enabled campaigns: " + item);
+        }
     }
 
     

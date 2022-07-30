@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a07435ab102d15945946b214a3a843e8, type: 3}
+  m_Name: Ethereal Form
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Name: Ethereal Form
+  CastingNumber: 10
+  School: 15
+  Restriction: Self Only
+  Description: "The spellcaster becomes ethereal until the start of his next activation.\nHe
+    may move through terrain as though it were not there and ignores all movement
+    penalties for terrain, including climbing.\nThe figure may not pick up treasure
+    and drops any treasure it was carrying.\nOnly another ethereal figure may force
+    combat with the figure.\nThe figure still fights as normal, but can only cause
+    damage if it is using a magic weapon.\nThe figure is immune to non-magic weapons.\nIf
+    a spellcaster successfully casts this spell again the following turn, they gain
+    the above benefits as normal, but automatically suffers 5 damage.\r"
+  bookEdition: 6

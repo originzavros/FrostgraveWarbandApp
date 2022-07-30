@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a07435ab102d15945946b214a3a843e8, type: 3}
+  m_Name: Sound Wave
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Name: Sound Wave
+  CastingNumber: 12
+  School: 14
+  Restriction: Line of Sight
+  Description: "Make a +4 non-magic shooting attack against the target figure.\nIf
+    it hits, the target immediately suffers -2 Armor (minumum 10) for the purposes
+    of this attack only.\nFurthermore, in addition to any damage taken due to this
+    attack, move the target figure back in a straight line away from the spellcaster
+    a number of inches equal to the damage taken or until the figure hits a terrain
+    feature more than .5\" tall.\r"
+  bookEdition: 6

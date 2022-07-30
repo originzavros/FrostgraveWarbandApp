@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Whiplash Scroll
+  m_EditorClassIdentifier: 
+  itemName: Whiplash Scroll
+  itemDescription: "Casting this spell can take the place of a movement action.\nPlace
+    a marker where the spellcaster is currently standing, then move the spellcaster
+    to any point within 12\" and line of sight.\nThis includes moving into combat,
+    if so desired.\nThe spellcaster may now use any remaining actions.\nAt the end
+    of the turn, return the spellcaster to the marker, or as near to that point as
+    is possible.\r"
+  itemPurchasePrice: 250
+  itemSalePrice: 30
+  itemBook: 6
+  itemType: 5

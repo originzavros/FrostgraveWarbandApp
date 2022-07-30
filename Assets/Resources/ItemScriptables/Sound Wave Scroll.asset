@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Sound Wave Scroll
+  m_EditorClassIdentifier: 
+  itemName: Sound Wave Scroll
+  itemDescription: "Make a +4 non-magic shooting attack against the target figure.\nIf
+    it hits, the target immediately suffers -2 Armor (minumum 10) for the purposes
+    of this attack only.\nFurthermore, in addition to any damage taken due to this
+    attack, move the target figure back in a straight line away from the spellcaster
+    a number of inches equal to the damage taken or until the figure hits a terrain
+    feature more than .5\" tall.\r"
+  itemPurchasePrice: 250
+  itemSalePrice: 30
+  itemBook: 6
+  itemType: 5

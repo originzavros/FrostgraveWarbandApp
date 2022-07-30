@@ -15,29 +15,64 @@ public class ScrollBox : MonoBehaviour
     [SerializeField] GameObject spellButtonReversePrefab;
     [SerializeField] TMP_Dropdown spellDropDown;
     [SerializeField] TMP_Dropdown rangeTypeDropDown;
+    [SerializeField] CampaignSettingsManager campaignSettingsManager;
 
     [SerializeField] SpellTextPopup spellTextPopup;
 
    void Start()
    {
-        PopulateWithAllSpells();
+        // PopulateWithAllSpells();
         PopulateSchoolDropdown();
         PopulateRangeTypeDropdown();
    }
 
+   public void Init()
+   {
+        foreach(Transform item in contentBox.transform)
+        {
+            Destroy(item.gameObject);
+        }
+
+        PopulateWithAllSpells();
+        // PopulateSchoolDropdown();
+        // PopulateRangeTypeDropdown();
+   }
+
     public void PopulateWithAllSpells()
     {
+        bool createSpell = false;
         foreach(var item in LoadAssets.spellObjects)
         {
-            GameObject temp = Instantiate(spellButtonNormalPrefab);
-            temp.GetComponent<Button>().onClick.AddListener(delegate {EnableAndFillDescriptionPopUp(temp);});
-            SpellButton sb = temp.GetComponent<SpellButton>();
-            sb.SpellNameText.text = item.Name;
-            sb.CastingNumberText.text = item.CastingNumber.ToString();
-            sb.referenceScriptable = item;
-            sb.SetColorBasedOnSpellSchool();
-            // temp.transform.parent = contentBox.transform;
-            temp.transform.SetParent(contentBox.transform, false);
+            createSpell = false;
+            if(item.bookEdition == FrostgraveBook.Core)
+            {
+                createSpell = true;
+            }
+            else{
+                foreach(var book in campaignSettingsManager.GetEnabledCampaigns())
+                {
+                    if(book == item.bookEdition)
+                    {
+                        createSpell = true;
+                    }
+                }
+            }
+
+
+            if(createSpell)
+            {
+                GameObject temp = Instantiate(spellButtonNormalPrefab);
+                temp.GetComponent<Button>().onClick.AddListener(delegate {EnableAndFillDescriptionPopUp(temp);});
+                SpellButton sb = temp.GetComponent<SpellButton>();
+                sb.SpellNameText.text = item.Name;
+                sb.CastingNumberText.text = item.CastingNumber.ToString();
+                sb.referenceScriptable = item;
+                sb.SetColorBasedOnSpellSchool();
+                // temp.transform.parent = contentBox.transform;
+                temp.transform.SetParent(contentBox.transform, false);
+            }
+
+            
         }
     }
 

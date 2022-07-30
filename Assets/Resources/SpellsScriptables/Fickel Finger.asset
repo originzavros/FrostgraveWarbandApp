@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a07435ab102d15945946b214a3a843e8, type: 3}
+  m_Name: Fickel Finger
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Name: Fickel Finger
+  CastingNumber: 12
+  School: 13
+  Restriction: Line of Sight
+  Description: "This spell may be cast on any figure within 6\" of the spellcaster.\nWhenever
+    this figure is activated, roll a die: on a 1-5 the figure receives one action
+    fewer (minimum 0), on a 6-15 nothing happens, and on a 16-20 the figure receives
+    one additional action (max 3).\nOn a roll of 1 or 20, the spell ends after the
+    figure's activation.\nOtherwise, the spell remains until the end of the game.\nMultiple
+    castings fo this spell on the same figure have no effect.\r"
+  bookEdition: 6

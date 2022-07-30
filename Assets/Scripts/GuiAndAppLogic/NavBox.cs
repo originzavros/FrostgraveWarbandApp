@@ -11,6 +11,7 @@ public class NavBox : MonoBehaviour
     [SerializeField] GameObject wizardBuilder;
     [SerializeField] GameObject warbandManager;
     [SerializeField] GameObject campaignSettingsManager;
+    [SerializeField] GameObject spellReference;
 
     [SerializeField] GameObject pirateOathStuff;
 
@@ -39,6 +40,7 @@ public class NavBox : MonoBehaviour
     {
         mainButtonMenu.SetActive(false);
         spellReferencePanel.SetActive(true);
+        spellReference.GetComponent<ScrollBox>().Init();
         ChangeScreenName("Spell Reference");
         currentLocation = AppFragment.SpellReference;
     }

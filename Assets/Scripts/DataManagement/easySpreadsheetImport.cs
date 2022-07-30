@@ -192,6 +192,10 @@ public class easySpreadsheetImport : MonoBehaviour
         //generate grimoires
         foreach(var spell in spellObjects)
         {
+            if(spell.bookEdition == FrostgraveBook.TheMazeOfMalcor) //we don't generate grimoires for this expansion
+            {
+                continue;
+            }
             MagicItemScriptable es = ScriptableObject.CreateInstance<MagicItemScriptable>();
             es.itemName = spell.Name + " Grimoire";
             es.itemDescription = spell.Description;
@@ -203,7 +207,7 @@ public class easySpreadsheetImport : MonoBehaviour
             AssetDatabase.CreateAsset(es, $"Assets/Resources/ItemScriptables/{es.itemName}.asset"); 
         }
 
-         //generate grimoires
+         //generate scrolls
         foreach(var spell in spellObjects)
         {
             MagicItemScriptable es = ScriptableObject.CreateInstance<MagicItemScriptable>();

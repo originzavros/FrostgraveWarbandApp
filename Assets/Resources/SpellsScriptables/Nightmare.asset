@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a07435ab102d15945946b214a3a843e8, type: 3}
+  m_Name: Nightmare
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Name: Nightmare
+  CastingNumber: 12
+  School: 15
+  Restriction: Out of Game(B)
+  Description: "This spell may only be cast directly before a game.\nThe spell targets
+    a wizard from one of the opposing warbands in the game about to be played.\nWhen
+    experience is calculated after the game, the target loses 20 experience points
+    from the amount earned during the game.\nThis cannot take the experience earned
+    below zero.\nThe effects of this spell continues in every subsequent game which
+    includes both the spellcaster and the target.\nThis spell cannot be cancelled
+    with Dispel or Spelleater, nor is it affected by any kind of null energy.\nThe
+    only way to end the effects of this spell is for the target to play in a game
+    in whihc the spellcaster is reduced to 0 Health.\nAs soon as this happens, spell
+    is cancelled.\nIf this occurs in the game immediately following the spell being
+    cast, the target suffers no experience penalty.\r"
+  bookEdition: 6

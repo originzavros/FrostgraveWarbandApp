@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Steal Voice Scroll
+  m_EditorClassIdentifier: 
+  itemName: Steal Voice Scroll
+  itemDescription: "This spell only affects spellcasters.\nThe target of the spell
+    may not activate any other figures during their activation phase.\nAdditionally,
+    they receive a -2 to all casting rolls.\nThe target may attempt to resist this
+    spell by making a Will roll.\r"
+  itemPurchasePrice: 250
+  itemSalePrice: 30
+  itemBook: 6
+  itemType: 5

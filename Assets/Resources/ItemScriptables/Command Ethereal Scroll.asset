@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Command Ethereal Scroll
+  m_EditorClassIdentifier: 
+  itemName: Command Ethereal Scroll
+  itemDescription: "This spell may only be cast on ethereal undead creatures.\nThe
+    spellcaster may immediately cause the target to take one action.\nIf the creature
+    is not currently in combat, that action must be movement.\nThe spellcaster may
+    force the creature to make any legal move, so far as that movement does not cause
+    the creature direct harm.\nIf the creature is in combat, the spellcaster caan
+    make it attack any figure with which it is in combat.\nIf the creature is in
+    combat with figures who are all part of the spellcaster's warband, then the creature
+    may take a Move action to leave combat.\nThis spell has no effect on creatures
+    that are immune to control undead.\r"
+  itemPurchasePrice: 250
+  itemSalePrice: 30
+  itemBook: 6
+  itemType: 5
