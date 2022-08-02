@@ -11,6 +11,11 @@ public class BasicPopup : MonoBehaviour
         popupText.text = text;
     }
 
+    public void EnablePopup()
+    {
+        this.gameObject.SetActive(true);
+    }
+
     public void OnClickClosePopup()
     {
         this.gameObject.SetActive(false);
