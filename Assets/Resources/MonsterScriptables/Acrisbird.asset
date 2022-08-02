@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 907e81a9cda2ab54c9d56fbb810687fa, type: 3}
+  m_Name: Acrisbird
+  m_EditorClassIdentifier: 
+  soldierName: Acrisbird
+  inventoryLimit: 1
+  move: 6
+  fight: 3
+  shoot: 0
+  armor: 12
+  will: 0
+  health: 8
+  cost: 0
+  hiringName: Acrisbird
+  soldierType: 
+  isHired: 0
+  description: 
+  status: 0
+  bookEdition: 6
+  baseSoldierEquipment: []
+  soldierInventory: []
+  monsterKeywordList:
+  - {fileID: 11400000, guid: 37f2fae88dff43b40a81776b19df74a0, type: 2}
+  - {fileID: 11400000, guid: 03a7a6e8a24b9444b909ec4ecc692e66, type: 2}

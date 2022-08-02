@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 907e81a9cda2ab54c9d56fbb810687fa, type: 3}
+  m_Name: Coal Man
+  m_EditorClassIdentifier: 
+  soldierName: Coal Man
+  inventoryLimit: 1
+  move: 4
+  fight: 3
+  shoot: 0
+  armor: 13
+  will: 0
+  health: 14
+  cost: 0
+  hiringName: Coal Man
+  soldierType: 
+  isHired: 0
+  description: 
+  status: 0
+  bookEdition: 6
+  baseSoldierEquipment: []
+  soldierInventory: []
+  monsterKeywordList:
+  - {fileID: 11400000, guid: b0b3b89e5e70ca34ab25f395dc5ff1f9, type: 2}
+  - {fileID: 11400000, guid: 4c37daaee42037c42979f6ee56c94094, type: 2}
+  - {fileID: 11400000, guid: 41b3be7a8ce1b1e4da45b5954909f0c2, type: 2}

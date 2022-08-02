@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 907e81a9cda2ab54c9d56fbb810687fa, type: 3}
+  m_Name: Bloodwave
+  m_EditorClassIdentifier: 
+  soldierName: Bloodwave
+  inventoryLimit: 1
+  move: 5
+  fight: 3
+  shoot: 0
+  armor: 10
+  will: 6
+  health: 6
+  cost: 0
+  hiringName: Bloodwave
+  soldierType: 
+  isHired: 0
+  description: 
+  status: 0
+  bookEdition: 6
+  baseSoldierEquipment: []
+  soldierInventory: []
+  monsterKeywordList:
+  - {fileID: 11400000, guid: b69a6143cdf1b544093473266429ba95, type: 2}
+  - {fileID: 11400000, guid: 03a7a6e8a24b9444b909ec4ecc692e66, type: 2}
+  - {fileID: 11400000, guid: 3c4158e25a639a04d83e3bcbd403fb48, type: 2}
+  - {fileID: 11400000, guid: efe4b12d2e4c079409a7c74fdab414db, type: 2}
+  - {fileID: 11400000, guid: b98e147b1ab8b6d4ca1f3d2f63814f82, type: 2}
+  - {fileID: 11400000, guid: 1cbec39c2181ef546bbc9f9b2c49fab2, type: 2}

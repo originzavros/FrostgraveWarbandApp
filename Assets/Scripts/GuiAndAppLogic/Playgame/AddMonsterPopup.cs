@@ -9,17 +9,33 @@ public class AddMonsterPopup : MonoBehaviour
     [SerializeField] GameObject monsterButtonPrefab;
     [SerializeField] PlayModeManager playModeManager;
 
+    [SerializeField] CampaignSettingsManager campaignSettingsManager;
+
     private bool active = false;
     public void Init()
     {
-        if(!active)
-        {
+        ClearConent();
+        // if(!active)
+        // {
             foreach(MonsterScriptable item in LoadAssets.allMonsterObjects)
             {
-                AddMonsterButton(item);
+                if(item.bookEdition == FrostgraveBook.Core)
+                {
+                    AddMonsterButton(item);
+                }
+                else{
+                    foreach(var cpSetting in campaignSettingsManager.GetEnabledCampaigns())
+                    {
+                        if(cpSetting == item.bookEdition)
+                        {
+                            AddMonsterButton(item);
+                        }
+                    }
+                }
+                // AddMonsterButton(item);
             }
-            active = true;
-        }
+            // active = true;
+        // }
     }
 
     public void AddMonsterButton(MonsterScriptable _monster)
@@ -51,5 +67,13 @@ public class AddMonsterPopup : MonoBehaviour
     public void ClosePopup()
     {
         this.gameObject.SetActive(false);
+    }
+
+    public void ClearConent()
+    {
+        foreach(Transform item in scrollContents.transform)
+        {
+            Destroy(item.gameObject);
+        }
     }
 }

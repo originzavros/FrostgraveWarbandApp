@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d48272a0de5a6d4681bb6603fbacb31, type: 3}
+  m_Name: CollegePorter
+  m_EditorClassIdentifier: 
+  keywordName: CollegePorter
+  keywordDescription: "Will never attack spellcasters and does not grant experience
+    when killed.\nIf an uncontrolled porter is killed, leave it on the table. Any
+    figure in base contact with the dead porter can spend an action to search its
+    body. Roll, on an 11+ they find one scroll of Lost Magic. When a porter is searched
+    remove it from the table.\nIf a porter is a warband member, it has 3 item slots
+    for potions or scrolls and allies within 1\" can spend an action to take an item.\r"

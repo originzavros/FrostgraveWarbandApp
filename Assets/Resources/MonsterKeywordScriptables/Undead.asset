@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Undead
   m_EditorClassIdentifier: 
   keywordName: Undead
-  keywordDescription: This creature is immune to poison and never counts as wounded.
-    Undead creatures can pick up and carry treasure tokens but have no item slots.
+  keywordDescription: "This creature is immune to poison and never counts as wounded.
+    Undead creatures can pick up and carry treasure tokens but have no item slots.\r"
