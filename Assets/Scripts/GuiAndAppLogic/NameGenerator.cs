@@ -50,5 +50,11 @@ public class NameGenerator : MonoBehaviour
         Debug.Log("The final name: " + selectedName);
     }
 
+    public void OnEndEdit()
+    {
+        selectedName = inputField.text;
+        Debug.Log("Name at end of edit: " + selectedName);
+    }
+
 
 }
