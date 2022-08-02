@@ -29,6 +29,7 @@ public class WarbandInfoManager : MonoBehaviour
         // ES3.Save(playerWizard.wizardProfilekey, playerWizard.playerWizardProfile);
         ES3.Save(key, playerWarband);
         ES3.Save("warbandNames", LoadAssets.warbandNames);
+        SaveCurrentWarbandExport();
     }
 
     public void LoadWarband(string _warbandName)
@@ -88,6 +89,23 @@ public class WarbandInfoManager : MonoBehaviour
         {
             ES3.DeleteKey(id);
         }
+    }
+
+
+    public void SaveCurrentWarbandExport()
+    {
+        string key = playerWarband.warbandName;
+        if(!LoadAssets.warbandNames.Contains(key))
+        {
+            LoadAssets.warbandNames.Add(key);
+        }
+        // playerWizard.wizardProfilekey =  playerWarband.warbandName + "wizardkey";
+        // ES3.Save(playerWizard.wizardProfilekey, playerWizard.playerWizardProfile);
+
+        var settings = new ES3Settings();
+        settings.location = ES3.Location.PlayerPrefs;
+        ES3.Save(key, playerWarband, settings);
+        ES3.Save("warbandNames", LoadAssets.warbandNames, settings);
     }
 
 

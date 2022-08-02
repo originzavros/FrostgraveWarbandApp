@@ -22,7 +22,7 @@ public class SpellTextPopup : MonoBehaviour
 
     public void UpdateRuntimeInfo(WizardRuntimeSpell ss)
     {
-        spellNameText.text = ss.referenceSpell.name;
+        spellNameText.text = ss.referenceSpell.Name;
         castingNumberText.text = (ss.referenceSpell.CastingNumber + ss.GetAllMods()).ToString();
         descriptionText.text = ss.referenceSpell.Description;
         schoolValueText.text = ss.referenceSpell.School.ToString();

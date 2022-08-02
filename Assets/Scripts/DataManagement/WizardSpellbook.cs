@@ -25,15 +25,18 @@ public class WizardSpellbook
     }
 }
 
+//saving by reference is causing problems, so had to awkwardly patch this
 public class WizardRuntimeSpell
 {
-    public SpellScriptable referenceSpell;
+    public SaveSpellRuntime referenceSpell; 
     public int currentWizardLevelMod = 0;
     public int wizardSchoolMod = 0;
 
     public void Init(SpellScriptable reference)
     {
-        referenceSpell = reference;
+        referenceSpell = new SaveSpellRuntime();
+        referenceSpell.Init(reference);
+        // referenceSpell = reference;
         currentWizardLevelMod = 0;
         wizardSchoolMod = 0;
     }
@@ -49,3 +52,39 @@ public class WizardRuntimeSpell
         return (referenceSpell.CastingNumber + temp);
     }
 }
+
+public class SaveSpellRuntime
+{
+    public string Name;
+    public int CastingNumber;
+    public WizardSchools School;
+    public string Restriction;
+    public string Description;
+    public FrostgraveBook bookEdition;
+
+    public void Init(SpellScriptable spell)
+    {
+        Name = spell.Name;
+        CastingNumber = spell.CastingNumber;
+        School = spell.School;
+        Restriction = spell.Restriction;
+        Description = spell.Description;
+        bookEdition = spell.bookEdition;
+    }
+
+    public SpellScriptable GetReferenceSpell()
+    {
+        foreach(var item in LoadAssets.spellObjects)
+        {
+            if(item.Name == this.Name)
+            {
+                return item;
+            }
+        }
+        Debug.Log("Failed to get reference spell in SaveSpellRuntime");
+        return null;
+    }
+
+    
+}
+

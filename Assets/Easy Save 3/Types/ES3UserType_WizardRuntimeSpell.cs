@@ -16,7 +16,7 @@ namespace ES3Types
 		{
 			var instance = (WizardRuntimeSpell)obj;
 			
-			writer.WritePrivateFieldByRef("referenceSpell", instance);
+			writer.WriteProperty("referenceSpell", instance.referenceSpell, ES3UserType_SaveSpellRuntime.Instance);
 			writer.WriteProperty("currentWizardLevelMod", instance.currentWizardLevelMod, ES3Type_int.Instance);
 			writer.WriteProperty("wizardSchoolMod", instance.wizardSchoolMod, ES3Type_int.Instance);
 		}
@@ -30,8 +30,8 @@ namespace ES3Types
 				{
 					
 					case "referenceSpell":
-					reader.SetPrivateField("referenceSpell", reader.Read<SpellScriptable>(), instance);
-					break;
+						instance.referenceSpell = reader.Read<SaveSpellRuntime>(ES3UserType_SaveSpellRuntime.Instance);
+						break;
 					case "currentWizardLevelMod":
 						instance.currentWizardLevelMod = reader.Read<System.Int32>(ES3Type_int.Instance);
 						break;

@@ -152,7 +152,7 @@ public class SpellSelectionHandler : MonoBehaviour
                         temp.Add(cbc.spellButton.referenceScriptable);
                     }
                     else{
-                        temp.Add(cbc.spellButton.referenceRuntimeSpell.referenceSpell);
+                        temp.Add(cbc.spellButton.referenceRuntimeSpell.referenceSpell.GetReferenceSpell());
                     }
                 }
             }
@@ -346,7 +346,7 @@ public class SpellSelectionHandler : MonoBehaviour
     {
         foreach(var spell in spellbook.wizardSpellbookSpells)
         {
-            if(spell.referenceSpell == spellScriptable)
+            if(spell.referenceSpell.GetReferenceSpell() == spellScriptable)
             {
                 return true;
             }

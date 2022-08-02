@@ -45,6 +45,7 @@ public class WarbandLister : MonoBehaviour
 
     public void DeleteWarband()
     {
+        ES3.DeleteKey(currentlySelectedWarband);
         LoadAssets.warbandNames.Remove(currentlySelectedWarband);
         currentlySelectedWarband = "";
         ConfirmationPopup.OnConfirmChosen -= Confirmed;

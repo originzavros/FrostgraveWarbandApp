@@ -1022,17 +1022,29 @@ public class PostGameManager : MonoBehaviour
             {
                 fightToggle.interactable = false;
             }
+            else{
+                fightToggle.interactable = true;
+            }
             if(currentWarband.warbandWizard.playerWizardProfile.shoot >= 5)
             {
                 shootToggle.interactable = false;
+            }
+            else{
+                shootToggle.interactable = true;
             }
             if(currentWarband.warbandWizard.playerWizardProfile.will >= 8)
             {
                 willToggle.interactable = false;
             }
+            else{
+                willToggle.interactable = true;
+            }
             if(currentWarband.warbandWizard.playerWizardProfile.health >= 20)
             {
                 healthToggle.interactable = false;
+            }
+            else{
+                healthToggle.interactable = true;
             }
 
             CreateDisplayElementAndAttach("Total XP: " + currentWarband.warbandWizard.playerWizardExperience, wizardLevelTogglesContents);
@@ -1152,7 +1164,7 @@ public class PostGameManager : MonoBehaviour
         {
             foreach(var item in currentWarband.warbandWizard.playerWizardSpellbook.wizardSpellbookSpells)
             {
-                if(item.referenceSpell == selectedSpell[0])
+                if(item.referenceSpell.GetReferenceSpell() == selectedSpell[0])
                 {
                     item.currentWizardLevelMod--;
                     currentWarband.warbandWizard.playerWizardExperience -= 100;
