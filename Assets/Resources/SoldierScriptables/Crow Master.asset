@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Crow Master
   m_EditorClassIdentifier: 
   soldierName: 
-  inventoryLimit: 0
+  inventoryLimit: 1
   move: 6
   fight: 0
   shoot: 0
@@ -31,3 +31,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 80014bd668f38354183b52662d765dc1, type: 2}
   - {fileID: 11400000, guid: a3f3d02577ce7c6418b1b9a367eded89, type: 2}
   soldierInventory: []
+  monsterKeywordList: []

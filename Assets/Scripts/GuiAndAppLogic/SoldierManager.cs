@@ -223,4 +223,10 @@ public class SoldierManager : MonoBehaviour
         injuryKeywordPopup.Init(_keyword);
     }
 
+    public void OnClickAddSummon()
+    {
+    }
+
+    
+
 }

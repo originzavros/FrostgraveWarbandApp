@@ -4,7 +4,7 @@ using UnityEngine;
 namespace ES3Types
 {
 	[UnityEngine.Scripting.Preserve]
-	[ES3PropertiesAttribute("soldierName", "inventoryLimit", "move", "fight", "shoot", "armor", "will", "health", "cost", "hiringName", "soldierType", "isHired", "description", "status", "bookEdition", "baseSoldierEquipment", "soldierInventory", "soldierPermanentInjuries")]
+	[ES3PropertiesAttribute("soldierName", "inventoryLimit", "move", "fight", "shoot", "armor", "will", "health", "cost", "hiringName", "soldierType", "isHired", "description", "status", "bookEdition", "baseSoldierEquipment", "soldierInventory", "soldierPermanentInjuries", "monsterKeywordList")]
 	public class ES3UserType_RuntimeSoldierData : ES3ObjectType
 	{
 		public static ES3Type Instance = null;
@@ -32,8 +32,9 @@ namespace ES3Types
 			writer.WriteProperty("status", instance.status, ES3Internal.ES3TypeMgr.GetOrCreateES3Type(typeof(SoldierStatus)));
 			writer.WriteProperty("bookEdition", instance.bookEdition, ES3Internal.ES3TypeMgr.GetOrCreateES3Type(typeof(FrostgraveBook)));
 			writer.WriteProperty("baseSoldierEquipment", instance.baseSoldierEquipment, ES3Internal.ES3TypeMgr.GetOrCreateES3Type(typeof(System.Collections.Generic.List<EquipmentScriptable>)));
-			writer.WriteProperty("soldierInventory", instance.soldierInventory, ES3Internal.ES3TypeMgr.GetOrCreateES3Type(typeof(System.Collections.Generic.List<MagicItemScriptable>)));
+			writer.WriteProperty("soldierInventory", instance.soldierInventory, ES3Internal.ES3TypeMgr.GetOrCreateES3Type(typeof(System.Collections.Generic.List<MagicItemRuntime>)));
 			writer.WriteProperty("soldierPermanentInjuries", instance.soldierPermanentInjuries, ES3Internal.ES3TypeMgr.GetOrCreateES3Type(typeof(System.Collections.Generic.List<InjuryScriptable>)));
+			writer.WriteProperty("monsterKeywordList", instance.monsterKeywordList, ES3Internal.ES3TypeMgr.GetOrCreateES3Type(typeof(System.Collections.Generic.List<MonsterKeywordScriptable>)));
 		}
 
 		protected override void ReadObject<T>(ES3Reader reader, object obj)
@@ -97,6 +98,9 @@ namespace ES3Types
 						break;
 					case "soldierPermanentInjuries":
 						instance.soldierPermanentInjuries = reader.Read<System.Collections.Generic.List<InjuryScriptable>>();
+						break;
+					case "monsterKeywordList":
+						instance.monsterKeywordList = reader.Read<System.Collections.Generic.List<MonsterKeywordScriptable>>();
 						break;
 					default:
 						reader.Skip();

@@ -32,3 +32,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c1b1555f7e59d40448d2091bc16d0ead, type: 2}
   - {fileID: 11400000, guid: a3f3d02577ce7c6418b1b9a367eded89, type: 2}
   soldierInventory: []
+  monsterKeywordList: []

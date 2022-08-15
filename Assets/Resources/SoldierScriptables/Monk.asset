@@ -30,3 +30,4 @@ MonoBehaviour:
   baseSoldierEquipment:
   - {fileID: 11400000, guid: 013bd5e8c62496e45b8e60f9549ad677, type: 2}
   soldierInventory: []
+  monsterKeywordList: []

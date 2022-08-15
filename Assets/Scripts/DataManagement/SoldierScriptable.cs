@@ -27,7 +27,7 @@ public class SoldierScriptable : ScriptableObject
         description = ss.description;
         bookEdition = ss.bookEdition;
         baseSoldierEquipment = ss.baseSoldierEquipment;
-        // soldierInventory = ss.soldierInventory;
+        // soldierInventory = ss.soldierInventory;                
         status = ss.status;
     }
     public string soldierName;
@@ -47,5 +47,5 @@ public class SoldierScriptable : ScriptableObject
     public FrostgraveBook bookEdition;
     public List<EquipmentScriptable> baseSoldierEquipment = new List<EquipmentScriptable>();
     public List<MagicItemScriptable> soldierInventory = new List<MagicItemScriptable>();
-    // public List<MonsterKeywordScriptable> monsterKeywordList = new List<MonsterKeywordScriptable>();
+    public List<MonsterKeywordScriptable> monsterKeywordList = new List<MonsterKeywordScriptable>();
 }

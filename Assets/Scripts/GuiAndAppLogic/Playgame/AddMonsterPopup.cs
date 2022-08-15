@@ -54,6 +54,11 @@ public class AddMonsterPopup : MonoBehaviour
         ClosePopup();
     }
 
+    public void AssignMonsterEvent(UnityEngine.Events.UnityAction call )
+    {
+        
+    }
+
     //simple, we'll add encounter table later
     public void OnClickRollMonstersButton()
     {

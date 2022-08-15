@@ -128,7 +128,7 @@ public class PlayModeManager : MonoBehaviour
         ClearContent(monsterViewContents);
         newGameButton.GetComponent<Button>().interactable = true;
         endGameButton.GetComponent<Button>().interactable = false;
-        cancelGameButton.GetComponent<Button>().interactable = false;
+        cancelGameButton.GetComponent<Button>().interactable = true;
 
         warbandUIManager.SwitchToPostgameAndInit(gameInfo);
     }
@@ -148,7 +148,7 @@ public class PlayModeManager : MonoBehaviour
         ClearContent(monsterViewContents);
         newGameButton.GetComponent<Button>().interactable = true;
         endGameButton.GetComponent<Button>().interactable = false;
-        cancelGameButton.GetComponent<Button>().interactable = false;
+        cancelGameButton.GetComponent<Button>().interactable = true;
 
         // string id = currentGameWarband.warbandName;
         // warbandInfoManager.DeleteActiveGame(id);
@@ -484,6 +484,12 @@ public class PlayModeManager : MonoBehaviour
         foreach(var _keyword in incoming.soldierPermanentInjuries)
         {
             AddInjuryKeywordToSoldier(csw, _keyword);
+        }
+
+        //for soldier abilities/monsters in warband
+        foreach(var _keyword in incoming.monsterKeywordList)
+        {
+            AddMonsterKeywordToMonster(csw, _keyword);
         }
 
         csw.SetBodyPermaActive();

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Pack Mule
   m_EditorClassIdentifier: 
   soldierName: 
-  inventoryLimit: 3
+  inventoryLimit: 1
   move: 6
   fight: 0
   shoot: 0
@@ -30,3 +30,4 @@ MonoBehaviour:
   baseSoldierEquipment:
   - {fileID: 11400000, guid: c1b1555f7e59d40448d2091bc16d0ead, type: 2}
   soldierInventory: []
+  monsterKeywordList: []

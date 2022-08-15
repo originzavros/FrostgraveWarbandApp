@@ -29,3 +29,4 @@ MonoBehaviour:
   bookEdition: 0
   baseSoldierEquipment: []
   soldierInventory: []
+  monsterKeywordList: []
