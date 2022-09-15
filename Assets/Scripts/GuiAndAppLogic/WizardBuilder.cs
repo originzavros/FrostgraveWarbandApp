@@ -309,7 +309,7 @@ public class WizardBuilder : MonoBehaviour
         navBox.OnClickNavHome();
     }
 
-    public int CheckSpellAlignmentMod(WizardRuntimeSpell _spell, WizardSchoolScriptable _school)
+    public static int CheckSpellAlignmentMod(WizardRuntimeSpell _spell, WizardSchoolScriptable _school)
     {
         int schoolMod = 0;
         bool foundSchool = false;

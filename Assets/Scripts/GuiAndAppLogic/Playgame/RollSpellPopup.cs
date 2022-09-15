@@ -13,17 +13,21 @@ public class RollSpellPopup : MonoBehaviour
 
     public WizardRuntimeSpell wrs;
     private int currentRoll = 0;
+    private int currentMod = 0;
 
-    public void Init(WizardRuntimeSpell _wrs)
+
+    public void Init(WizardRuntimeSpell _wrs, int mods = 0)
     {
         wrs = _wrs;
         spellName.text = wrs.referenceSpell.Name;
+        currentMod = mods;
         Roll();
     }
 
     public void Roll()
     {
         currentRoll = Random.Range(1, 20);
+        currentRoll += currentMod;
         UpdateAllFields(currentRoll);
     }
 
@@ -32,6 +36,7 @@ public class RollSpellPopup : MonoBehaviour
         rollDiceValue.text = roll.ToString();
         spellTNValue.text = wrs.GetFullModedCastingNumber().ToString();
         apprenticeRollValue.text = (roll - 2).ToString();
+        rollWillValue.text = currentMod.ToString();
 
     }
 }

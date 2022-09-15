@@ -333,6 +333,8 @@ public class PlayModeManager : MonoBehaviour
         }
         else{
             int currentRoll = Random.Range(1, 20);
+            int mods = CheckForSpellBonusesFromBaseResources(wrs.referenceSpell.Name);
+            currentRoll += mods;
             string spellcasterType = "Wizard";
             if(isApprentice){ 
                 spellcasterType = "Apprentice";
@@ -340,25 +342,25 @@ public class PlayModeManager : MonoBehaviour
             }
             if(currentRoll >= wrs.GetFullModedCastingNumber())
             {
-                CreateAndAttachSpellRollSuccess(wrs,spellcasterType,currentRoll);
+                CreateAndAttachSpellRollSuccess(wrs,spellcasterType,currentRoll, mods);
             }
             else{
-                CreateAndAttachSpellRollFail(wrs,spellcasterType,currentRoll);
+                CreateAndAttachSpellRollFail(wrs,spellcasterType,currentRoll, mods);
             }
         }
     }
 
-    public void CreateAndAttachSpellRollSuccess(WizardRuntimeSpell wrs, string spellcasterType, int currentRoll)
+    public void CreateAndAttachSpellRollSuccess(WizardRuntimeSpell wrs, string spellcasterType, int currentRoll, int mods = 0)
     {
         GameObject temp = Instantiate(infoDisplayElementPrefab);
-        temp.GetComponent<InfoDisplayElement>().UpdateText(spellcasterType + " <color=green>Success</color>: " + currentRoll.ToString() + "\nSpell: " + wrs.referenceSpell.Name);
+        temp.GetComponent<InfoDisplayElement>().UpdateText(spellcasterType + " <color=green>Success</color>: " + currentRoll.ToString() + "(Mod: "+ mods.ToString() + ")" + "\nSpell: " + wrs.referenceSpell.Name);
         temp.transform.SetParent(wizardViewContents.transform);
     }
 
-    public void CreateAndAttachSpellRollFail(WizardRuntimeSpell wrs, string spellcasterType, int currentRoll)
+    public void CreateAndAttachSpellRollFail(WizardRuntimeSpell wrs, string spellcasterType, int currentRoll, int mods = 0)
     {
         GameObject temp = Instantiate(infoDisplayElementPrefab);
-        temp.GetComponent<InfoDisplayElement>().UpdateText(spellcasterType +" <color=red>Fail</color>: " + currentRoll.ToString() + "\nSpell: " + wrs.referenceSpell.Name);
+        temp.GetComponent<InfoDisplayElement>().UpdateText(spellcasterType +" <color=red>Fail</color>: " + currentRoll.ToString() + "(Mod: "+ mods.ToString() + ")" + "\nSpell: " + wrs.referenceSpell.Name);
         temp.transform.SetParent(wizardViewContents.transform);
     }
 
@@ -433,6 +435,69 @@ public class PlayModeManager : MonoBehaviour
                 CreateAndAttachSpellRollFail(wrs, spellcasterType, summonRoll);
             }
         }        
+    }
+
+    public int CheckForSpellBonusesFromBaseResources(string spellName)
+    {
+        int mod = 0;
+        foreach(var item in currentGameWarband.warbandVault)
+        {
+            if(item.itemName == "Crypt") //+2 raise zombie and animate skull
+            {
+                if(spellName == "Raise Zombie")
+                {
+                    mod += 2;
+                }
+                else if(spellName == "Animate Skull")
+                {
+                    mod += 2;
+                }
+            }
+            else if(item.itemName == "Tower")//+2 for reveal secret and awareness
+            {
+                if(spellName == "Reveal Secret")
+                {
+                    mod += 2;
+                }
+                else if(spellName == "Awareness")
+                {
+                    mod += 2;
+                }
+            }
+            else if(item.itemName == "Giant Cauldron")//+1 brew potion
+            {
+                if(spellName == "Brew Potion")
+                {
+                    mod += 1;
+                }
+            }
+            else if(item.itemName == "Enchanter's Workshop")//+1 animate construct, embed enchantment
+            {
+                if(spellName == "Animate Construct")
+                {
+                    mod += 1;
+                }
+                else if(spellName == "Embed Enchantment")
+                {
+                    mod += 1;
+                }
+            }
+            else if(item.itemName == "Crystal Ball")//+1 reveal secret
+            {
+                if(spellName == "Reveal Secret")
+                {
+                    mod += 1;
+                }
+            }
+            else if(item.itemName == "Scriptorium")//+1 write scroll
+            {
+                if(spellName == "Write Scroll")
+                {
+                    mod += 1;
+                }
+            }
+        }
+        return mod;
     }
 
 
@@ -543,8 +608,9 @@ public class PlayModeManager : MonoBehaviour
     public void SpellRollDicePopup(WizardRuntimeSpell wrs)
     {
         spellRollDicePopup.SetActive(true);
+        int mods = CheckForSpellBonusesFromBaseResources(wrs.referenceSpell.Name);
         // Debug.Log(wrs.referenceSpell.Name);
-        spellRollDicePopup.GetComponent<RollSpellPopup>().Init(wrs);
+        spellRollDicePopup.GetComponent<RollSpellPopup>().Init(wrs, mods);
     }
 
     public void AddConditionPop(PlaymodeWindow _playmodeWindow)

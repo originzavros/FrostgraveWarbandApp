@@ -17,7 +17,7 @@ MonoBehaviour:
   move: 5
   fight: 4
   shoot: 0
-  armor: 12
+  armor: 13
   will: 1
   health: 12
   cost: 125

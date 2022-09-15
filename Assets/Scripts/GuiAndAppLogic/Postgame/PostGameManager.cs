@@ -772,6 +772,7 @@ public class PostGameManager : MonoBehaviour
             RollForPostgameBaseResources();
         }
         else{
+            ClearContent(mainScrollContents);
             treasureFinalizerPanel.SetActive(false);
             warbandUIManager.SaveWarbandChanges();
             warbandUIManager.BackToWarbandMain();
@@ -1217,6 +1218,7 @@ public class PostGameManager : MonoBehaviour
         {
             WizardRuntimeSpell wrs = new WizardRuntimeSpell();
             wrs.Init(spell);
+            wrs.wizardSchoolMod = WizardBuilder.CheckSpellAlignmentMod(wrs, currentWarband.warbandWizard.playerWizardSpellbook.wizardSchool);
             currentWarband.warbandWizard.playerWizardSpellbook.wizardSpellbookSpells.Add(wrs);
             currentWarband.warbandWizard.playerWizardExperience -= 100;
             RemoveGrimoireOfSpellFromVault(spell);

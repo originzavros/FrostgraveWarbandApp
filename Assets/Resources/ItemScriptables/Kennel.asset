@@ -15,7 +15,8 @@ MonoBehaviour:
   itemName: Kennel
   itemDescription: Allows a wizard to keep one war hound or wolf (Animal Companion)
     in their warband above their normal soldier limit. Thus, a wizard may bring eight
-    soldiers plus one war hound/wolf to each game.
+    soldiers plus one war hound/wolf to each game. (in this app spawns a warhound
+    in your warband on game start)
   itemPurchasePrice: 400
   itemSalePrice: 0
   itemBook: 0
