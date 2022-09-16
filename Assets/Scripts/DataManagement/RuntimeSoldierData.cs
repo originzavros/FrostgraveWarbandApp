@@ -26,6 +26,27 @@ public class RuntimeSoldierData
         status = ss.status;
     }
 
+    public void Init(RuntimeSoldierData ss)
+    {
+        soldierName = ss.soldierName;
+        inventoryLimit = ss.inventoryLimit;
+        move = ss.move;
+        fight = ss.fight;
+        shoot = ss.shoot;
+        armor = ss.armor;
+        will = ss.will;
+        health = ss.health;
+        cost = ss.cost;
+        hiringName = ss.hiringName;
+        soldierType = ss.soldierType;
+        isHired = ss.isHired;
+        description = ss.description;
+        bookEdition = ss.bookEdition;
+        baseSoldierEquipment = ss.baseSoldierEquipment;
+        // soldierInventory = ss.soldierInventory;
+        status = ss.status;
+    }
+
     //ideally these would all be properties as stats could be affected by abilities/spells, but not going that far with rules enforcement
     public string soldierName;
     public int inventoryLimit = 1;

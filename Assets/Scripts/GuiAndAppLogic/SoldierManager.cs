@@ -124,15 +124,15 @@ public class SoldierManager : MonoBehaviour
         currentlySelectedSoldier = incoming;
         if(isParty)
         {
+            currentWarband.warbandBonusSoldiers.Add(currentlySelectedSoldier);
             currentWarband.warbandSoldiers.Remove(incoming);
-            currentWarband.warbandBonusSoldiers.Add(incoming);
             OnClickViewWarband();
         }
         else
         {
             if(CheckIfCanAddToWarbandParty())
             {
-                currentWarband.warbandSoldiers.Add(incoming);
+                currentWarband.warbandSoldiers.Add(currentlySelectedSoldier);
                 currentWarband.warbandBonusSoldiers.Remove(incoming);
                 OnClickViewBench();
             } 

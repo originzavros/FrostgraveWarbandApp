@@ -195,7 +195,8 @@ public class HireSoldiersManager : MonoBehaviour
     {
         Debug.Log("hired soldier by name: " + siw.GetStoredSoldier().hiringName);
 
-        RuntimeSoldierData hiredSoldier = siw.GetStoredSoldier();
+        RuntimeSoldierData hiredSoldier = new RuntimeSoldierData();
+        hiredSoldier.Init(siw.GetStoredSoldier());
         hiredSoldier.soldierName = hiredSoldier.hiringName; //give them a default name
         int realSoldierCost = hiredSoldier.cost + (hasCarrierPigeons ? -10:0);
         if(realSoldierCost > currentGoldTotal)

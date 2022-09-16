@@ -751,19 +751,22 @@ public class PostGameManager : MonoBehaviour
             wizardLevelTogglesPanel.SetActive(false);
 
             mainScroll.SetActive(true);
-            ClearMainContent();
+            // ClearMainContent();
+            ClearContent(wizardLevelTogglesContents);
             SetUpWizardSpellLeveler(); 
         }
         else if(currentStep == 6)
         {
            FinalizeWizardSpellLeveler();
-           ClearMainContent();
+        //    ClearMainContent();
+           ClearContent(mainScrollContents);
            SetUpWizardSpellLearner(); 
         }
         else if(currentStep == 7)
         {
             FinalizeWizardSpellLearner();
-            ClearMainContent();
+            // ClearMainContent();
+            ClearContent(mainScrollContents);
 
             ClearContent(treasureFinalizerPanelContents);
             mainScroll.SetActive(false);

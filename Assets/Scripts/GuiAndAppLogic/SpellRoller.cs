@@ -13,12 +13,13 @@ public class SpellRoller
         return Random.Range(1, 20);
     }
 
-    public static bool MakeRollForSpell(WizardRuntimeSpell spell, int additionalMods = 0)
+    public static bool MakeRollForSpell(WizardRuntimeSpell spell, int additionalMods = 0, int rollMods = 0)
     {
         currentRoll = RollDice();
-        int totalMods = (spell.currentWizardLevelMod + spell.referenceSpell.CastingNumber);
-        totalMods += additionalMods;
-        if( totalMods >= currentRoll)
+        int targetMod = (spell.currentWizardLevelMod + spell.referenceSpell.CastingNumber);
+        targetMod += additionalMods;
+        currentRoll += rollMods;
+        if( currentRoll >= targetMod)
         {
             spellResult = true;
         }
