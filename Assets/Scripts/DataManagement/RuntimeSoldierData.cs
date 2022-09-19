@@ -24,6 +24,7 @@ public class RuntimeSoldierData
         baseSoldierEquipment = ss.baseSoldierEquipment;
         // soldierInventory = ss.soldierInventory;
         status = ss.status;
+        monsterKeywordList = ss.monsterKeywordList;
     }
 
     public void Init(RuntimeSoldierData ss)
@@ -45,6 +46,7 @@ public class RuntimeSoldierData
         baseSoldierEquipment = ss.baseSoldierEquipment;
         // soldierInventory = ss.soldierInventory;
         status = ss.status;
+        monsterKeywordList = ss.monsterKeywordList;
     }
 
     //ideally these would all be properties as stats could be affected by abilities/spells, but not going that far with rules enforcement
