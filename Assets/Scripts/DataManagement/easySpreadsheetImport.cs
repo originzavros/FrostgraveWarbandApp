@@ -122,7 +122,7 @@ public class easySpreadsheetImport : MonoBehaviour
 
         for(int row=1;row<sheet.RowCount;row++)
         {
-            MonsterScriptable ss = ScriptableObject.CreateInstance<MonsterScriptable>();
+            SoldierScriptable ss = ScriptableObject.CreateInstance<SoldierScriptable>();
             ss.hiringName = sheet.GetCell<string>(0, row);
             ss.soldierName = sheet.GetCell<string>(0, row);
             ss.move = sheet.GetCell<int>(1, row);

@@ -25,6 +25,8 @@ public class SoldierManager : MonoBehaviour
     [SerializeField] GameObject injuryKeywordButtonPrefab;
     [SerializeField] GameObject genericSoldierWindowButtonPrefab;
 
+    [SerializeField] AddMonsterPopup addMonsterPopup;
+
 
     private PlayerWarband currentWarband;
 
@@ -32,9 +34,12 @@ public class SoldierManager : MonoBehaviour
 
     private bool isParty = false;
 
+    [SerializeField] List<SoldierScriptable> legalSummons;
+
     public void Init()
     {
         currentWarband = warbandInfoManager.GetCurrentlyLoadedWarband();
+        addMonsterPopup.Init(legalSummons);
     }
 
     public void OnClickViewWarband()
@@ -225,6 +230,18 @@ public class SoldierManager : MonoBehaviour
 
     public void OnClickAddSummon()
     {
+
+        addMonsterPopup.gameObject.SetActive(true);
+        addMonsterPopup.AssignMonsterEvent(delegate { monsterSummonPopup(); });
+    }
+
+    public void monsterSummonPopup()
+    {
+        SoldierScriptable selectedMonster = addMonsterPopup.GetMonster();
+        RuntimeSoldierData newSummon = new RuntimeSoldierData();
+        newSummon.Init(selectedMonster);
+        currentWarband.warbandBonusSoldiers.Add(newSummon);
+        OnClickViewBench();
     }
 
     

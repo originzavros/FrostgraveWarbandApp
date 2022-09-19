@@ -11,13 +11,17 @@ public class AddMonsterPopup : MonoBehaviour
 
     [SerializeField] CampaignSettingsManager campaignSettingsManager;
 
+    private UnityEngine.Events.UnityAction OnClickMonsterEvent;
+
+    private SoldierScriptable chosenMonster = null;
+
     private bool active = false;
-    public void Init()
+    public void Init(List<SoldierScriptable> fill)
     {
         ClearConent();
         // if(!active)
         // {
-            foreach(MonsterScriptable item in LoadAssets.allMonsterObjects)
+            foreach(SoldierScriptable item in fill)
             {
                 if(item.bookEdition == FrostgraveBook.Core)
                 {
@@ -38,7 +42,7 @@ public class AddMonsterPopup : MonoBehaviour
         // }
     }
 
-    public void AddMonsterButton(MonsterScriptable _monster)
+    public void AddMonsterButton(SoldierScriptable _monster)
     {
         GameObject temp = Instantiate(monsterButtonPrefab);
         temp.GetComponent<MonsterButton>().Init(_monster);
@@ -48,15 +52,17 @@ public class AddMonsterPopup : MonoBehaviour
         temp.transform.SetParent(scrollContents.transform);
     }
 
-    public void OnClickMonster(MonsterScriptable _monster)
+    public void OnClickMonster(SoldierScriptable _monster)
     {
-        playModeManager.AddMonsterToMonsterScroll(_monster);
+        chosenMonster = _monster;
+        OnClickMonsterEvent.Invoke();
+        //playmodemanager.addmonstertomonsterscroll(_monster);
         ClosePopup();
     }
 
     public void AssignMonsterEvent(UnityEngine.Events.UnityAction call )
     {
-        
+        OnClickMonsterEvent = call;
     }
 
     //simple, we'll add encounter table later
@@ -80,5 +86,10 @@ public class AddMonsterPopup : MonoBehaviour
         {
             Destroy(item.gameObject);
         }
+    }
+
+    public SoldierScriptable GetMonster()
+    {
+        return chosenMonster;
     }
 }

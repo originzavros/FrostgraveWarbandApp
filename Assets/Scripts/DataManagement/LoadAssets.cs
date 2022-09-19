@@ -14,7 +14,7 @@ public class LoadAssets : MonoBehaviour
     public static EquipmentScriptable[] allEquipmentObjects;
     public static SoldierScriptable[] allSoldierObjects;
     public static List<string> warbandNames;
-    public static MonsterScriptable[] allMonsterObjects;
+    public static SoldierScriptable[] allMonsterObjects;
     public static MonsterKeywordScriptable[] allMonsterKeywordObjects;
     public static MagicItemScriptable[] allMagicItemObjects;
     public static InjuryScriptable[] allInjuries;
@@ -32,7 +32,7 @@ public class LoadAssets : MonoBehaviour
         wizardSchoolObjects = Resources.LoadAll<WizardSchoolScriptable>("WizardSchools");
         allEquipmentObjects = Resources.LoadAll<EquipmentScriptable>("StandardEquipment");
         allSoldierObjects = Resources.LoadAll<SoldierScriptable>("SoldierScriptables");
-        allMonsterObjects =  Resources.LoadAll<MonsterScriptable>("MonsterScriptables");
+        allMonsterObjects =  Resources.LoadAll<SoldierScriptable>("MonsterScriptables");
         allMonsterKeywordObjects = Resources.LoadAll<MonsterKeywordScriptable>("MonsterKeywordScriptables");
         allMagicItemObjects = Resources.LoadAll<MagicItemScriptable>("ItemScriptables");
         allInjuries = Resources.LoadAll<InjuryScriptable>("InjuryScriptables");

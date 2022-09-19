@@ -510,7 +510,8 @@ public class PlayModeManager : MonoBehaviour
 
     public void PopulateMonsterPopup()
     {
-        addMonsterPopup.Init();
+        addMonsterPopup.Init(LoadAssets.allMonsterObjects.ToList());
+        addMonsterPopup.AssignMonsterEvent(delegate { AddMonsterToMonsterScroll(); });
     }
     public void EnableAndFillDescriptionPopUp(SpellButton sb)
     {
@@ -563,7 +564,7 @@ public class PlayModeManager : MonoBehaviour
         temp.transform.SetParent(attachedTo.transform);
     }
 
-    private void CreateAndAttachMonsterContainer(MonsterScriptable incoming, GameObject attachedTo)
+    private void CreateAndAttachMonsterContainer(SoldierScriptable incoming, GameObject attachedTo)
     {
         GameObject temp = Instantiate(playModeWindowPrefab);
         PlaymodeWindow csw = temp.GetComponentInChildren<PlaymodeWindow>();
@@ -648,8 +649,9 @@ public class PlayModeManager : MonoBehaviour
         gameInfo.KillCreature();
         Destroy(_playmodeWindow.gameObject);
     }
-    public void AddMonsterToMonsterScroll(MonsterScriptable _monster)
+    public void AddMonsterToMonsterScroll()
     {
+        SoldierScriptable _monster = addMonsterPopup.GetMonster();
         CreateAndAttachMonsterContainer(_monster, monsterViewContents);
     }
 

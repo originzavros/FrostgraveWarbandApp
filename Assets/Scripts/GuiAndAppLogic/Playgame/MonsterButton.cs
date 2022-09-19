@@ -9,9 +9,9 @@ public class MonsterButton : MonoBehaviour
     [SerializeField] TextMeshProUGUI monsterText;
     [SerializeField] Button monsterKeywordButton;
 
-    public MonsterScriptable referenceMonster;
+    public SoldierScriptable referenceMonster;
 
-    public void Init(MonsterScriptable _keyword)
+    public void Init(SoldierScriptable _keyword)
     {
         referenceMonster = _keyword;
         monsterText.text = _keyword.hiringName;
