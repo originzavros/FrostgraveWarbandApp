@@ -44,6 +44,8 @@ public class PostGameManager : MonoBehaviour
     [BoxGroup("injury")][SerializeField] GameObject cureSelectionPopup;
     [BoxGroup("injury")][SerializeField] GameObject cureSelectionPopupContents;
     [BoxGroup("injury")][SerializeField] GameObject cureResultPopup;
+    [BoxGroup("injury")] [SerializeField] GameObject spellcasterInjuryResultPopup;
+    [BoxGroup("injury")] [SerializeField] GameObject spellcasterInjuryResultPopupContents;
 
     [BoxGroup("prefabs")][SerializeField] GameObject basicButtonPrefab;
     [BoxGroup("prefabs")][SerializeField] GameObject postgameSoldierButtonPrefab;
@@ -307,6 +309,8 @@ public class PostGameManager : MonoBehaviour
     //Everyone keeps their status, for dead wizards, they simply stay dead, in case the player wants to continue playing with them
     private void FinalizeWarbandInjuries()
     {
+        bool spellcasterPopupNeeded = false;
+        ClearContent(spellcasterInjuryResultPopupContents);
         //convenient linq query
         currentWarband.warbandSoldiers.RemoveAll(item => item.status == SoldierStatus.dead);
 
@@ -343,10 +347,14 @@ public class PostGameManager : MonoBehaviour
         {
             if(foundApprentice.status == SoldierStatus.injured)
             {
+                CreateDisplayElementAndAttach("Apprentice gained Injury: ", spellcasterInjuryResultPopupContents);
                 GiveInjuryToSoldier(foundApprentice);
+                spellcasterPopupNeeded = true;
             }
             else if(foundApprentice.status == SoldierStatus.closeCall)
             {
+                CreateDisplayElementAndAttach("Apprentice lost all items due to Close Call", spellcasterInjuryResultPopupContents);
+                spellcasterPopupNeeded = true;
                 foundApprentice.soldierInventory.Clear();
             }
             else if(foundApprentice.status == SoldierStatus.badlyWounded)
@@ -354,9 +362,13 @@ public class PostGameManager : MonoBehaviour
                 if(apothecaryCount > 0)
                 {
                     currentWarband.warbandGold -= 50;
+                    CreateDisplayElementAndAttach("Payed 50 gold to heal apprentice for Badly Wounded", spellcasterInjuryResultPopupContents);
+                    spellcasterPopupNeeded = true;
                 }
                 else{
                     currentWarband.warbandGold -= 150;
+                    CreateDisplayElementAndAttach("Payed 150 gold to heal apprentice for Badly Wounded", spellcasterInjuryResultPopupContents);
+                    spellcasterPopupNeeded = true;
                 }
             }
 
@@ -365,10 +377,14 @@ public class PostGameManager : MonoBehaviour
 
         if(currentWarband.warbandWizard.playerWizardProfile.status == SoldierStatus.injured)
         {
+            CreateDisplayElementAndAttach("Wizard gained Injury: ", spellcasterInjuryResultPopupContents);
             GiveInjuryToSoldier(currentWarband.warbandWizard.playerWizardProfile);
+            spellcasterPopupNeeded = true;
         }
         else if(currentWarband.warbandWizard.playerWizardProfile.status == SoldierStatus.closeCall)
         {
+            CreateDisplayElementAndAttach("Wizard lost all items due to Close Call", spellcasterInjuryResultPopupContents);
+            spellcasterPopupNeeded = true;
             currentWarband.warbandWizard.playerWizardProfile.soldierInventory.Clear();
         }
         else if(currentWarband.warbandWizard.playerWizardProfile.status == SoldierStatus.badlyWounded)
@@ -376,17 +392,23 @@ public class PostGameManager : MonoBehaviour
             if(apothecaryCount > 0)
             {
                 currentWarband.warbandGold -= 50;
+                CreateDisplayElementAndAttach("Payed 50 gold to heal wizard for Badly Wounded", spellcasterInjuryResultPopupContents);
+                spellcasterPopupNeeded = true;
             }
             else{
                 currentWarband.warbandGold -= 150;
+                CreateDisplayElementAndAttach("Payed 150 gold to heal wizard for Badly Wounded", spellcasterInjuryResultPopupContents);
+                spellcasterPopupNeeded = true;
             }
         }
         else if(currentWarband.warbandWizard.playerWizardProfile.status == SoldierStatus.dead)
         {
             if(currentWarband.warbandWizard.playerWizardLevel < 6)
             {
-                cureResultPopup.SetActive(true);
-                cureResultPopup.GetComponent<BasicPopup>().UpdatePopupText("Wizard died and was below lvl 6, recommend starting new warband");
+                //cureResultPopup.SetActive(true);
+                //cureResultPopup.GetComponent<BasicPopup>().UpdatePopupText("Wizard died and was below lvl 6, recommend starting new warband");
+                CreateDisplayElementAndAttach("Wizard died and was below lvl 6, recommend starting new warband", spellcasterInjuryResultPopupContents);
+                spellcasterPopupNeeded = true;
             }
             else{
                 if(foundApprentice != null)
@@ -396,17 +418,27 @@ public class PostGameManager : MonoBehaviour
                     currentWarband.warbandWizard.playerWizardLevel -= 6;
 
                     currentWarband.warbandSoldiers.Remove(foundApprentice);
-                    cureResultPopup.SetActive(true);
-                    cureResultPopup.GetComponent<BasicPopup>().UpdatePopupText("Wizard died and was replaced by apprentice, wizard level reduced by 6");
+                    //cureResultPopup.SetActive(true);
+                    //cureResultPopup.GetComponent<BasicPopup>().UpdatePopupText("Wizard died and was replaced by apprentice, wizard level reduced by 6");
+                    CreateDisplayElementAndAttach("Wizard died and was replaced by apprentice, wizard level reduced by 6", spellcasterInjuryResultPopupContents);
+                    spellcasterPopupNeeded = true;
                 }
                 else{
-                    cureResultPopup.SetActive(true);
-                    cureResultPopup.GetComponent<BasicPopup>().UpdatePopupText("Wizard died and no apprentice to replace him, recommend starting new warband");
+                    //cureResultPopup.SetActive(true);
+                    //cureResultPopup.GetComponent<BasicPopup>().UpdatePopupText("Wizard died and no apprentice to replace him, recommend starting new warband");
+                    CreateDisplayElementAndAttach("Wizard died and no apprentice to replace him, recommend starting new warband", spellcasterInjuryResultPopupContents);
+                    spellcasterPopupNeeded = true;
                 }
             }
         }
 
         currentWarband.warbandWizard.playerWizardProfile.status = SoldierStatus.ready;
+
+        if(spellcasterPopupNeeded)
+        {
+            spellcasterInjuryResultPopup.SetActive(true);
+        }
+
         //do injury rolls for spellcasters with injured status, check if they receive lost eye again and give dead status
         //spellcasters with close call lose all their equipped items
         //spellcaster with badly wounded have option to pay 150(50 with apothecary) to go to ready status (can go into negative gold);
@@ -416,8 +448,9 @@ public class PostGameManager : MonoBehaviour
 
     private void GiveInjuryToSoldier(RuntimeSoldierData soldier)
     {
+        string injuryName = "null";
         int currentRoll = Random.Range(1, 20);
-        if(currentRoll < 19)
+        if (currentRoll < 19)
         {
             bool usable = false;
             while(!usable)
@@ -437,6 +470,7 @@ public class PostGameManager : MonoBehaviour
                     {
                         soldier.soldierPermanentInjuries.Add(currentInjury);
                         usable = true;
+                        injuryName = currentInjury.injuryName;
                     }
                 }
             }
@@ -445,11 +479,15 @@ public class PostGameManager : MonoBehaviour
         else if(currentRoll == 19)
         {
             soldier.soldierPermanentInjuries.Add(GetInjuryScriptableByName("Smashed Jaw"));
+            injuryName = "Smashed Jaw";
         }
         else if(currentRoll == 20)
         {
             soldier.soldierPermanentInjuries.Add(GetInjuryScriptableByName("Lost Eye"));
+            injuryName = "Lost Eye";
         }
+
+        CreateDisplayElementAndAttach(injuryName, spellcasterInjuryResultPopupContents);
     }
     private InjuryScriptable GetInjuryScriptableByName(string name)
     {
