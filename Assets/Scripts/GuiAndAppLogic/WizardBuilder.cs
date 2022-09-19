@@ -293,6 +293,13 @@ public class WizardBuilder : MonoBehaviour
             newTempSpell.wizardSchoolMod = CheckSpellAlignmentMod(newTempSpell, playerWizard.playerWizardSpellbook.wizardSchool);
             playerWizard.playerWizardSpellbook.wizardSpellbookSpells.Add(newTempSpell);
         }
+
+        foreach(var item in playerWizard.playerWizardProfile.baseSoldierEquipment)
+        {
+            MagicItemRuntime newItem = new MagicItemRuntime();
+            newItem.Init(item);
+            playerWizard.playerWizardProfile.soldierInventory.Add(newItem);
+        }
         // playerWizard.playerWizardSpellbook.wizardSpellbookSpells.AddRange(selectedPrimarySpells);
         // playerWizard.playerWizardSpellbook.wizardSpellbookSpells.AddRange(selectedAlignedSpells);
         // playerWizard.playerWizardSpellbook.wizardSpellbookSpells.AddRange(selectedNeutralSpells);

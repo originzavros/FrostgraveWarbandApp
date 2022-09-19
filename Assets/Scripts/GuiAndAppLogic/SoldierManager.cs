@@ -89,6 +89,7 @@ public class SoldierManager : MonoBehaviour
         // temp.GetComponent<CollapsableWindowContainer>().GetSwapButton().onClick.AddListener(delegate {OnClickSwapButton( incoming);});
         AddSoldierStatusButtonToSoldier(csw, incoming);
         AddSwapButtonToSoldier(csw, incoming);
+        //AddDeleteButtonToSoldier(csw, incoming);
         csw.SetWindowToManageMode();
         // if(incoming.soldierInventory.Count > 0)
         // {
@@ -144,6 +145,20 @@ public class SoldierManager : MonoBehaviour
         }
     }
 
+    public void OnClickDeleteButton(RuntimeSoldierData incoming)
+    {
+        if(isParty)
+        {
+            currentWarband.warbandSoldiers.Remove(incoming);
+            OnClickViewWarband();
+        }
+        else
+        {
+            currentWarband.warbandBonusSoldiers.Remove(incoming);
+            OnClickViewBench();
+        }
+    }
+
     public void AddChangeSoldierNamePopup(PlaymodeWindow csw)
     {
         changeSoldierNamePopup.SetActive(true);
@@ -165,6 +180,15 @@ public class SoldierManager : MonoBehaviour
         GameObject temp = Instantiate(genericSoldierWindowButtonPrefab);
         temp.GetComponent<GenericSoldierWindowButton>().Init("Swap");
         temp.GetComponent<GenericSoldierWindowButton>().SetPopupEvent(delegate{OnClickSwapButton( incoming);});
+        _playmodeWindow.AddItemToContents(temp);
+    }
+
+    public void AddDeleteButtonToSoldier(PlaymodeWindow _playmodeWindow, RuntimeSoldierData incoming)
+    {
+        GameObject temp = Instantiate(genericSoldierWindowButtonPrefab);
+        temp.GetComponent<GenericSoldierWindowButton>().Init("Delete");
+        temp.GetComponent<GenericSoldierWindowButton>().SetColor(Color.red);
+        temp.GetComponent<GenericSoldierWindowButton>().SetPopupEvent(delegate { OnClickDeleteButton(incoming); });
         _playmodeWindow.AddItemToContents(temp);
     }
     public void AddSoldierStatusButtonToSoldier(PlaymodeWindow _playmodeWindow, RuntimeSoldierData incoming)

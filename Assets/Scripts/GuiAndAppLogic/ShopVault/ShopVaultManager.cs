@@ -149,6 +149,16 @@ public class ShopVaultManager : MonoBehaviour
             Destroy(child.gameObject);
         }
 
+        if(shopType == "BasicEquipment")
+        {
+            foreach(var item in LoadAssets.allEquipmentObjects)
+            {
+                MagicItemRuntime newItem = new MagicItemRuntime();
+                newItem.Init(item);
+                InstanceItemContainerAndAttach(newItem, shopBuyContents, ItemContainerMode.buy);
+            }
+        }
+
         if(shopType == "Black Market"){
                 int totalItemsFound = 0;
                 while(totalItemsFound < 4)
@@ -418,6 +428,10 @@ public class ShopVaultManager : MonoBehaviour
     public void OnClickMazeOfMalcor()
     {
         FillShopBuyWithItems("TheMazeOfMalcor");
+    }
+    public void OnClickBasicEquipment()
+    {
+        FillShopBuyWithItems("BasicEquipment");
     }
     #endregion
 
