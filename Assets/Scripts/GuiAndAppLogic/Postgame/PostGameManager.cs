@@ -48,6 +48,7 @@ public class PostGameManager : MonoBehaviour
     [BoxGroup("prefabs")][SerializeField] GameObject basicButtonPrefab;
     [BoxGroup("prefabs")][SerializeField] GameObject postgameSoldierButtonPrefab;
     [BoxGroup("prefabs")][SerializeField] GameObject modNumberPanelPrefab;
+    [BoxGroup("prefabs")] [SerializeField] GameObject treasureButtonContainerPrefab;
     [BoxGroup("prefabs")][SerializeField] GameObject treasureSelectWindowPrefab;
     [BoxGroup("prefabs")][SerializeField] GameObject infoDisplayElementPrefab;
     [BoxGroup("prefabs")][SerializeField] MagicItemScriptable craftedScrollForWriteScrollPrefab;
@@ -151,9 +152,13 @@ public class PostGameManager : MonoBehaviour
     }
     private void CreateTreasureSelectButtonAndAttach(string buttonText, GameObject parent)
     {
-        GameObject temp = Instantiate(basicButtonPrefab);
-        temp.GetComponentInChildren<TextMeshProUGUI>().text = buttonText;
-        temp.GetComponent<Button>().onClick.AddListener(delegate {TreasureTrackerEvent(temp);});
+        GameObject temp = Instantiate(treasureButtonContainerPrefab);
+        temp.GetComponent<TreasureButtonContainer>().SetTreasureButtonText(buttonText);
+        //temp.GetComponentInChildren<TextMeshProUGUI>().text = buttonText;
+        temp.GetComponent<TreasureButtonContainer>().GetTreasureButton().onClick.AddListener(delegate { TreasureTrackerEvent(temp); });
+        //temp.GetComponent<Button>().onClick.AddListener(delegate {TreasureTrackerEvent(temp);});
+
+        //temp.GetComponent<TreasureButtonContainer>().GetDeleteButton().onClick.AddListener(delegate { TreasureTrackerEvent(temp); });
         temp.name = buttonText;
         temp.transform.SetParent(parent.transform);
     }
@@ -888,7 +893,8 @@ public class PostGameManager : MonoBehaviour
 
     public void SelectTreasureType(string treasureType)
     {
-        currentTreasureTrackerButton.GetComponentInChildren<TextMeshProUGUI>().text = treasureType;
+        //currentTreasureTrackerButton.GetComponentInChildren<TextMeshProUGUI>().text = treasureType;
+        currentTreasureTrackerButton.GetComponent<TreasureButtonContainer>().SetTreasureButtonText(treasureType);
         // FindButtonInWindowAndDisable(treasureType, treasureSelectionPopupContents);
         treasureSelectionPopup.SetActive(false);
     }
@@ -933,7 +939,8 @@ public class PostGameManager : MonoBehaviour
         foreach(Transform child in treasureTrackerContents.transform)
         {
             // Debug.Log("loop with child: " + child.name.ToString());
-            string name = child.GetComponentInChildren<TextMeshProUGUI>().text;
+            //string name = child.GetComponentInChildren<TextMeshProUGUI>().text;
+            string name = child.GetComponentInChildren<TreasureButtonContainer>().GetTreasureButtonText();
             GameObject temp = Instantiate(treasureSelectWindowPrefab);
             RuntimeTreasure tempTreasure = treasureGenerator.GenerateTreasureCoreBook();
             TreasureSelectWindow selectWindow = temp.GetComponent<TreasureSelectWindow>();
