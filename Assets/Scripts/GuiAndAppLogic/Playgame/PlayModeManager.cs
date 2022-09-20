@@ -45,6 +45,8 @@ public class PlayModeManager : MonoBehaviour
     [BoxGroup("Prefabs")][SerializeField] SoldierScriptable warhoundPrefab;
     [BoxGroup("Prefabs")][SerializeField] GameObject spellDiceContainerPrefab;
 
+    [SerializeField] NavBox navBox;
+
 
 
     private PlayerWarband currentGameWarband;
@@ -58,6 +60,7 @@ public class PlayModeManager : MonoBehaviour
     public void Init()
     {
         OnClickGameButton();
+        navBox.ChangeFragmentName(AppFragment.PlayGame);
     }
 
     #region Playgame Tabs

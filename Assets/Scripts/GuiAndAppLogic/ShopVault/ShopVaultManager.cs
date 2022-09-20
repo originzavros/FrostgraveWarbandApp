@@ -24,6 +24,7 @@ public class ShopVaultManager : MonoBehaviour
     [SerializeField] WarbandUIManager warbandUIManager;
     [SerializeField] TextMeshProUGUI goldValueText;
     [SerializeField] CampaignSettingsManager campaignSettingsManager;
+    [SerializeField] NavBox navBox;
 
     
     [BoxGroup("Popups")][SerializeField] ItemDescriptionPopup itemDescriptionPopup;
@@ -61,6 +62,7 @@ public class ShopVaultManager : MonoBehaviour
         // Debug.Log("clicked shop tab");
 
         EnableButtonsBasedOnCampaigns();
+        navBox.ChangeFragmentName(AppFragment.ShopVault);
     }
 
     #region tabsOnClick

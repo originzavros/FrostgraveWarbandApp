@@ -33,6 +33,7 @@ public class WarbandUIManager : MonoBehaviour
         warbandListerUI.SetActive(true);
         warbandMainContentUI.SetActive(false);
         warbandLister.PopulateListerWithWarbands();
+        navBox.ChangeFragmentName(AppFragment.WarbandManagerMain);
     }
 
     public void WarbandSelected(string name)

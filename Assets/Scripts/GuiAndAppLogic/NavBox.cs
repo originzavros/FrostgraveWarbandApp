@@ -65,6 +65,7 @@ public class NavBox : MonoBehaviour
     {
         mainButtonMenu.SetActive(false);
         campaignSettingsManager.SetActive(true);
+        currentLocation = AppFragment.CampaignSettings;
         // campaignSettingsManager.GetComponent<CampaignSettingsManager>().Init();
     }
 
@@ -79,6 +80,12 @@ public class NavBox : MonoBehaviour
         pirateOathStuff.SetActive(true);
         mainButtonMenu.SetActive(false);
         currentLocation = AppFragment.Other;
+    }
+
+
+    public void ChangeFragmentName(AppFragment fragment)
+    {
+        currentLocation = fragment;
     }
 
     //need update for checking android inputs
@@ -119,6 +126,10 @@ public class NavBox : MonoBehaviour
         {
             GoToWarbandManager();
         }
+        if (currentLocation == AppFragment.CampaignSettings)
+        {
+            OnClickNavHome();
+        }
     }
 
     public void OnClickInfoButton()
@@ -135,17 +146,71 @@ public class NavBox : MonoBehaviour
         }
         else if(currentLocation == AppFragment.SpellReference)
         {
-            
+            string hometext = "You can sort by school and spell target type.\n";
+            hometext += "Use the arrow to reset the filters.\n";
+            hometext += "Spells from expansion books will show up if that expansion is enabled.\n";
+            hometext += "You can navigate back to the home screen with the home button.\n";
+            infoPopup.UpdatePopupText(hometext);
         }
-        else if(currentLocation == AppFragment.WizardBuilder)
+        else if(currentLocation == AppFragment.CampaignSettings)
         {
-            
+            string hometext = "Check which campaigns are enabled here, their respective soldiers/monsters/items will be shown.\n";
+            hometext += "All Soldiers enables hiring from all campaign books. (note that soldiers like the Crowmaster does not have the normal hiring restrictions)\n";
+            infoPopup.UpdatePopupText(hometext);
         }
         else if(currentLocation == AppFragment.WarbandManagerMain)
         {
-            string hometext = "Use Hire soldiers to manage who is in your warband, remember to unequip any items attached to them using the vault.\n";
+            string hometext = "Use Hire soldiers to manage who is in your warband, remember to unequip any items attached to them using the vault before firing them.\n";
             hometext += "Shop/Vault lets you buy items and equip your soldiers with items. To finalize changes go to save/settings tab and save changes button\n";
-            hometext += "Playgame will start a game with new game button. Ending game leads to post game.\n";
+            hometext += "Playgame will start a game with new game button. Ending game leads to assisted post game.\n";
+            hometext += "Use Edit gold/xp to fix mistakes and account for extra scenario bonuses.\n";
+            infoPopup.UpdatePopupText(hometext);
+        }
+        else if (currentLocation == AppFragment.HireSoldiers)
+        {
+            string hometext = "Here you can hire soldiers for your warband. Note that firing a soldier does not refund their cost.\n";
+            hometext += "If you make a mistake in hiring, changes aren't saved until you press the finalize warband button, hit back arrow to cancel.\n";
+            infoPopup.UpdatePopupText(hometext);
+        }
+        else if (currentLocation == AppFragment.ShopVault)
+        {
+            string hometext = "The Black Market resets every time its pressed. \n";
+            hometext += "Use Custom Item to add unique campaign and scenario items to your crew. It will be added to your vault.\n";
+            hometext += "You can only have one base at a time, you can change by selling the old one in the vault tab.\n";
+            hometext += "Use the warband tab to equip and unequip items from soldiers.\n";
+            hometext += "Make sure to press Save and Exit at the bottom when done with all changes to go back to the Warband Manager\n";
+            infoPopup.UpdatePopupText(hometext);
+        }
+        else if (currentLocation == AppFragment.PlayGame)
+        {
+            string hometext = "Press New Game to set up your warband for playing.\n";
+            hometext += "On Soldier profiles, the Die rolls for that soldier, the unhappy face is for conditions (like poison, or spells like Blinding Light).\n";
+            hometext += "Make sure to press the skull icon when the soldier is KO'd, the app will track them for the postgame.\n";
+            hometext += "Tap the potion icons to adjust the soldier's health\n";
+            hometext += "Add monster contains all non-character monsters from all enabled campaigns. For special characters please reference the related book.\n";
+            hometext += "When adding monsters, roll random monster will give one of any monster and does not roll on a monster table.\n";
+            infoPopup.UpdatePopupText(hometext);
+        }
+        else if (currentLocation == AppFragment.Postgame)
+        {
+            string hometext = "Only press Next when ready, there is no going back in the postgame assistant.\n";
+            hometext += "For soldier injuries, you can select the soldier and use available spells/potions to attempt to resurrect(like miraculous cure).\n";
+            hometext += "On the add treasures section, press a treasure to select the type (like central, or campaign specific).\n";
+            hometext += "During wizard leveling, if you do not wish to level a stat or spell, simply press next to skip.\n";
+            hometext += "After wizard leveling, rolls will be made for base resources and After Game spells.\n";
+            infoPopup.UpdatePopupText(hometext);
+        }
+        else if (currentLocation == AppFragment.SoldierManager)
+        {
+            string hometext = "Here you can swap soldiers in and out of your main party, rename them, and add summonable soldiers.\n";
+            hometext += "The bench can hold any amount of soldiers for ease of use, though the rules support only warbands with an Inn as having extra space for soldiers.\n";
+            hometext += "When adding a summon, it counts as a full soldier, and is initially added to your bench.\n";
+            hometext += "To remove soldiers, add them to the main warband, then go to Hire Soldiers and fire them.\n";
+            infoPopup.UpdatePopupText(hometext);
+        }
+        else if (currentLocation == AppFragment.EditWarbandStats)
+        {
+            string hometext = "Mistakes happen, so here you can edit your warband xp and gold. Use Responsibly :) \n";
             infoPopup.UpdatePopupText(hometext);
         }
     }
@@ -159,6 +224,13 @@ public enum AppFragment
     WarbandManagerSelection,
     WarbandManagerMain,
     WarbandManagerCategory,
-    Other
+    Other,
+    CampaignSettings,
+    HireSoldiers,
+    ShopVault,
+    PlayGame,
+    Postgame,
+    SoldierManager,
+    EditWarbandStats
 }
 

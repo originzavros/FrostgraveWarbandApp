@@ -60,6 +60,7 @@ public class PostGameManager : MonoBehaviour
     [SerializeField] TreasureGenerator treasureGenerator;
     [SerializeField] WarbandUIManager warbandUIManager;
     [SerializeField] CampaignSettingsManager campaignSettingsManager;
+    [SerializeField] NavBox navBox;
 
     private PlayerWarband currentWarband;
     private RuntimeGameInfo lastGameInfo;
@@ -84,6 +85,7 @@ public class PostGameManager : MonoBehaviour
         if(testGivePreservationPotionToWarband){ giveItemWithNameToWarband("Potion Of Preservation");}
         getTreasuresFromEscapedSoldiers();
         HandleCurrentStep();
+        navBox.ChangeFragmentName(AppFragment.Postgame);
     }
 
     private void giveItemWithNameToWarband(string name)

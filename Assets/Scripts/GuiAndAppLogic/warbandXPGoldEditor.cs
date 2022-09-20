@@ -16,6 +16,8 @@ public class warbandXPGoldEditor : MonoBehaviour
     [SerializeField] WarbandUIManager warbandUIManager;
     [SerializeField] BasicPopup errorPopup;
 
+    [SerializeField] NavBox navBox;
+
     private PlayerWarband currentWarband;
     private int totalGold = 0;
     private int totalXp = 0;
@@ -28,6 +30,7 @@ public class warbandXPGoldEditor : MonoBehaviour
 
         goldTextField.text = currentWarband.warbandGold.ToString();
         xpTextField.text = currentWarband.warbandWizard.playerWizardExperience.ToString();
+        navBox.ChangeFragmentName(AppFragment.EditWarbandStats);
     }
 
     public void FinalizeWarband()

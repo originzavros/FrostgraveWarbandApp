@@ -26,6 +26,7 @@ public class SoldierManager : MonoBehaviour
     [SerializeField] GameObject genericSoldierWindowButtonPrefab;
 
     [SerializeField] AddMonsterPopup addMonsterPopup;
+    [SerializeField] NavBox navBox;
 
 
     private PlayerWarband currentWarband;
@@ -40,6 +41,7 @@ public class SoldierManager : MonoBehaviour
     {
         currentWarband = warbandInfoManager.GetCurrentlyLoadedWarband();
         addMonsterPopup.Init(legalSummons);
+        navBox.ChangeFragmentName(AppFragment.SoldierManager);
     }
 
     public void OnClickViewWarband()
@@ -264,6 +266,19 @@ public class SoldierManager : MonoBehaviour
         SoldierScriptable selectedMonster = addMonsterPopup.GetMonster();
         RuntimeSoldierData newSummon = new RuntimeSoldierData();
         newSummon.Init(selectedMonster);
+        if(selectedMonster.hiringName == "Collegium Porter")
+        {
+            newSummon.inventoryLimit = 3;
+        }
+        //else if(selectedMonster.hiringName == "Bear")
+        //{
+        //    newSummon.will += 3;
+        //}
+        //else if (selectedMonster.hiringName == "Bear")
+        //{
+        //    newSummon.will += 3;
+        //}
+
         currentWarband.warbandBonusSoldiers.Add(newSummon);
         OnClickViewBench();
     }

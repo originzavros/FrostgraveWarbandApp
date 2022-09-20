@@ -32,6 +32,7 @@ public class HireSoldiersManager : MonoBehaviour
     private List<FrostgraveBook> enabledCampaignSoldiers = new List<FrostgraveBook>();
     public void Init(PlayerWarband playerWarband)
     {
+        navBox.ChangeFragmentName(AppFragment.HireSoldiers);
         currentHiredSpecialistsSoldierCount = 0;
         currentHiredSoldierCount = 0;
         loadedWarband = playerWarband;
