@@ -9,3 +9,14 @@ public class MonsterKeywordScriptable : ScriptableObject
     public string keywordName;
     public string keywordDescription;
 }
+
+public class RuntimeMonsterKeyword
+{
+    public string keywordName;
+    public string keywordDescription;
+    public void Init(MonsterKeywordScriptable mks)
+    {
+        keywordName = mks.keywordName;
+        keywordDescription = mks.keywordDescription;
+    }
+}

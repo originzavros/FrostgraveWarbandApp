@@ -24,7 +24,13 @@ public class RuntimeSoldierData
         baseSoldierEquipment = ss.baseSoldierEquipment;
         // soldierInventory = ss.soldierInventory;
         status = ss.status;
-        monsterKeywordList = ss.monsterKeywordList;
+        foreach (var item in ss.monsterKeywordList)
+        {
+            RuntimeMonsterKeyword newKeyword = new RuntimeMonsterKeyword();
+            newKeyword.Init(item);
+            monsterKeywordList.Add(newKeyword);
+        }
+        //monsterKeywordList = ss.monsterKeywordList;
     }
 
     public void Init(RuntimeSoldierData ss)
@@ -68,5 +74,5 @@ public class RuntimeSoldierData
     public List<EquipmentScriptable> baseSoldierEquipment = new List<EquipmentScriptable>();
     public List<MagicItemRuntime> soldierInventory = new List<MagicItemRuntime>();
     public List<InjuryScriptable> soldierPermanentInjuries = new List<InjuryScriptable>();
-    public List<MonsterKeywordScriptable> monsterKeywordList = new List<MonsterKeywordScriptable>();
+    public List<RuntimeMonsterKeyword> monsterKeywordList = new List<RuntimeMonsterKeyword>();
 }

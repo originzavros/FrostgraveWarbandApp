@@ -8,7 +8,7 @@ public class MonsterKeywordPopup : MonoBehaviour
     [SerializeField] TextMeshProUGUI monsterKeywordTitle;
     [SerializeField] TextMeshProUGUI monsterKeywordDescritption;
 
-    public void Init(MonsterKeywordScriptable monsterKeyword)
+    public void Init(RuntimeMonsterKeyword monsterKeyword)
     {
         monsterKeywordTitle.text = monsterKeyword.keywordName;
         monsterKeywordDescritption.text = monsterKeyword.keywordDescription;

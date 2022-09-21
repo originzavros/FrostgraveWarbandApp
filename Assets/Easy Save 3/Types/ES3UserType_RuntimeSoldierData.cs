@@ -34,7 +34,7 @@ namespace ES3Types
 			writer.WriteProperty("baseSoldierEquipment", instance.baseSoldierEquipment, ES3Internal.ES3TypeMgr.GetOrCreateES3Type(typeof(System.Collections.Generic.List<EquipmentScriptable>)));
 			writer.WriteProperty("soldierInventory", instance.soldierInventory, ES3Internal.ES3TypeMgr.GetOrCreateES3Type(typeof(System.Collections.Generic.List<MagicItemRuntime>)));
 			writer.WriteProperty("soldierPermanentInjuries", instance.soldierPermanentInjuries, ES3Internal.ES3TypeMgr.GetOrCreateES3Type(typeof(System.Collections.Generic.List<InjuryScriptable>)));
-			writer.WriteProperty("monsterKeywordList", instance.monsterKeywordList, ES3Internal.ES3TypeMgr.GetOrCreateES3Type(typeof(System.Collections.Generic.List<MonsterKeywordScriptable>)));
+			writer.WriteProperty("monsterKeywordList", instance.monsterKeywordList, ES3Internal.ES3TypeMgr.GetOrCreateES3Type(typeof(System.Collections.Generic.List<RuntimeMonsterKeyword>)));
 		}
 
 		protected override void ReadObject<T>(ES3Reader reader, object obj)
@@ -100,7 +100,7 @@ namespace ES3Types
 						instance.soldierPermanentInjuries = reader.Read<System.Collections.Generic.List<InjuryScriptable>>();
 						break;
 					case "monsterKeywordList":
-						instance.monsterKeywordList = reader.Read<System.Collections.Generic.List<MonsterKeywordScriptable>>();
+						instance.monsterKeywordList = reader.Read<System.Collections.Generic.List<RuntimeMonsterKeyword>>();
 						break;
 					default:
 						reader.Skip();

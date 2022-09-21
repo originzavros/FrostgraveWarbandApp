@@ -582,7 +582,9 @@ public class PlayModeManager : MonoBehaviour
 
         foreach(var _keyword in incoming.monsterKeywordList)
         {
-            AddMonsterKeywordToMonster(csw, _keyword);
+            RuntimeMonsterKeyword newKeyword = new RuntimeMonsterKeyword();
+            newKeyword.Init(_keyword);
+            AddMonsterKeywordToMonster(csw, newKeyword);
         }
         
         temp.transform.SetParent(attachedTo.transform);
@@ -634,7 +636,7 @@ public class PlayModeManager : MonoBehaviour
         changeSoldierNamePopup.SetActive(true);
         changeSoldierNamePopup.GetComponent<ChangeSoldierNamePopup>().Init(_playmodeWindow);
     }
-    public void AddMonsterKeywordTextPopup(MonsterKeywordScriptable _keyword)
+    public void AddMonsterKeywordTextPopup(RuntimeMonsterKeyword _keyword)
     {
         monsterKeywordPopup.gameObject.SetActive(true);
         monsterKeywordPopup.Init(_keyword);
@@ -659,7 +661,7 @@ public class PlayModeManager : MonoBehaviour
     }
 
 
-    public void AddMonsterKeywordToMonster(PlaymodeWindow _playmodeWindow, MonsterKeywordScriptable _keyword)
+    public void AddMonsterKeywordToMonster(PlaymodeWindow _playmodeWindow, RuntimeMonsterKeyword _keyword)
     {
         GameObject temp = Instantiate(monsterKeywordButtonPrefab);
         temp.GetComponent<MonsterKeywordButton>().Init(_keyword);
