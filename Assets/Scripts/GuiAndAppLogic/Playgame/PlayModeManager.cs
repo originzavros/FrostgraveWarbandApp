@@ -524,7 +524,7 @@ public class PlayModeManager : MonoBehaviour
         spellTextPopup.UpdateRuntimeInfo(tempSpell);
     }
 
-    private void CreateAndAttachPlaymodeSoldierContainer(RuntimeSoldierData incoming, GameObject attachedTo)
+    public void CreateAndAttachPlaymodeSoldierContainer(RuntimeSoldierData incoming, GameObject attachedTo)
     {
         GameObject temp = Instantiate(playModeWindowPrefab);
         PlaymodeWindow csw = temp.GetComponentInChildren<PlaymodeWindow>();
