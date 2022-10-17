@@ -24,8 +24,11 @@ public class SoldierManager : MonoBehaviour
     [SerializeField] GameObject soldierPlaymodeWindowPrefab;
     [SerializeField] GameObject injuryKeywordButtonPrefab;
     [SerializeField] GameObject genericSoldierWindowButtonPrefab;
+    [SerializeField] GameObject monsterKeywordButtonPrefab;
 
     [SerializeField] AddMonsterPopup addMonsterPopup;
+    [SerializeField] EditTraitsPopup editTraitsPopup;
+    [SerializeField] MonsterKeywordPopup monsterKeywordPopup;
     [SerializeField] NavBox navBox;
 
 
@@ -78,43 +81,29 @@ public class SoldierManager : MonoBehaviour
 
     private void CreateAndAttachPlaymodeSoldierContainer(RuntimeSoldierData incoming, GameObject attachedTo)
     {
-        // GameObject temp = Instantiate(soldierContainerPrefab);
         GameObject temp = Instantiate(soldierPlaymodeWindowPrefab);
-        // PlaymodeWindow csw = temp.GetComponent<CollapsableWindowContainer>()._collapsableWindow;
         PlaymodeWindow csw = temp.GetComponentInChildren<PlaymodeWindow>();
         csw.UpdatePanelInfo(incoming);
 
-        // csw.SetRollDiceEvent(delegate{RollDicePopup(csw);});
-        // csw.SetStatusEvent(delegate{AddConditionPop(csw);});
-        // csw.SetDeathEscapeEvent(delegate{SoldierEscapePopup(csw);});
         csw.SetEditEvent(delegate{AddChangeSoldierNamePopup(csw);});
-        // temp.GetComponent<CollapsableWindowContainer>().GetSwapButton().onClick.AddListener(delegate {OnClickSwapButton( incoming);});
-        AddSoldierStatusButtonToSoldier(csw, incoming);
-        AddSwapButtonToSoldier(csw, incoming);
-        //AddDeleteButtonToSoldier(csw, incoming);
         csw.SetWindowToManageMode();
-        // if(incoming.soldierInventory.Count > 0)
-        // {
-        //     foreach(var item in incoming.soldierInventory)
-        //     {
-        //         Debug.Log(item.itemName);
-        //         GameObject newItemSlot = Instantiate(itemSlotPrefab);
-        //         ItemSlotSoldier iss = newItemSlot.GetComponent<ItemSlotSoldier>();
-        //         iss.SetItemDescriptionButtonEvent(delegate { AddItemInfoToItemPopup(item);});
-        //         iss.SetItem(item);
-        //         iss.SetUseItemEvent(delegate {UseItemEvent(item, iss, incoming);});
-        //         iss.SetItemToPlaymode();
-        //         csw.AddItemToContents(newItemSlot);
-        //     }
-        // }
 
         foreach(var _keyword in incoming.soldierPermanentInjuries)
         {
             AddInjuryKeywordToSoldier(csw, _keyword);
         }
 
-        csw.SetBodyPermaActive();
+        foreach (var _keyword in incoming.monsterKeywordList)
+        {
+            AddMonsterKeywordToMonster(csw, _keyword);
+        }
+
+        AddEditTraitButtonToSoldier(csw, incoming);
+        AddSoldierStatusButtonToSoldier(csw, incoming);
+        AddSwapButtonToSoldier(csw, incoming);
         
+
+        csw.SetBodyPermaActive();        
         
         temp.transform.SetParent(attachedTo.transform);
     }
@@ -144,6 +133,18 @@ public class SoldierManager : MonoBehaviour
                 currentWarband.warbandBonusSoldiers.Remove(incoming);
                 OnClickViewBench();
             } 
+        }
+    }
+
+    public void ExitEditTraitsPopup()
+    {
+        if(isParty)
+        {
+            OnClickViewWarband();
+        }
+        else
+        {
+            OnClickViewBench();
         }
     }
 
@@ -283,6 +284,37 @@ public class SoldierManager : MonoBehaviour
         OnClickViewBench();
     }
 
-    
+    public void AddMonsterKeywordToMonster(PlaymodeWindow _playmodeWindow, RuntimeMonsterKeyword _keyword)
+    {
+        GameObject temp = Instantiate(monsterKeywordButtonPrefab);
+        temp.GetComponent<MonsterKeywordButton>().Init(_keyword);
+
+        temp.GetComponent<MonsterKeywordButton>().SetPopupEvent(delegate { AddMonsterKeywordTextPopup(_keyword); });
+
+        _playmodeWindow.AddItemToContents(temp);
+    }
+
+    public void AddEditTraitButtonToSoldier(PlaymodeWindow _playmodeWindow, RuntimeSoldierData incoming)
+    {
+        GameObject temp = Instantiate(genericSoldierWindowButtonPrefab);
+
+        temp.GetComponent<GenericSoldierWindowButton>().Init("Edit Traits");
+        temp.GetComponent<GenericSoldierWindowButton>().SetPopupEvent(delegate { OnClickAddTraitButton(incoming); });
+        temp.GetComponent<GenericSoldierWindowButton>().SetColor(Color.cyan);
+        _playmodeWindow.AddItemToContents(temp);
+    }
+
+    public void OnClickAddTraitButton(RuntimeSoldierData incoming)
+    {
+        editTraitsPopup.gameObject.SetActive(true);
+        editTraitsPopup.Init(incoming);
+    }
+
+    public void AddMonsterKeywordTextPopup(RuntimeMonsterKeyword _keyword)
+    {
+        monsterKeywordPopup.GetComponent<MonsterKeywordPopup>().Init(_keyword);
+        monsterKeywordPopup.gameObject.SetActive(true);
+    }
+
 
 }
