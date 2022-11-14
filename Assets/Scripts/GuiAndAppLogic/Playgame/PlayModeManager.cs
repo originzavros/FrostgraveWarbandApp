@@ -525,18 +525,27 @@ public class PlayModeManager : MonoBehaviour
         spellTextPopup.UpdateRuntimeInfo(tempSpell);
     }
 
-    public void CreateAndAttachPlaymodeSoldierContainer(RuntimeSoldierData incoming, GameObject attachedTo)
+    public void CreateAndAttachPlaymodeSoldierContainer(RuntimeSoldierData incoming, GameObject attachedTo, bool manageMode = false)
     {
         GameObject temp = Instantiate(playModeWindowPrefab);
         PlaymodeWindow csw = temp.GetComponentInChildren<PlaymodeWindow>();
         csw.UpdatePanelInfo(incoming);
 
-        csw.SetRollDiceEvent(delegate{RollDicePopup(csw);});
-        csw.SetStatusEvent(delegate{AddConditionPop(csw);});
-        csw.SetDeathEscapeEvent(delegate{SoldierEscapePopup(csw);});
-        csw.SetEditEvent(delegate{AddChangeSoldierNamePopup(csw);});
+        if(!manageMode)
+        {
+            csw.SetRollDiceEvent(delegate { RollDicePopup(csw); });
+            csw.SetStatusEvent(delegate { AddConditionPop(csw); });
+            csw.SetDeathEscapeEvent(delegate { SoldierEscapePopup(csw); });
+           
+        }
+        else
+        {
+            csw.SetWindowToManageMode();
+        }
+        csw.SetEditEvent(delegate { AddChangeSoldierNamePopup(csw); });
 
-        if(incoming.soldierInventory.Count > 0)
+
+        if (incoming.soldierInventory.Count > 0)
         {
             foreach(var item in incoming.soldierInventory)
             {

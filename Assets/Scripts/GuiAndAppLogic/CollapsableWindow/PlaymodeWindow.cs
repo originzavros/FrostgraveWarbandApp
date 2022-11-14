@@ -49,6 +49,8 @@ public class PlaymodeWindow : MonoBehaviour
         // LayoutRebuilder.ForceRebuildLayoutImmediate(this.transform as RectTransform);
         // this.gameObject.SetActive(false);
         // this.gameObject.SetActive(true);
+
+        //StartCoroutine(RefreshWindow());
     }
 
     public void SetRollDiceEvent(UnityEngine.Events.UnityAction call)
@@ -111,6 +113,23 @@ public class PlaymodeWindow : MonoBehaviour
         rollDiceButton.SetActive(false);
         statusButton.SetActive(false);
         deathEscapeButton.SetActive(false);
+    }
+
+    public void SetWindowToNoButtons()
+    {
+        rollDiceButton.SetActive(false);
+        statusButton.SetActive(false);
+        deathEscapeButton.SetActive(false);
+        editButton.SetActive(false);
+    }
+
+    //was attempting to resolve the resize issue, this doesn't seem to work and just makes it not be drawn at all
+    public IEnumerator RefreshWindow()
+    {
+        this.gameObject.SetActive(false);
+        yield return new WaitForSeconds(.01f);
+        this.gameObject.SetActive(true);
+        yield return null;
     }
 
 

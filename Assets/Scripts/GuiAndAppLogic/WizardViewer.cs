@@ -37,7 +37,7 @@ public class WizardViewer : MonoBehaviour
         pictureButton.transform.SetParent(contents.transform, false);
 
         
-        playModeManager.CreateAndAttachPlaymodeSoldierContainer(currentGameWarband.warbandWizard.playerWizardProfile, contents);
+        playModeManager.CreateAndAttachPlaymodeSoldierContainer(currentGameWarband.warbandWizard.playerWizardProfile, contents, true);
 
         foreach (var item in currentGameWarband.warbandWizard.playerWizardSpellbook.wizardSpellbookSpells)
         {
@@ -59,6 +59,8 @@ public class WizardViewer : MonoBehaviour
 
     public void OnClickBackButton()
     {
+        //PlaymodeWindow temp = contents.GetComponentInChildren<PlaymodeWindow>();
+        warbandInfoManager.SaveCurrentWarband();
         warbandUIManager.BackToWarbandMain();
     }
 
