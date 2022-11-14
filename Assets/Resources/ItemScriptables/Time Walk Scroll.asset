@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Time Walk Scroll
   m_EditorClassIdentifier: 
   itemName: Time Walk Scroll
-  itemDescription: "Wizard only.\nThe wizard will activate again in teh Apprentice
+  itemDescription: "Wizard only.\nThe wizard will activate again in the Apprentice
     phase and the soldier phase.\nThis is in addition to the figures that can normally
     activate in those phases.\nThe wizard may not activate any additional soldiers
     or be part of a group activation in these phases.\nThe wizard may perform one

@@ -25,7 +25,7 @@ MonoBehaviour:
   CastingNumber: 12
   School: 1
   Restriction: Area Effect
-  Description: "All bow and crossbow attacks are made with -1 Shoot for the trest
+  Description: "All bow and crossbow attacks are made with -1 Shoot for the rest
     of the game.\nThis spell may be cast multiple times (and by multiple spellcasters),
     with each additional casting increasing the penalty by a further -1, up to a
     maximum of -5.\r"

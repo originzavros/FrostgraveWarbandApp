@@ -28,6 +28,6 @@ MonoBehaviour:
   Description: "The target demon must make an immediate Will Roll with a Target Number
     equal to the Casting Roll.\nIf it fails, it becomes a temporary member of the
     spellcaster's warband.\nThis control lasts for the rest of the game or until
-    the spell is cancelled. \nThe spellcaster may spen an action to cancel this spell.\nA
-    spellcaster may only control one demon at a time.\r"
+    the spell is cancelled. \nThe spellcaster may spend an action to cancel this
+    spell.\nA spellcaster may only control one demon at a time.\r"
   bookEdition: 0

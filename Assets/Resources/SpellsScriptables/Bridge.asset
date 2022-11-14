@@ -28,8 +28,8 @@ MonoBehaviour:
   Description: "The spellcaster used the parchment of a long scroll to create a temporary
     bridge, ramp, or staircase.\nPlace a bridge 6\" long and 2\" wide anywhere that
     is completely in the line of sight of the spellcaster.\nThe bridge has no appreciable
-    thickness ans is essentially two dimensional.\nThe ends of this bridge do not
-    have to be on the same horizontal plane, nor do teh ends of the bridge need to
+    thickness and is essentially two dimensional.\nThe ends of this bridge do not
+    have to be on the same horizontal plane, nor do the ends of the bridge need to
     be anchored on terrain, they may float in the air.\nFigures may move along this
     bridge at their normal movement rate, even when essentially climbing.\nEach spellcaster
     may only have one bridge in play at any time.\nWhenever the spellcaster activates,

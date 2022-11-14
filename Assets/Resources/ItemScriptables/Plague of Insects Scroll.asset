@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Plague of Insects Scroll
   m_EditorClassIdentifier: 
   itemName: Plague of Insects Scroll
-  itemDescription: "The target figure is attacked by a cloud of stining or biting
+  itemDescription: "The target figure is attacked by a cloud of stinging or biting
     insects that irritate and distract.\nThe cloud of insects has a 1\" radius centered
     on, and moving with, the target figure.\nIt affects all figures, including the
     target figure, fully or partially within it's radius.\nWhile being pestered by

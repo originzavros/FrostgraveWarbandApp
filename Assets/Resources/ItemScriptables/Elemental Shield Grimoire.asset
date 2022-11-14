@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Elemental Shield Grimoire
   m_EditorClassIdentifier: 
   itemName: Elemental Shield Grimoire
-  itemDescription: "The spellcaster formas a floating shield that absorbs the enxt
+  itemDescription: "The spellcaster forms a floating shield that absorbs the next
     3 points of damage the spellcaster would normally suffer in combat or from a
     shooting attack.\nOnce 3 points have been absorbed the spell is cancelled.\nA
     spellcaster may only have one Elemental Shield active at any time.\r"

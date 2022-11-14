@@ -25,7 +25,7 @@ MonoBehaviour:
   CastingNumber: 12
   School: 7
   Restriction: Touch
-  Description: "Immediately place a demon on the table within 1\" of trhe spellcaster.\nIt
+  Description: "Immediately place a demon on the table within 1\" of the spellcaster.\nIt
     may not be placed straight into combat.\nThis demon is considered to be under
     the effects of a Control Demon spell by the same spellcaster, and thus this spell
     may not be cast if the spellcaster is already controlling a demon.\nThe type

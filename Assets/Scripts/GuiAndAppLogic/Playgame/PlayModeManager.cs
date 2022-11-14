@@ -33,6 +33,7 @@ public class PlayModeManager : MonoBehaviour
     [BoxGroup("Popups")][SerializeField] GameObject itemDescriptionPopup;
     [BoxGroup("Popups")][SerializeField] GameObject confirmationPopup;
     [BoxGroup("Popups")][SerializeField] GameObject spellRollDicePopup;
+    [BoxGroup("Popups")] [SerializeField] GameObject monsterKOPopup;
     
 
     [BoxGroup("GameButtons")][SerializeField] GameObject newGameButton;
@@ -650,8 +651,17 @@ public class PlayModeManager : MonoBehaviour
 
     public void DeleteMonsterEvent(PlaymodeWindow _playmodeWindow)
     {
-        // monsterKillCount++;
-        gameInfo.KillCreature();
+        //MonsterKOPopup
+        monsterKOPopup.SetActive(true);
+        monsterKOPopup.GetComponent<MonsterKOPopup>().Init(_playmodeWindow);
+    }
+
+    public void SlayMonsterEvent(bool playerSlayed, PlaymodeWindow _playmodeWindow)
+    {
+        if(playerSlayed)
+        {
+            gameInfo.KillCreature();
+        }
         Destroy(_playmodeWindow.gameObject);
     }
     public void AddMonsterToMonsterScroll()

@@ -30,7 +30,7 @@ MonoBehaviour:
     target is possessed by a demon and gains +2 Fight, +1 Armor, and -2 Will and
     counts as a demon (i.e. it will be affected by Banish, Control Demon, Circle
     of Protection, etc.).\nThis figure may not be part of a group activation.\nIf
-    removed from teh game for any reason (such as being hit by a Banish spell), check
+    removed from the game for any reason (such as being hit by a Banish spell), check
     for the character's survival as normal.\nA spellcaster may only have one Possess
     sepll active at a time.\r"
   bookEdition: 0

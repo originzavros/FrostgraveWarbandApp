@@ -15,7 +15,7 @@ MonoBehaviour:
   itemName: Embed Enchantment Grimoire
   itemDescription: "This spell causes any one Enchant Armor or Enchant Weapon spell
     that is still active at the end of a game to become permanent and the weapon
-    or armor in question ito become a magic weapon or armor.\nThe newly created magic
+    or armor in question to become a magic weapon or armor.\nThe newly created magic
     weapon or armor takes up an item slot as normal.\r"
   itemPurchasePrice: 500
   itemSalePrice: 200

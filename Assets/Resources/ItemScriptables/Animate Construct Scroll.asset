@@ -15,8 +15,8 @@ MonoBehaviour:
   itemName: Animate Construct Scroll
   itemDescription: "It is assumed that the spellcaster has built a construct prior
     to using this spell to animate it.\nIf the spell is successfully cast, the construct
-    immediately becomes a permanent member of teh warband, taking the place of a
-    soldier.\nA spellcaster must declare teh size of construct they are attmepting
+    immediately becomes a permanent member of the warband, taking the place of a
+    soldier.\nA spellcaster must declare the size of construct they are attempting
     to animate (small,medium, or large - page 183) before rolling to cast the spell.\nThe
     larger the contruct, the harder it is to animate, so the following modifiers
     are applied to the Casting Roll: Small -0, Medium -3, Large -6.\nThere is no

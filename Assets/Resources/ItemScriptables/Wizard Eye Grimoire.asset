@@ -16,8 +16,8 @@ MonoBehaviour:
   itemDescription: "This spell may be cast on any terrain feature within 12\" that
     has a flat side, such as most ruins.\nPlace a token on or next to the terrain
     feature to represent the Wizard Eye.\nFor the rest of the game, the caster may
-    choose to drawa  line of sight from the Wizard Eye instead of from the figure
-    when casting spells.\nThe Wizard Eye has 180-degree field fo vision.\nA spellcaster
+    choose to draw line of sight from the Wizard Eye instead of from the figure when
+    casting spells.\nThe Wizard Eye has 180-degree field fo vision.\nA spellcaster
     may only maintain one Wizard Eye at a time.\nIf the terrain piece on which the
     Wizard Eye is placed is damaged or destroyed (such as by a Crumble spell) the
     spell is cancelled.\nThe spellcaster may cancel this spell at the end of any

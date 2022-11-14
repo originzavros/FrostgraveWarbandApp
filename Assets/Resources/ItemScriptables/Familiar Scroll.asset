@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Familiar Scroll
   itemDescription: "The spellcaster gains a familiar, which can take the form of
-    any small creature.\nIt is not depicted on the table, unelss the player wants
+    any small creature.\nIt is not depicted on the table, unless the player wants
     to include it on the spellcaster figure.\nA spellcaster with a familiar grants
     +2 Health(write as a split stat).\nIf the spellcaster is ever reduced to 1 Health
-    or less, the familiar is destroyed.\nAt the start of teh next game, the spellcaster
+    or less, the familiar is destroyed.\nAt the start of the next game, the spellcaster
     reverts to their normal Health, unless another Familiar spell is successfully
     cast.\r"
   itemPurchasePrice: 250
