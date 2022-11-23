@@ -47,6 +47,8 @@ public class ShopVaultManager : MonoBehaviour
     private PlaymodeWindow currentlySelectedSoldierWindow;
     [SerializeField] int testGoldModifier = 0;
 
+    private List<MagicItemRuntime> blackMarketItemList = new List<MagicItemRuntime>();
+
 
     public void Init()
     {
@@ -60,6 +62,10 @@ public class ShopVaultManager : MonoBehaviour
         // Debug.Log("filled warband panel with soldiers");
         OnClickShopTab();
         // Debug.Log("clicked shop tab");
+
+        blackMarketItemList.Clear();
+        GenerateBlackMarketItemList();
+
 
         EnableButtonsBasedOnCampaigns();
         navBox.ChangeFragmentName(AppFragment.ShopVault);
@@ -144,6 +150,27 @@ public class ShopVaultManager : MonoBehaviour
         }
     }
 
+    private void GenerateBlackMarketItemList()
+    {
+        int totalItemsFound = 0;
+        while (totalItemsFound < 4)
+        {
+            bool usableItem = true;
+            MagicItemScriptable randomItem = LoadAssets.allMagicItemObjects[Random.Range(0, LoadAssets.allMagicItemObjects.Length)];
+            if (randomItem.itemPurchasePrice < 1) { usableItem = false; }
+            if (randomItem.itemType == MagicItemType.Base || randomItem.itemType == MagicItemType.BaseResource) { usableItem = false; }
+            if (randomItem.itemName == "Crafted Scroll") { usableItem = false; }
+            if (usableItem)
+            {
+                MagicItemRuntime temp = new MagicItemRuntime();
+                temp.Init(randomItem);
+                blackMarketItemList.Add(temp);
+                //InstanceItemContainerAndAttach(temp, shopBuyContents, ItemContainerMode.buy);
+                totalItemsFound++;
+            }
+        }
+    }
+
     private void FillShopBuyWithItems(string shopType)
     {
         foreach(Transform child in shopBuyContents.transform)
@@ -162,22 +189,10 @@ public class ShopVaultManager : MonoBehaviour
         }
 
         if(shopType == "Black Market"){
-                int totalItemsFound = 0;
-                while(totalItemsFound < 4)
-                {
-                    bool usableItem = true;
-                    MagicItemScriptable randomItem = LoadAssets.allMagicItemObjects[Random.Range(0,LoadAssets.allMagicItemObjects.Length)];
-                    if(randomItem.itemPurchasePrice < 1){usableItem = false;}
-                    if(randomItem.itemType == MagicItemType.Base || randomItem.itemType == MagicItemType.BaseResource){ usableItem = false;}
-                    if(randomItem.itemName == "Crafted Scroll"){usableItem = false;}
-                    if(usableItem)
-                    {
-                        MagicItemRuntime temp = new MagicItemRuntime();
-                            temp.Init(randomItem);
-                        InstanceItemContainerAndAttach(temp, shopBuyContents, ItemContainerMode.buy);
-                        totalItemsFound++;
-                    }
-                }
+            foreach(var _item in blackMarketItemList)
+            {
+                InstanceItemContainerAndAttach(_item, shopBuyContents, ItemContainerMode.buy);
+            }
         }
 
         if(shopType == "TheMazeOfMalcor")
@@ -237,6 +252,20 @@ public class ShopVaultManager : MonoBehaviour
                     }
                     
                 }
+                else if (shopType == "Scrolls")
+                {
+                    if (item.itemType == MagicItemType.Scroll)
+                    {
+                        if (item.itemPurchasePrice > 0)
+                        {
+                            MagicItemRuntime temp = new MagicItemRuntime();
+                            temp.Init(item);
+                            InstanceItemContainerAndAttach(temp, shopBuyContents, ItemContainerMode.buy);
+                        }
+                    }
+
+                }
+
                 else if(shopType == "MagicEquipment"){
                     if(item.itemType == MagicItemType.MagicEquipment)
                     {
@@ -253,7 +282,7 @@ public class ShopVaultManager : MonoBehaviour
                     {
                         if(item.itemPurchasePrice > 0)
                         {
-                            MagicItemRuntime temp = new MagicItemRuntime();
+                            MagicItemRuntime temp = new MagicItemRuntime(); 
                             temp.Init(item);
                             InstanceItemContainerAndAttach(temp, shopBuyContents, ItemContainerMode.buy);
                         }
@@ -406,6 +435,10 @@ public class ShopVaultManager : MonoBehaviour
     public void OnClickGrimoireShop()
     {
         FillShopBuyWithItems("Grimoires");
+    }
+    public void OnClickScrollsShop()
+    {
+        FillShopBuyWithItems("Scrolls");
     }
     public void OnClickMagicEquipmentShop()
     {

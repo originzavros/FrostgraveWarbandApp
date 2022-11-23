@@ -4,7 +4,7 @@ using UnityEngine;
 namespace ES3Types
 {
 	[UnityEngine.Scripting.Preserve]
-	[ES3PropertiesAttribute("soldierName", "inventoryLimit", "move", "fight", "shoot", "armor", "will", "health", "cost", "hiringName", "soldierType", "isHired", "description", "status", "bookEdition", "baseSoldierEquipment", "soldierInventory", "soldierPermanentInjuries", "monsterKeywordList")]
+	[ES3PropertiesAttribute("soldierName", "inventoryLimit", "move", "fight", "shoot", "armor", "will", "health", "cost", "hiringName", "soldierType", "isHired", "description", "status", "bookEdition", "baseSoldierEquipment", "soldierInventory", "soldierPermanentInjuries", "monsterKeywordList", "activeHealth", "conditions")]
 	public class ES3UserType_RuntimeSoldierData : ES3ObjectType
 	{
 		public static ES3Type Instance = null;
@@ -35,6 +35,8 @@ namespace ES3Types
 			writer.WriteProperty("soldierInventory", instance.soldierInventory, ES3Internal.ES3TypeMgr.GetOrCreateES3Type(typeof(System.Collections.Generic.List<MagicItemRuntime>)));
 			writer.WriteProperty("soldierPermanentInjuries", instance.soldierPermanentInjuries, ES3Internal.ES3TypeMgr.GetOrCreateES3Type(typeof(System.Collections.Generic.List<InjuryScriptable>)));
 			writer.WriteProperty("monsterKeywordList", instance.monsterKeywordList, ES3Internal.ES3TypeMgr.GetOrCreateES3Type(typeof(System.Collections.Generic.List<RuntimeMonsterKeyword>)));
+			writer.WriteProperty("activeHealth", instance.activeHealth, ES3Type_int.Instance);
+			writer.WriteProperty("conditions", instance.conditions, ES3Internal.ES3TypeMgr.GetOrCreateES3Type(typeof(System.Collections.Generic.List<StatusInfo>)));
 		}
 
 		protected override void ReadObject<T>(ES3Reader reader, object obj)
@@ -101,6 +103,12 @@ namespace ES3Types
 						break;
 					case "monsterKeywordList":
 						instance.monsterKeywordList = reader.Read<System.Collections.Generic.List<RuntimeMonsterKeyword>>();
+						break;
+					case "activeHealth":
+						instance.activeHealth = reader.Read<System.Int32>(ES3Type_int.Instance);
+						break;
+					case "conditions":
+						instance.conditions = reader.Read<System.Collections.Generic.List<StatusInfo>>();
 						break;
 					default:
 						reader.Skip();

@@ -19,6 +19,7 @@ public class PlaymodeWindow : MonoBehaviour
     [SerializeField] GameObject conditionPrefab;
 
     private RuntimeSoldierData storedSoldier;
+    //private SoldierInfoSaveState saveState = null; //not used anymore, data is tied directly to runtimesoldierdata
 
     public void UpdatePanelInfo(RuntimeSoldierData soldier)
     {
@@ -27,13 +28,23 @@ public class PlaymodeWindow : MonoBehaviour
         descriptionPanel.UpdateDescription(soldier);
         equipmentList.UpdateEquipment(soldier);
         statCollapsablePanel.UpdateStats(soldier);
-        soldierHeader.UpdateInfo(soldier);
+        soldierHeader.UpdateInfo(soldier, this);
     }
+
+    //public void SetSoldierState(SoldierInfoSaveState sis)
+    //{
+    //    //saveState = sis;
+    //}
     
     public RuntimeSoldierData GetStoredSoldier()
     {
         return storedSoldier;
     }
+
+    //public SoldierInfoSaveState GetSoldierSaveState()
+    //{
+    //    //return saveState;
+    //}
 
     public void AddItemToContents(GameObject go)
     {
@@ -73,14 +84,38 @@ public class PlaymodeWindow : MonoBehaviour
         editButton.GetComponent<Button>().onClick.AddListener(call);
     }
 
-    public void AddStatus(string statusType, string statusTN = "14")
+    public void AddStatus(string statusType, string statusTN = "14", bool newStatus = false)
     {
+        StatusInfo si = new StatusInfo();
+        si.statusName = statusType;
+        si.statusValue = statusTN;
+        
+        if(newStatus)
+        {
+            storedSoldier.conditions.Add(si);
+        }
+
         GameObject newStatusObject = Instantiate(conditionPrefab);
-        newStatusObject.GetComponent<PlaymodeCondition>().UpdateCondition(statusType, statusTN);
+        newStatusObject.GetComponent<PlaymodeCondition>().UpdateCondition(si, this);
         AddItemToContents(newStatusObject);
     }
 
-    
+    public void RemoveStatus(StatusInfo si)
+    {
+        for(int i = 0; i < storedSoldier.conditions.Count; i++)
+        {
+            if (storedSoldier.conditions[i].statusName == si.statusName)
+            {
+                if (storedSoldier.conditions[i].statusValue == si.statusValue)
+                {
+                    storedSoldier.conditions.RemoveAt(i);
+                    break;
+                }
+            }
+        }
+    }
+
+
     public void UpdateSoldierName(string name)
     {
         storedSoldier.soldierName = name;
@@ -132,9 +167,17 @@ public class PlaymodeWindow : MonoBehaviour
         yield return null;
     }
 
+    public void SetCurrentHP(int _hp)
+    {
+        soldierHeader.SetCurrentHP(_hp);
+    }
+
+    public void UpdateChangedHp(int _hp)
+    {
+        storedSoldier.activeHealth = _hp;
+    }
 
 
-    
 
 
 

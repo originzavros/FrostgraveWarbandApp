@@ -73,7 +73,7 @@ public class WarbandInfoManager : MonoBehaviour
         if(ES3.KeyExists(id))
         {
             tempwarband.warbandWizard = new PlayerWizard();
-            ES3.LoadInto<PlayerWarband>(_warbandName, tempwarband);
+            ES3.LoadInto<PlayerWarband>(id, tempwarband);
 
             // tempwarband.warbandWizard.playerWizardProfile = new RuntimeSoldierData();
             // ES3.LoadInto<RuntimeSoldierData>(tempwarband.warbandWizard.wizardProfilekey, tempwarband.warbandWizard.playerWizardProfile);

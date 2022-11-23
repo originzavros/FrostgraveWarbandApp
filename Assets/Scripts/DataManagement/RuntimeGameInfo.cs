@@ -8,6 +8,7 @@ public class RuntimeGameInfo
     int spellsPassed = 0;
     int spellsFailed = 0;
     int treasuresCaptured = 0;
+    public List<RuntimeSoldierData> monstersInGame = new List<RuntimeSoldierData>();
 
     public void KillCreature()
     {
@@ -42,4 +43,15 @@ public class RuntimeGameInfo
     {
         return treasuresCaptured;
     }
+
+    public void SetSpellsPassed(int val)
+    {
+        spellsPassed = val;
+    }
+
+    public void SetSpellsFailed(int val)
+    {
+        spellsFailed = val;
+    }
+
 }

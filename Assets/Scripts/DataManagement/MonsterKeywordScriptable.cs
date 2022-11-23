@@ -19,4 +19,10 @@ public class RuntimeMonsterKeyword
         keywordName = mks.keywordName;
         keywordDescription = mks.keywordDescription;
     }
+
+    public void Init(RuntimeMonsterKeyword rmk)
+    {
+        keywordName = rmk.keywordName;
+        keywordDescription = rmk.keywordDescription;
+    }
 }

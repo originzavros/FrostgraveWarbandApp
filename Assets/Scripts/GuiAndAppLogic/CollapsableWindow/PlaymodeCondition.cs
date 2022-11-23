@@ -9,14 +9,20 @@ public class PlaymodeCondition : MonoBehaviour
     [SerializeField] TextMeshProUGUI conditionNameText;
     [SerializeField] TextMeshProUGUI conditionTargetNumberText;
 
-    public void UpdateCondition(string name, string targetNumber = "14")
+    private PlaymodeWindow parentContainer;
+    private StatusInfo statusInfo;
+
+    public void UpdateCondition(StatusInfo si, PlaymodeWindow m_parentContainer)
     {
-        conditionNameText.text = name;
-        conditionTargetNumberText.text = "TN : " + targetNumber;
+        conditionNameText.text = si.statusName;
+        conditionTargetNumberText.text = "TN : " + si.statusValue;
+        parentContainer = m_parentContainer;
+        statusInfo = si;
     }
 
     public void OnClickRemoveCondition()
     {
+        parentContainer.RemoveStatus(statusInfo);
         Destroy(this.gameObject);
     }
 }

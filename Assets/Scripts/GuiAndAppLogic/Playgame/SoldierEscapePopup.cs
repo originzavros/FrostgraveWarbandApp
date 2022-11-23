@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SoldierEscapePopup : MonoBehaviour
 {
-    
+    [SerializeField] PlayModeManager playModeManager;
     PlaymodeWindow currentSoldierWindow;
     public void Init(PlaymodeWindow _playmodeWindow)
     {
@@ -27,6 +27,7 @@ public class SoldierEscapePopup : MonoBehaviour
     public void SetSoldierStatusWindow(SoldierStatus ss)
     {
         currentSoldierWindow.GetStoredSoldier().status = ss;
+        //playModeManager.RemoveSoldierStateFromGameInfo(currentSoldierWindow.GetSoldierSaveState(), currentSoldierWindow.GetStoredSoldier());
         currentSoldierWindow.gameObject.SetActive(false);
         ClosePopup();
     }

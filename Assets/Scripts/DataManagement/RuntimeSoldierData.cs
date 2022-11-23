@@ -53,6 +53,9 @@ public class RuntimeSoldierData
         // soldierInventory = ss.soldierInventory;
         status = ss.status;
         monsterKeywordList = ss.monsterKeywordList;
+
+        activeHealth = ss.activeHealth;
+        conditions = ss.conditions;
     }
 
     //ideally these would all be properties as stats could be affected by abilities/spells, but not going that far with rules enforcement
@@ -75,4 +78,9 @@ public class RuntimeSoldierData
     public List<MagicItemRuntime> soldierInventory = new List<MagicItemRuntime>();
     public List<InjuryScriptable> soldierPermanentInjuries = new List<InjuryScriptable>();
     public List<RuntimeMonsterKeyword> monsterKeywordList = new List<RuntimeMonsterKeyword>();
+
+    //data for active game save states
+    public int activeHealth = -1;
+    public List<StatusInfo> conditions = new List<StatusInfo>();
+
 }

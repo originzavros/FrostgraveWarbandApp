@@ -8,7 +8,8 @@ public class DescriptionPanel : MonoBehaviour
 
     public void UpdateDescription(RuntimeSoldierData soldier)
     {
-        descriptionField.text = soldier.description;
+        string newText = soldier.soldierName + "\n" + soldier.description;
+        descriptionField.text = newText;
         // if(descriptionField.text == "None")
         // {
         //     // this.transform.parent.gameObject.SetActive(false);

@@ -50,6 +50,7 @@ public class ModNumberPanel : MonoBehaviour
         modNumberText.text = numberText;
     }
 
+
     public int GetModNumberValue()
     {
         return modNumberValue;

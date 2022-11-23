@@ -13,9 +13,11 @@ public class SoldierHeaderPlaymode : MonoBehaviour
 
     private int maxHP = 10;
     private int currentHp;
+    private PlaymodeWindow parentWindow;
 
-    public void UpdateInfo(RuntimeSoldierData soldier)
+    public void UpdateInfo(RuntimeSoldierData soldier, PlaymodeWindow _parentWindow)
     {
+        parentWindow = _parentWindow;
         soldierName.text = soldier.soldierName;
         maxHP = soldier.health;
         currentHp = maxHP;
@@ -37,6 +39,7 @@ public class SoldierHeaderPlaymode : MonoBehaviour
         {
             currentHp++;
             soldierHP.text = currentHp.ToString();
+            parentWindow.UpdateChangedHp(currentHp);
         }
     }
     public void OnClickHPDown()
@@ -45,6 +48,7 @@ public class SoldierHeaderPlaymode : MonoBehaviour
         {
             currentHp--;
             soldierHP.text = currentHp.ToString();
+            parentWindow.UpdateChangedHp(currentHp);
         }
     }
 
@@ -54,4 +58,13 @@ public class SoldierHeaderPlaymode : MonoBehaviour
         hpUpButton.SetActive(false);
         hpDownButton.SetActive(false);
     }
+
+    public void SetCurrentHP(int _hp)
+    {
+        currentHp = _hp;
+        soldierHP.text = currentHp.ToString();
+    }
+
+    
+
 }

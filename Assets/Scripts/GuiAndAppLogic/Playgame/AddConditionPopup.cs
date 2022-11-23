@@ -21,7 +21,7 @@ public class AddConditionPopup : MonoBehaviour
 
     public void AddStatusToPlaymodeWindow(string statusName)
     {
-        currentSoldierWindow.AddStatus(statusName, targetNumber.ToString());
+        currentSoldierWindow.AddStatus(statusName, targetNumber.ToString(),true);
         ClosePopup();
     }
 

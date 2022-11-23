@@ -48,20 +48,41 @@ public class PlayModeManager : MonoBehaviour
 
     [SerializeField] NavBox navBox;
 
-
-
-    private PlayerWarband currentGameWarband;
+    private PlayerWarband currentWarband;
+    private PlayerWarband activeGameWarband;
     private RuntimeGameInfo gameInfo;
+    
 
     private int spellsPassed = 0;
     private int spellsFailed = 0;
     private int treasuresCaptured = 0;
     private List<ItemRemove> itemsToRemove = new List<ItemRemove>();
 
+
     public void Init()
     {
-        OnClickGameButton();
+        currentWarband = warbandInfoManager.GetCurrentlyLoadedWarband();
+        activeGameWarband = warbandInfoManager.LoadActiveGame(currentWarband.warbandName);
+        if(activeGameWarband.warbandName == "temp")
+        {
+            Debug.Log("No active save found, setting to current warband");
+            //no previous warband saved, so new game normal
+            activeGameWarband = currentWarband;
+            gameInfo = new RuntimeGameInfo();
+            OnClickGameButton();
+        }
+        else
+        {
+            //load that active game
+            Debug.Log("Loading active game data");
+            LoadGameInfo();
+            OnClickNewGame();
+
+        }
+        
         navBox.ChangeFragmentName(AppFragment.PlayGame);
+        //activeGameWarband = warbandInfoManager.GetCurrentlyLoadedWarband();
+        //if (ES3.KeyExists())
     }
 
     #region Playgame Tabs
@@ -105,13 +126,15 @@ public class PlayModeManager : MonoBehaviour
         ClearContent(warbandViewContents);
         ClearContent(monsterViewContents);
         itemsToRemove.Clear();
-        currentGameWarband = warbandInfoManager.GetCurrentlyLoadedWarband();
+        //activeGameWarband = warbandInfoManager.GetCurrentlyLoadedWarband();
         // LoadWarbandState();
-        NewGameSetup(currentGameWarband);
+        //Debug.Log("Starting new game with this warband: " + activeGameWarband.warbandName);
+        NewGameSetup(activeGameWarband);
         newGameButton.GetComponent<Button>().interactable = false;
         endGameButton.GetComponent<Button>().interactable = true;
         cancelGameButton.GetComponent<Button>().interactable = true;
         OnClickWizardButton();
+        StartCoroutine(WaitAndSaveLoop());
     }
 
     public void ClearContent(GameObject window)
@@ -126,6 +149,7 @@ public class PlayModeManager : MonoBehaviour
         //update soldiers for warband and postgame
         //save game data (monsters killed, treasures captured ?)
         //go to post game?
+        StopAllCoroutines();
         UpdateWarbandInfoWithGameInfo();
         ClearContent(wizardViewContents);
         ClearContent(warbandViewContents);
@@ -134,12 +158,19 @@ public class PlayModeManager : MonoBehaviour
         endGameButton.GetComponent<Button>().interactable = false;
         cancelGameButton.GetComponent<Button>().interactable = true;
 
+        warbandInfoManager.DeleteActiveGame(activeGameWarband.warbandName);
+        //gameInfo.monstersInGame.Clear();
+
         warbandUIManager.SwitchToPostgameAndInit(gameInfo);
+
     }
 
     public void OnClickCancelGame()
     {
         //go through each window and clear it's contents, reset new game button
+        StopAllCoroutines();
+        warbandInfoManager.DeleteActiveGame(activeGameWarband.warbandName);
+        //gameInfo.monstersInGame.Clear();
         confirmationPopup.SetActive(true);
         confirmationPopup.GetComponent<ConfirmationPopup>().Init("Cancel Current Game?");
         ConfirmationPopup.OnConfirmChosen += ReceiveCancelConfirmation;
@@ -154,7 +185,7 @@ public class PlayModeManager : MonoBehaviour
         endGameButton.GetComponent<Button>().interactable = false;
         cancelGameButton.GetComponent<Button>().interactable = true;
 
-        // string id = currentGameWarband.warbandName;
+        // string id = activeGameWarband.warbandName;
         // warbandInfoManager.DeleteActiveGame(id);
 
         warbandUIManager.BackToWarbandMain();
@@ -163,17 +194,17 @@ public class PlayModeManager : MonoBehaviour
     //these both need work, save states for games need a lot more to make it easy to do
     // public void SaveWarbandState()
     // {
-    //     warbandInfoManager.SaveActiveGame(currentGameWarband);
+    //     warbandInfoManager.SaveActiveGame(activeGameWarband);
     // }
 
     // public void LoadWarbandState()
     // {
-    //     string loadName = currentGameWarband.warbandName;
-    //     currentGameWarband = warbandInfoManager.LoadActiveGame(loadName);
-    //     if(currentGameWarband.warbandName == "temp")
+    //     string loadName = activeGameWarband.warbandName;
+    //     activeGameWarband = warbandInfoManager.LoadActiveGame(loadName);
+    //     if(activeGameWarband.warbandName == "temp")
     //     {
     //         Debug.Log("Could not load active game");
-    //         currentGameWarband = warbandInfoManager.GetCurrentlyLoadedWarband();
+    //         activeGameWarband = warbandInfoManager.GetCurrentlyLoadedWarband();
     //     }
     // }
 
@@ -192,48 +223,50 @@ public class PlayModeManager : MonoBehaviour
     {
         //they are all references to the original, so should be fine
 
-        // currentGameWarband.warbandSoldiers.Clear();
+        // activeGameWarband.warbandSoldiers.Clear();
         // foreach(Transform child in warbandViewContents.transform)
         // {
         //     RuntimeSoldierData rsd = child.GetComponent<PlaymodeWindow>().GetStoredSoldier();
-        //     currentGameWarband.warbandSoldiers.Add(rsd);
+        //     activeGameWarband.warbandSoldiers.Add(rsd);
         // }
-        // currentGameWarband.warbandWizard.playerWizardProfile = wizardViewContents.GetComponentInChildren<PlaymodeWindow>().GetStoredSoldier();
+        // activeGameWarband.warbandWizard.playerWizardProfile = wizardViewContents.GetComponentInChildren<PlaymodeWindow>().GetStoredSoldier();
 
         RemoveItemsFromSoldiers();
+        RemoveConditionsFromSoldiers();
         itemsToRemove.Clear();
 
-        // warbandInfoManager.Init(currentGameWarband); //the current game warband should be an active game
+        // warbandInfoManager.Init(activeGameWarband); //the current game warband should be an active game
         // warbandInfoManager.SaveCurrentWarband();
 
         spellsPassed = FindAndRetrieveInfoFromModPanel("Spells Passed", wizardViewContents);
         spellsFailed = FindAndRetrieveInfoFromModPanel("Spells Failed", wizardViewContents);
 
-        for(int i = spellsPassed; i > 0; i--)
-        {
-            gameInfo.PassSpell();
-        }
-        for(int i = spellsFailed; i > 0; i--)
-        {
-            gameInfo.FailSpell();
-        }
+        //for(int i = spellsPassed; i > 0; i--)
+        //{
+        //    gameInfo.PassSpell();
+        //}
+        //for(int i = spellsFailed; i > 0; i--)
+        //{
+        //    gameInfo.FailSpell();
+        //}
 
     }
 
     public void NewGameSetup(PlayerWarband _playerwarband)
     {
-        currentGameWarband = _playerwarband;
+        activeGameWarband = _playerwarband;
         PopulateWarbandView();
         PopulateWizardView();
         PopulateMonsterPopup();
-        gameInfo = new RuntimeGameInfo();
+
+       // gameInfo = new RuntimeGameInfo();
     }
 
 
 
     public void PopulateWarbandView()
     {
-        foreach(var item in currentGameWarband.warbandSoldiers)
+        foreach(var item in activeGameWarband.warbandSoldiers)
         {
             if(item.status == SoldierStatus.ready)
             {
@@ -241,7 +274,7 @@ public class PlayModeManager : MonoBehaviour
             }
                 
         }
-        foreach(var item in currentGameWarband.warbandVault)
+        foreach(var item in activeGameWarband.warbandVault)
         {
             if(item.itemName == "Kennel")
             {
@@ -258,8 +291,8 @@ public class PlayModeManager : MonoBehaviour
         // GameObject wizardAttachPanel = wizardViewContents.transform.GetChild(0).gameObject;
 
         RollForPregameSpells();
-        CreateAndAttachPlaymodeSoldierContainer(currentGameWarband.warbandWizard.playerWizardProfile, wizardViewContents);
-        foreach(var spellItem in currentGameWarband.warbandWizard.playerWizardSpellbook.wizardSpellbookSpells)
+        CreateAndAttachPlaymodeSoldierContainer(activeGameWarband.warbandWizard.playerWizardProfile, wizardViewContents);
+        foreach(var spellItem in activeGameWarband.warbandWizard.playerWizardSpellbook.wizardSpellbookSpells)
         {
             GameObject temp = Instantiate(spellDiceContainerPrefab);
             SpellDiceContainer spellContainerButton = temp.GetComponent<SpellDiceContainer>();
@@ -281,13 +314,13 @@ public class PlayModeManager : MonoBehaviour
             // temp.transform.SetParent(wizardViewContents.transform);
         }
 
-        CreateAndAttachModNumberPanel("Spells Passed", wizardViewContents);
-        CreateAndAttachModNumberPanel("Spells Failed", wizardViewContents);
+        CreateAndAttachModNumberPanel("Spells Passed", wizardViewContents, gameInfo.GetSpellsPassed());
+        CreateAndAttachModNumberPanel("Spells Failed", wizardViewContents, gameInfo.GetSpellsFailed());
     }
 
     public void RollForPregameSpells()
     {
-        foreach(var item in currentGameWarband.warbandWizard.playerWizardSpellbook.wizardSpellbookSpells)
+        foreach(var item in activeGameWarband.warbandWizard.playerWizardSpellbook.wizardSpellbookSpells)
         {
             if(CheckIfSpellIsRollableForPregame(item))
             {
@@ -309,7 +342,7 @@ public class PlayModeManager : MonoBehaviour
         }
         else if(wrs.referenceSpell.Name == "Summon Demon")
         {
-            foreach(var item in currentGameWarband.warbandVault)
+            foreach(var item in activeGameWarband.warbandVault)
             {
                 if(item.itemName == "Summoning Circle")
                 {
@@ -373,7 +406,7 @@ public class PlayModeManager : MonoBehaviour
         bool hasArcaneCandle = false;
         bool hasSummoningCandle = false;
         WizardRuntimeSpell ControlDemonSpell = null;
-        foreach(var spell in currentGameWarband.warbandWizard.playerWizardSpellbook.wizardSpellbookSpells)
+        foreach(var spell in activeGameWarband.warbandWizard.playerWizardSpellbook.wizardSpellbookSpells)
         {
             if(spell.referenceSpell.Name == "Control Demon")
             {
@@ -387,7 +420,7 @@ public class PlayModeManager : MonoBehaviour
             CreateAndAttachInfoDisplay(displayInfo, wizardViewContents);
         }
         else{
-            foreach(var item in currentGameWarband.warbandVault)
+            foreach(var item in activeGameWarband.warbandVault)
             {
                 if(item.itemName == "Arcane Candle")
                 {
@@ -444,7 +477,7 @@ public class PlayModeManager : MonoBehaviour
     public int CheckForSpellBonusesFromBaseResources(string spellName)
     {
         int mod = 0;
-        foreach(var item in currentGameWarband.warbandVault)
+        foreach(var item in activeGameWarband.warbandVault)
         {
             if(item.itemName == "Crypt") //+2 raise zombie and animate skull
             {
@@ -516,6 +549,13 @@ public class PlayModeManager : MonoBehaviour
     {
         addMonsterPopup.Init(LoadAssets.allMonsterObjects.ToList());
         addMonsterPopup.AssignMonsterEvent(delegate { AddMonsterToMonsterScroll(); });
+        if(gameInfo.monstersInGame.Count > 0)
+        {
+            foreach(var _monster in gameInfo.monstersInGame)
+            {
+                CreateAndAttachLoadedMonsterContainer(_monster, monsterViewContents);
+            }
+        }
     }
     public void EnableAndFillDescriptionPopUp(SpellButton sb)
     {
@@ -530,6 +570,8 @@ public class PlayModeManager : MonoBehaviour
         GameObject temp = Instantiate(playModeWindowPrefab);
         PlaymodeWindow csw = temp.GetComponentInChildren<PlaymodeWindow>();
         csw.UpdatePanelInfo(incoming);
+        //SoldierInfoSaveState sisTemp = new SoldierInfoSaveState();
+        //csw.SetSoldierState(sisTemp);
 
         if(!manageMode)
         {
@@ -571,6 +613,24 @@ public class PlayModeManager : MonoBehaviour
             AddMonsterKeywordToMonster(csw, _keyword);
         }
 
+        foreach(var _condition in incoming.conditions)
+        {
+            csw.AddStatus(_condition.statusName, _condition.statusValue);
+            Debug.Log(incoming.soldierName + " has condition" + _condition.statusName);
+        }
+
+        Debug.Log(incoming.soldierName + " has active health" + incoming.activeHealth.ToString());
+        if (incoming.activeHealth < 0)
+        {
+            incoming.activeHealth = incoming.health;
+            csw.SetCurrentHP(incoming.activeHealth);
+        }
+        else
+        {
+            csw.SetCurrentHP(incoming.activeHealth);
+        }
+        
+
         csw.SetBodyPermaActive();
         
         
@@ -590,29 +650,69 @@ public class PlayModeManager : MonoBehaviour
         csw.SetDeathEscapeEvent(delegate{DeleteMonsterEvent(csw);});
         csw.SetEditEvent(delegate{AddChangeSoldierNamePopup(csw);});
 
-        foreach(var _keyword in incoming.monsterKeywordList)
+        foreach (var _keyword in incoming.monsterKeywordList)
         {
             RuntimeMonsterKeyword newKeyword = new RuntimeMonsterKeyword();
             newKeyword.Init(_keyword);
             AddMonsterKeywordToMonster(csw, newKeyword);
         }
-        
+
+        gameInfo.monstersInGame.Add(newMonster);
+
         temp.transform.SetParent(attachedTo.transform);
     }
 
-    private void CreateAndAttachModNumberPanel(string name, GameObject attachedTo)
+    private void CreateAndAttachLoadedMonsterContainer(RuntimeSoldierData incoming, GameObject attachedTo)
+    {
+        GameObject temp = Instantiate(playModeWindowPrefab);
+        PlaymodeWindow csw = temp.GetComponentInChildren<PlaymodeWindow>();
+        csw.UpdatePanelInfo(incoming);
+
+        csw.SetRollDiceEvent(delegate { RollDicePopup(csw); });
+        csw.SetStatusEvent(delegate { AddConditionPop(csw); });
+        csw.SetDeathEscapeEvent(delegate { DeleteMonsterEvent(csw); });
+        csw.SetEditEvent(delegate { AddChangeSoldierNamePopup(csw); });
+
+        foreach (var _keyword in incoming.monsterKeywordList)
+        {
+            RuntimeMonsterKeyword newKeyword = new RuntimeMonsterKeyword();
+            newKeyword.Init(_keyword);
+            AddMonsterKeywordToMonster(csw, newKeyword);
+        }
+
+        foreach (var _condition in incoming.conditions)
+        {
+            csw.AddStatus(_condition.statusName, _condition.statusValue);
+            Debug.Log(incoming.soldierName + " has condition" + _condition.statusName);
+        }
+
+        if (incoming.activeHealth < 0)
+        {
+            incoming.activeHealth = incoming.health;
+            csw.SetCurrentHP(incoming.activeHealth);
+        }
+        else
+        {
+            csw.SetCurrentHP(incoming.activeHealth);
+        }
+
+        temp.transform.SetParent(attachedTo.transform);
+    }
+
+    private void CreateAndAttachModNumberPanel(string name, GameObject attachedTo, int defaultValue = 0)
     {
         GameObject temp = Instantiate(modNumberPanelPrefab);
         temp.name = name;
         ModNumberPanel mnp = temp.GetComponent<ModNumberPanel>();
         mnp.Init(name);
+        mnp.AdjustNumberText(defaultValue);
 
         temp.transform.SetParent(attachedTo.transform);
     }
 
     public void SaveActiveGame()
     {
-        warbandInfoManager.SaveActiveGame(currentGameWarband);
+        warbandInfoManager.SaveActiveGame(activeGameWarband);
     }
 
     public void RollDicePopup(PlaymodeWindow _playmodeWindow)
@@ -671,6 +771,7 @@ public class PlayModeManager : MonoBehaviour
         {
             gameInfo.KillCreature();
         }
+        gameInfo.monstersInGame.Remove(_playmodeWindow.GetStoredSoldier());
         Destroy(_playmodeWindow.gameObject);
     }
     public void AddMonsterToMonsterScroll()
@@ -740,6 +841,27 @@ public class PlayModeManager : MonoBehaviour
         }
     }
 
+    public void RemoveConditionsFromSoldiers()
+    {
+        foreach(var _soldier in activeGameWarband.warbandSoldiers)
+        {
+            _soldier.conditions.Clear();
+        }
+
+        activeGameWarband.warbandWizard.playerWizardProfile.conditions.Clear();
+    }
+
+    //set it to -1 so it resets when remade in the future (important for spellcasters as their health changes)
+    public void ResetAllSoldierActiveHealth()
+    {
+        foreach (var _soldier in activeGameWarband.warbandSoldiers)
+        {
+            _soldier.activeHealth = -1;
+        }
+
+        activeGameWarband.warbandWizard.playerWizardProfile.activeHealth = -1;
+    }
+
     public int FindAndRetrieveInfoFromModPanel(string panelName, GameObject parentObject)
     {
         foreach(Transform item in parentObject.transform)
@@ -757,4 +879,41 @@ public class PlayModeManager : MonoBehaviour
         public MagicItemRuntime item;
     }
 
+
+    private IEnumerator WaitAndSaveLoop()
+    {
+
+        while(true)
+        {
+            yield return new WaitForSeconds(10f);
+            warbandInfoManager.SaveActiveGame(activeGameWarband);
+            SaveGameInfo();
+            Debug.Log("Done Saving Active Game State");
+            yield return null;
+        }
+        
+    }
+
+
+    private void SaveGameInfo()
+    {
+        spellsPassed = FindAndRetrieveInfoFromModPanel("Spells Passed", wizardViewContents);
+        spellsFailed = FindAndRetrieveInfoFromModPanel("Spells Failed", wizardViewContents);
+        gameInfo.SetSpellsPassed(spellsPassed);
+        gameInfo.SetSpellsFailed(spellsFailed);
+
+        ES3.Save("activeGameInfo", gameInfo);
+    }
+
+    private void LoadGameInfo()
+    {
+        RuntimeGameInfo temp = new RuntimeGameInfo();
+        if(ES3.KeyExists("activeGameInfo"))
+        {
+            ES3.LoadInto("activeGameInfo", temp);
+        }
+        gameInfo = temp;
+
+
+    }
 }
