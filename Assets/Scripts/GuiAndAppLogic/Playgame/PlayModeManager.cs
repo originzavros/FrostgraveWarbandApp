@@ -167,9 +167,6 @@ public class PlayModeManager : MonoBehaviour
 
     public void OnClickCancelGame()
     {
-        //go through each window and clear it's contents, reset new game button
-        StopAllCoroutines();
-        warbandInfoManager.DeleteActiveGame(activeGameWarband.warbandName);
         //gameInfo.monstersInGame.Clear();
         confirmationPopup.SetActive(true);
         confirmationPopup.GetComponent<ConfirmationPopup>().Init("Cancel Current Game?");
@@ -185,8 +182,10 @@ public class PlayModeManager : MonoBehaviour
         endGameButton.GetComponent<Button>().interactable = false;
         cancelGameButton.GetComponent<Button>().interactable = true;
 
-        // string id = activeGameWarband.warbandName;
-        // warbandInfoManager.DeleteActiveGame(id);
+        ResetAllSoldierActiveHealth();
+        StopAllCoroutines();
+        warbandInfoManager.DeleteActiveGame(activeGameWarband.warbandName);
+
 
         warbandUIManager.BackToWarbandMain();
     }
@@ -233,6 +232,7 @@ public class PlayModeManager : MonoBehaviour
 
         RemoveItemsFromSoldiers();
         RemoveConditionsFromSoldiers();
+        ResetAllSoldierActiveHealth();
         itemsToRemove.Clear();
 
         // warbandInfoManager.Init(activeGameWarband); //the current game warband should be an active game
