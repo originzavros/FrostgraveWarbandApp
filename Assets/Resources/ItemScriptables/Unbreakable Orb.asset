@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Unbreakable Orb
+  m_EditorClassIdentifier: 
+  itemName: Unbreakable Orb
+  itemDescription: Once per game, a figure may activate the Unbreakeable Orb, which
+    surrounds the figure in an invisible and imprenetrable field. It can only be
+    activated during the bearers activation, but does not require an action to use.
+    The shield lasts until the figures next activation, the bearer cannot do anything
+    other pick up a treasure it is in base contact with and may take no other actions
+    or abilities. As a result, enemies cannot effect or harm the bearer in any way,
+    and cannot move into combat with the bearer. If the bearer activates the item
+    while in combat, it is considered to be no longer in combat until it activates
+    again on its next turn and is still base to base. (pg 51 for any clarifications)
+  itemPurchasePrice: 300
+  itemSalePrice: 0
+  itemBook: 7
+  itemType: 3

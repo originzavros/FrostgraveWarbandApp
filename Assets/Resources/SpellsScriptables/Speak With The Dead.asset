@@ -25,6 +25,6 @@ MonoBehaviour:
   CastingNumber: 12
   School: 15
   Restriction: Out of Game(B)
-  Description: The spellcaster adds +4 to his next attempt to cast an Out of Game
-    spell, provided that it is before the next game.
+  Description: "The spellcaster adds +4 to his next attempt to cast an Out of Game
+    spell, provided that it is before the next game.\r"
   bookEdition: 6

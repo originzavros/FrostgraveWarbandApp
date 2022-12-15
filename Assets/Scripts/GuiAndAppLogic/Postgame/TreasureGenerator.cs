@@ -19,6 +19,7 @@ public class TreasureGenerator : MonoBehaviour
     private List<MagicItemScriptable> allGrimoiresCoreBook = new List<MagicItemScriptable>();
     private List<MagicItemScriptable> allTheMazeOfMalcor = new List<MagicItemScriptable>();
     private List<MagicItemScriptable> allTheMazeOfMalcorScrolls = new List<MagicItemScriptable>();
+    private List<MagicItemScriptable> allThawOfTheLichLord = new List<MagicItemScriptable>();
 
 
  
@@ -64,6 +65,18 @@ public class TreasureGenerator : MonoBehaviour
                     {
                         allTheMazeOfMalcor.Add(item);
                     }
+                }
+            }
+
+            if(item.itemBook == FrostgraveBook.ThawOfTheLichLord)
+            {
+                if(item.itemName != "Amulet of the Ghoul King" && item.itemName != "Fire Heart Gemstone") //scenario specific items
+                {
+                    if(item.itemType != MagicItemType.Scroll) //we generate scrolls for the campaign grims, but they can't be scrolls so we just ignore them
+                    {
+                        allThawOfTheLichLord.Add(item);
+                    }
+                    
                 }
             }
         }
@@ -117,6 +130,10 @@ public class TreasureGenerator : MonoBehaviour
             Debug.Log(allTheMazeOfMalcor.Count + "maze of malcor counts " + allTheMazeOfMalcorScrolls.Count);
             generatedTreasure.items.Add(ConvertTreasure(allTheMazeOfMalcor[Random.Range(0, allTheMazeOfMalcor.Count)]));
             generatedTreasure.items.Add(ConvertTreasure(allTheMazeOfMalcorScrolls[Random.Range(0, allTheMazeOfMalcorScrolls.Count)]));
+        }
+        if(book == FrostgraveBook.ThawOfTheLichLord)
+        {
+            generatedTreasure.items.Add(ConvertTreasure(allThawOfTheLichLord[Random.Range(0, allThawOfTheLichLord.Count)]));
         }
         return generatedTreasure;
     }

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Book of Bones
+  m_EditorClassIdentifier: 
+  itemName: Book of Bones
+  itemDescription: 'Only a wizard may use this magical text. Following the instructions
+    within this volume, a wizard may use the Raise Zombie spell to create an animated
+    skeleton instead. The spell is cast in the same way, the wizard gets a skeleton
+    instead of a zombie.
+
+    If this spell is cast out of game, the wizard has the
+    option of paying 30gc to upgrade the skeleton to an Armored Skeleton. The warband
+    may only contain one zombie/skeleton/armored skeleton at any one time. The wizard
+    does not need to carry the book to use this ability, it can be stored in the
+    vault.'
+  itemPurchasePrice: 500
+  itemSalePrice: 0
+  itemBook: 7
+  itemType: 3

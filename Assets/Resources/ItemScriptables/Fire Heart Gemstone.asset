@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Fire Heart Gemstone
+  m_EditorClassIdentifier: 
+  itemName: Fire Heart Gemstone
+  itemDescription: This item can only be obtained by playing the House of Longreach
+    scenario or by trading another player for it. It cannot be purchased. If this
+    gemstone is carried by a spellcaster, he may transfer to the gemstone up to 3
+    points of damage he suffers from an attack. The spellcaster may use the gemstone
+    as many times as he wishes during a game, but must keep track of the total damage
+    transferred -  if at any point the gem has taken 5 or more damage it is destroyed
+    permanently.
+  itemPurchasePrice: 0
+  itemSalePrice: 0
+  itemBook: 7
+  itemType: 3

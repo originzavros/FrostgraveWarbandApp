@@ -308,6 +308,56 @@ public class PostGameManager : MonoBehaviour
         CreateSoldierButtonAndAttach(fullDisplay, mainScrollContents, soldier);
     }
 
+    private void RerollOfStatusRollForCurrentlySelectedSpellcaster(RuntimeSoldierData soldier)
+    {
+        int currentRoll = Random.Range(1, 20);
+        string statusDisplay;
+        if (currentRoll < 3)
+        {
+            if (soldier.soldierType == "Wizard") //wizards get +1 to their survival roll
+            {
+                if (currentRoll < 2)
+                {
+                    soldier.status = SoldierStatus.dead;
+                    statusDisplay = "<color=red>Dead</color>";
+                }
+                else
+                {
+                    soldier.status = SoldierStatus.injured;
+                    statusDisplay = "<color=red>Injured</color>";
+                }
+            }
+            else
+            {
+                soldier.status = SoldierStatus.dead;
+                statusDisplay = "<color=red>Dead</color>";
+            }
+        }
+        else if (currentRoll > 2 && currentRoll < 5)
+        {
+            soldier.status = SoldierStatus.injured;
+            statusDisplay = "<color=red>Injured</color>";
+        }
+        else if (currentRoll > 4 && currentRoll < 7)
+        {
+            soldier.status = SoldierStatus.badlyWounded;
+            statusDisplay = "<color=orange>Badly Wounded</color>";
+        }
+        else if (currentRoll > 6 && currentRoll < 9)
+        {
+            soldier.status = SoldierStatus.closeCall;
+            statusDisplay = "<color=yellow>Close Call</color>";
+        }
+        else
+        {
+            soldier.status = SoldierStatus.ready;
+            statusDisplay = "<color=green>Full Recovery</color>";
+        }
+        string fullDisplay = soldier.soldierName + " | " + statusDisplay;
+        currentlySelectedSoldier.UpdateText(fullDisplay);
+        //CreateSoldierButtonAndAttach(fullDisplay, mainScrollContents, soldier);
+    }
+
     //Everyone keeps their status, for dead wizards, they simply stay dead, in case the player wants to continue playing with them
     private void FinalizeWarbandInjuries()
     {
@@ -529,6 +579,10 @@ public class PostGameManager : MonoBehaviour
             {
                 CreateBasicButtonAndAttach("Elixir Of Life", cureSelectionPopupContents, delegate {ElixirOfLifeEvent();});
             }
+            if(item.itemName == "Crystal Rose")
+            {
+                CreateBasicButtonAndAttach("Crystal Rose", cureSelectionPopupContents, delegate {CrystalRoseEvent(); });
+            }
         }
     }
 
@@ -651,7 +705,7 @@ public class PostGameManager : MonoBehaviour
             }
             if(foundLocation > -1)
             {
-                currentWarband.warbandVault.RemoveAt(foundLocation);
+                currentWarband.warbandVault.RemoveAt(foundLocation - 1);
             }
         }
         else{
@@ -684,7 +738,7 @@ public class PostGameManager : MonoBehaviour
             }
             if(foundLocation > -1)
             {
-                currentWarband.warbandVault.RemoveAt(foundLocation);
+                currentWarband.warbandVault.RemoveAt(foundLocation - 1);
             }
         }
         else{
@@ -695,6 +749,61 @@ public class PostGameManager : MonoBehaviour
         cureSelectionPopup.SetActive(false);    
     }
 
+    public void CrystalRoseEvent()
+    {
+        RuntimeSoldierData rsd = currentlySelectedSoldier.GetStoredSoldier();
+
+        FindButtonInWindowAndDisable("Crystal Rose", cureSelectionPopupContents);
+
+        int foundLocation = -1;
+        bool foundItem = false;
+        foreach (var item in currentWarband.warbandVault)
+        {
+            foundLocation++;
+            if(item.itemName == "Crystal Rose")
+            {
+                foundItem = true;
+                break;
+            }
+        }
+        if (foundItem)
+        {
+            currentWarband.warbandVault.RemoveAt(foundLocation);
+        }
+
+        if (rsd.soldierType != "Apprentice" && rsd.soldierType != "Wizard")
+        {
+            int currentRoll = Random.Range(1, 20);
+            string statusDisplay;
+            if (currentRoll < 5)
+            {
+                rsd.status = SoldierStatus.dead;
+                statusDisplay = "<color=red>Dead</color>";
+            }
+            else if (currentRoll > 5 && currentRoll < 9)
+            {
+                rsd.status = SoldierStatus.badlyWounded;
+                statusDisplay = "<color=orange>Badly Wounded</color>";
+            }
+            else
+            {
+                rsd.status = SoldierStatus.ready;
+                statusDisplay = "<color=green>Full Recovery</color>";
+            }
+            string fullDisplay = rsd.soldierName + " | " + statusDisplay;
+            currentlySelectedSoldier.UpdateText(fullDisplay);
+        }
+        else
+        {
+            RerollOfStatusRollForCurrentlySelectedSpellcaster(rsd);
+            //StatusRollForSpellcaster(rsd);
+        }
+
+        cureSelectionPopup.SetActive(false);
+        cureResultPopup.SetActive(true);
+        cureResultPopup.GetComponent<BasicPopup>().UpdatePopupText("Rerolled selected soldier's survival roll");
+
+    }
     public void CureSelectionPopupEvent()
     {
         cureSelectionPopup.SetActive(true);
@@ -917,7 +1026,7 @@ public class PostGameManager : MonoBehaviour
         foreach(var book in campaignSettingsManager.GetEnabledCampaigns())
         {
             Debug.Log("treasure type :" + book);
-            if(book == FrostgraveBook.TheMazeOfMalcor)
+            if(book == FrostgraveBook.TheMazeOfMalcor) //malcor gets 2 treausures for replacement, vs all the other books 1 treasure
             {
                 CreateTreasureTypeButtonAndAttach(book.ToString(), treasureSelectionPopupContents);
                 CreateTreasureTypeButtonAndAttach(book.ToString(), treasureSelectionPopupContents);
@@ -925,6 +1034,7 @@ public class PostGameManager : MonoBehaviour
             else{
                 CreateTreasureTypeButtonAndAttach(book.ToString(), treasureSelectionPopupContents);
             }
+
             
         }
         
@@ -1005,6 +1115,11 @@ public class PostGameManager : MonoBehaviour
             {
                 tempTreasure = treasureGenerator.GenerateTreasureCampaign(FrostgraveBook.TheMazeOfMalcor);
                 selectWindow.AddItemGroup("TheMazeOfMalcor", tempTreasure, TreasureSelectGroupType.normal);
+            }
+            else if(name == "ThawOfTheLichLord")
+            {
+                tempTreasure = treasureGenerator.GenerateTreasureCampaign(FrostgraveBook.ThawOfTheLichLord);
+                selectWindow.AddItemGroup("ThawOfTheLichLord", tempTreasure, TreasureSelectGroupType.normal);
             }
         
             temp.transform.SetParent(treasureFinalizerPanelContents.transform);

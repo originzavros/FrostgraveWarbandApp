@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Ivory Scroll
+  m_EditorClassIdentifier: 
+  itemName: Ivory Scroll
+  itemDescription: This is a flat piece of ivory, about the size of a man's hand,
+    with a spell etched onto its surface. When found, roll randomly on the spell
+    table to see what spell it holds. The Ivory Scroll functions as a scroll with
+    the following exceptions. It may be used once per game. After it is used, roll
+    a die. On a 19 or 20, the scroll cracks and is destroyed. On any other result,
+    it survives the casting and can be used again next game. This item can never
+    be purchased.
+  itemPurchasePrice: 0
+  itemSalePrice: 200
+  itemBook: 7
+  itemType: 3

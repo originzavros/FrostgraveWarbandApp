@@ -134,7 +134,7 @@ public class WizardBuilder : MonoBehaviour
         List<SpellScriptable> temp = new List<SpellScriptable>();
         foreach(var spell in LoadAssets.spellObjects)
         {
-            if(spell.School == _school)
+            if(spell.School == _school && spell.bookEdition == FrostgraveBook.Core) //make sure we don't grab expansion spells
             {
                 temp.Add(spell);
             }

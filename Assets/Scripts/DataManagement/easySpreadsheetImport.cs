@@ -168,19 +168,23 @@ public class easySpreadsheetImport : MonoBehaviour
     {
         MonsterKeywordScriptable[] allMonsterKeywordObjects = Resources.LoadAll<MonsterKeywordScriptable>("MonsterKeywordScriptables");
         List<MonsterKeywordScriptable> temp = new List<MonsterKeywordScriptable>();
-        string[] words = keywordstring.Split('.');
-
-        foreach(var item in words)
+        if(keywordstring.Length > 0)
         {
-            foreach(MonsterKeywordScriptable mks in allMonsterKeywordObjects)
+            string[] words = keywordstring.Split('.');
+
+            foreach (var item in words)
             {
-                if(item == mks.keywordName)
+                foreach (MonsterKeywordScriptable mks in allMonsterKeywordObjects)
                 {
-                    temp.Add(mks);
-                    break;
+                    if (item == mks.keywordName)
+                    {
+                        temp.Add(mks);
+                        break;
+                    }
                 }
             }
         }
+        
         return temp;
     }
 

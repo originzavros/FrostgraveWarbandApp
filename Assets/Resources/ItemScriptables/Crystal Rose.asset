@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Crystal Rose
+  m_EditorClassIdentifier: 
+  itemName: Crystal Rose
+  itemDescription: A figure that is carrying a Crystal Rose may reroll his survival
+    roll after a game, but the second roll must stand, and the Crystal Rose is destroyed.
+    Undead, constructs, and Demons may not use this item.(For the app, keep in vault
+    to use in postgame)
+  itemPurchasePrice: 400
+  itemSalePrice: 0
+  itemBook: 7
+  itemType: 3

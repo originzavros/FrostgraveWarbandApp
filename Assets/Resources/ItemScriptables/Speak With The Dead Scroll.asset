@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Speak With The Dead Scroll
   m_EditorClassIdentifier: 
   itemName: Speak With The Dead Scroll
-  itemDescription: The spellcaster adds +4 to his next attempt to cast an Out of
-    Game spell, provided that it is before the next game.
+  itemDescription: "The spellcaster adds +4 to his next attempt to cast an Out of
+    Game spell, provided that it is before the next game.\r"
   itemPurchasePrice: 250
   itemSalePrice: 30
   itemBook: 6

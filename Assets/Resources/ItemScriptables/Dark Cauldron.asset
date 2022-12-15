@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Dark Cauldron
+  m_EditorClassIdentifier: 
+  itemName: Dark Cauldron
+  itemDescription: The Dark Cauldron is a Base Resource that provides +1 to all Create
+    Zombie and Revenant spells caset Out of Game. The Dark Cauldron cannot be purchased.
+  itemPurchasePrice: 0
+  itemSalePrice: 250
+  itemBook: 7
+  itemType: 8

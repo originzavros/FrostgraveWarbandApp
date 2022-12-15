@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Homonculus Scroll
+  m_EditorClassIdentifier: 
+  itemName: Homonculus Scroll
+  itemDescription: "This spell is complicated, check page 39 of \"Thaw of the Lich
+    Lord\" campaign book. This spell's Grimoire cannot be purchased and must be found.\r"
+  itemPurchasePrice: 250
+  itemSalePrice: 30
+  itemBook: 7
+  itemType: 5

@@ -21,6 +21,8 @@ public class HireSoldiersManager : MonoBehaviour
     [SerializeField] GameObject CoinAnimation;
     [SerializeField] CampaignSettingsManager campaignSettingsManager;
 
+    [SerializeField] SoldierScriptable RangiferData;
+
 
 
     private PlayerWarband loadedWarband;
@@ -29,6 +31,7 @@ public class HireSoldiersManager : MonoBehaviour
     private int currentHiredSoldierCount;
     private bool apprenticeHired;
     private bool hasCarrierPigeons = false;
+    private bool canHireRangifer = false;
     private List<FrostgraveBook> enabledCampaignSoldiers = new List<FrostgraveBook>();
     public void Init(PlayerWarband playerWarband)
     {
@@ -71,11 +74,18 @@ public class HireSoldiersManager : MonoBehaviour
         foreach(var item in playerWarband.warbandVault)
         {
             if(item.itemName == "Carrier Pigeons"){ hasCarrierPigeons = true;}
+            if(item.itemName == "Book of the Rangifer") { canHireRangifer = true; }
         }
-        
+
+        if(canHireRangifer)
+        {
+            RuntimeSoldierData newSoldier = new RuntimeSoldierData();
+            newSoldier.Init(RangiferData);
+            CreateAndAttachSoliderContainer(newSoldier, soldierHiringContent, hiringCostMod: (hasCarrierPigeons ? -10 : 0));
+        }
 
         //init hiring soldiers
-        foreach(var item in LoadAssets.allSoldierObjects)
+        foreach (var item in LoadAssets.allSoldierObjects)
         {
             if(item.soldierType == "Apprentice")
             {

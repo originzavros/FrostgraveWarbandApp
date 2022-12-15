@@ -8,9 +8,11 @@ public class CampaignSettingsManager : MonoBehaviour
     [SerializeField] NavBox navBox;
     [SerializeField] Toggle allSoldiersToggle;
     [SerializeField] Toggle mazeOfMalcorToggle;
+    [SerializeField] Toggle thawOfTheLichLordToggle;
 
-    private bool mazeOfMalcor;
-    private bool allSoldiers;
+    private bool mazeOfMalcor = false;
+    private bool allSoldiers = false;
+    private bool thawOfTheLichLord = false;
 
     private List<FrostgraveBook> enabledCampaigns = new List<FrostgraveBook>();
     Dictionary<string, bool> settings = new Dictionary<string,bool>();
@@ -22,13 +24,25 @@ public class CampaignSettingsManager : MonoBehaviour
         {
             // Debug.Log("found campaignSettings");
             settings = ES3.Load<Dictionary<string, bool>>("CampaignSettings", new Dictionary<string,bool>());
-            mazeOfMalcor = settings["MazeOfMalcor"];
+            if(settings.ContainsKey("MazeOfMalcor"))
+            {
+                mazeOfMalcor = settings["MazeOfMalcor"];
+            }
             mazeOfMalcorToggle.isOn = mazeOfMalcor;
             // if(mazeOfMalcor){
             //     Debug.Log("added maze to campaigns");
             //     enabledCampaigns.Add(FrostgraveBook.TheMazeOfMalcor);}
-            allSoldiers = settings["AllSoldiers"];
+            if (settings.ContainsKey("AllSoldiers"))
+            {
+                allSoldiers = settings["AllSoldiers"];
+            }
             allSoldiersToggle.isOn = allSoldiers;
+
+            if (settings.ContainsKey("ThawOfTheLichLord"))
+            {
+                thawOfTheLichLord = settings["ThawOfTheLichLord"];
+            }
+            thawOfTheLichLordToggle.isOn = thawOfTheLichLord;
         }
 
         // foreach(var item in settings)
@@ -67,6 +81,20 @@ public class CampaignSettingsManager : MonoBehaviour
         }
         ChangeSetting("MazeOfMalcor", mazeOfMalcor);
         
+    }
+
+    public void OnToggleThawOfTheLichLord()
+    {
+        thawOfTheLichLord = thawOfTheLichLordToggle.isOn;
+        if(thawOfTheLichLord == true)
+        {
+            enabledCampaigns.Add(FrostgraveBook.ThawOfTheLichLord);
+        }
+        else
+        {
+            enabledCampaigns.Remove(FrostgraveBook.ThawOfTheLichLord);
+        }
+        ChangeSetting("ThawOfTheLichLord", thawOfTheLichLord);
     }
 
     public void OnToggleAllSoldiers()

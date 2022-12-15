@@ -38,6 +38,7 @@ public class ShopVaultManager : MonoBehaviour
     [BoxGroup("Prefabs")] [SerializeField] GameObject itemButtonPrefab;
 
     [BoxGroup("ExpansionButtons")][SerializeField] GameObject mazeOfMalcorButton;
+    [BoxGroup("ExpansionButtons")] [SerializeField] GameObject thawOfTheLichLordButton;
 
     private PlayerWarband currentWarband;
 
@@ -147,6 +148,10 @@ public class ShopVaultManager : MonoBehaviour
             {
                 mazeOfMalcorButton.SetActive(true);
             }
+            if(book == FrostgraveBook.ThawOfTheLichLord)
+            {
+                thawOfTheLichLordButton.SetActive(true);
+            }
         }
     }
 
@@ -200,6 +205,18 @@ public class ShopVaultManager : MonoBehaviour
             foreach(var item in LoadAssets.allMagicItemObjects)
             {
                 if(item.itemBook == FrostgraveBook.TheMazeOfMalcor)
+                {
+                    MagicItemRuntime temp = new MagicItemRuntime();
+                    temp.Init(item);
+                    InstanceItemContainerAndAttach(temp, shopBuyContents, ItemContainerMode.buy);
+                }
+            }
+        }
+        if(shopType == "ThawOfTheLichLord")
+        {
+            foreach(var item in LoadAssets.allMagicItemObjects)
+            {
+                if(item.itemBook == FrostgraveBook.ThawOfTheLichLord)
                 {
                     MagicItemRuntime temp = new MagicItemRuntime();
                     temp.Init(item);
@@ -467,6 +484,10 @@ public class ShopVaultManager : MonoBehaviour
     public void OnClickBasicEquipment()
     {
         FillShopBuyWithItems("BasicEquipment");
+    }
+    public void OnClickThawOfTheLichLord()
+    {
+        FillShopBuyWithItems("ThawOfTheLichLord");
     }
     #endregion
 

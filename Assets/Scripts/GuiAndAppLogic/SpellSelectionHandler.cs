@@ -226,6 +226,7 @@ public class SpellSelectionHandler : MonoBehaviour
     //     }
     // }
 
+
     public void GenerateContainersForSpellsFromSchool(WizardSchools _wizardSchool)
     {
         
@@ -233,8 +234,8 @@ public class SpellSelectionHandler : MonoBehaviour
         {
             // Debug.Log("Wizard School: " + item.primarySchool.ToString());
 
-
-            if(item.School == _wizardSchool)
+            //make sure we grab core book only and appropriate spells in school
+            if(item.School == _wizardSchool && item.bookEdition == FrostgraveBook.Core) 
             {
                 GameObject temp = Instantiate(CheckButtonContainerSpellPrefab);
                 CheckButtonContainer cbctemp = temp.GetComponent<CheckButtonContainer>();
@@ -262,6 +263,7 @@ public class SpellSelectionHandler : MonoBehaviour
         }
     }
 
+    //used for postgame
     //this won't add spells that have been maxed out (their casting number can't be lower than 5)
     public void GenerateContainersForSpellsFromWizardSpellbook(WizardSpellbook spellbook)
     {
@@ -288,6 +290,7 @@ public class SpellSelectionHandler : MonoBehaviour
         }
     }
 
+    //used in postgame
     // will not include spells the wizard already knows
     public void GenerateContainersForGrimoiresInWizardVault(List<MagicItemRuntime> vault, WizardSpellbook spellbook)
     {

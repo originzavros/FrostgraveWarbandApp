@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: StarfireElemental
   m_EditorClassIdentifier: 
   keywordName: StarfireElemental
-  keywordDescription: 'Can see through all terrain. If it damages an opponent in
+  keywordDescription: "Can see through all terrain. If it damages an opponent in
     melee combat, the elemental is removed from the board (it does not count as killed
-    for xp).
-
-    Immune to following spells: Mind Control, Beauty, Invisibility,
-    Monstous Form, Bones of the Earth, Possess.'
+    for xp).\nImmune to following spells: Mind Control, Beauty, Invisibility, Monstous
+    Form, Bones of the Earth, Possess.\r"

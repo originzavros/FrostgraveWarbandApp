@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63a5f83dcaf8df0498f63252ef1a4b64, type: 3}
+  m_Name: Zombie Troll
+  m_EditorClassIdentifier: 
+  soldierName: Zombie Troll
+  inventoryLimit: 1
+  move: 4
+  fight: 4
+  shoot: 0
+  armor: 14
+  will: 2
+  health: 10
+  cost: 0
+  hiringName: Zombie Troll
+  soldierType: 
+  isHired: 0
+  description: 
+  status: 0
+  bookEdition: 7
+  baseSoldierEquipment: []
+  soldierInventory: []
+  monsterKeywordList:
+  - {fileID: 11400000, guid: 6aea597212598034ab4a99683000e388, type: 2}
+  - {fileID: 11400000, guid: 4c37daaee42037c42979f6ee56c94094, type: 2}
+  - {fileID: 11400000, guid: da6d6bb6defa0054f8e8e06c4315bb67, type: 2}
