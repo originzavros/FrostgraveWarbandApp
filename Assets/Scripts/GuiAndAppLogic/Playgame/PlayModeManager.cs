@@ -533,6 +533,13 @@ public class PlayModeManager : MonoBehaviour
                     mod += 1;
                 }
             }
+            else if(item.itemName == "Dark Cauldron")//+1 create zombie and revenant
+            {
+                if(spellName == "Raise Zombie" || spellName == "Revenant")
+                {
+                    mod += 1;
+                }
+            }
         }
         return mod;
     }
