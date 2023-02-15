@@ -26,7 +26,7 @@ public class RollSpellPopup : MonoBehaviour
 
     public void Roll()
     {
-        currentRoll = Random.Range(1, 20);
+        currentRoll = Random.Range(1, 21);
         currentRoll += currentMod;
         UpdateAllFields(currentRoll);
     }

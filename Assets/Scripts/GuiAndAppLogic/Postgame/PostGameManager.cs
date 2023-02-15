@@ -211,7 +211,7 @@ public class PostGameManager : MonoBehaviour
             //decide soldier fate
             if(soldier.status == SoldierStatus.knockout && soldier.soldierType != "Apprentice")
             {
-                int currentRoll = Random.Range(1, 20);
+                int currentRoll = Random.Range(1, 21);
                 string statusDisplay;
                 if(currentRoll < 5)
                 {
@@ -264,7 +264,7 @@ public class PostGameManager : MonoBehaviour
 
     private void StatusRollForSpellcaster(RuntimeSoldierData soldier)
     {
-        int currentRoll = Random.Range(1, 20);
+        int currentRoll = Random.Range(1, 21);
         string statusDisplay;
         if(currentRoll < 3)
         {
@@ -310,7 +310,7 @@ public class PostGameManager : MonoBehaviour
 
     private void RerollOfStatusRollForCurrentlySelectedSpellcaster(RuntimeSoldierData soldier)
     {
-        int currentRoll = Random.Range(1, 20);
+        int currentRoll = Random.Range(1, 21);
         string statusDisplay;
         if (currentRoll < 3)
         {
@@ -501,7 +501,7 @@ public class PostGameManager : MonoBehaviour
     private void GiveInjuryToSoldier(RuntimeSoldierData soldier)
     {
         string injuryName = "null";
-        int currentRoll = Random.Range(1, 20);
+        int currentRoll = Random.Range(1, 21);
         if (currentRoll < 19)
         {
             bool usable = false;
@@ -773,7 +773,7 @@ public class PostGameManager : MonoBehaviour
 
         if (rsd.soldierType != "Apprentice" && rsd.soldierType != "Wizard")
         {
-            int currentRoll = Random.Range(1, 20);
+            int currentRoll = Random.Range(1, 21);
             string statusDisplay;
             if (currentRoll < 5)
             {

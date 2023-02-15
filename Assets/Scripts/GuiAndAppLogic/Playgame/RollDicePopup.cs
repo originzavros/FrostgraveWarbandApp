@@ -20,7 +20,7 @@ public class RollDicePopup : MonoBehaviour
 
     public void Roll()
     {
-        currentRoll = Random.Range(1, 20);
+        currentRoll = Random.Range(1, 21);
         UpdateAllFields(currentRoll);
     }
 

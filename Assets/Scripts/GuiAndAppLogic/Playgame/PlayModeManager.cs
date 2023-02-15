@@ -369,7 +369,7 @@ public class PlayModeManager : MonoBehaviour
             }
         }
         else{
-            int currentRoll = Random.Range(1, 20);
+            int currentRoll = Random.Range(1, 21);
             int mods = CheckForSpellBonusesFromBaseResources(wrs.referenceSpell.Name);
             currentRoll += mods;
             string spellcasterType = "Wizard";
@@ -432,8 +432,8 @@ public class PlayModeManager : MonoBehaviour
                 }
             }
             
-            int summonRoll = Random.Range(1, 20);
-            int controlRoll = Random.Range(1, 20);
+            int summonRoll = Random.Range(1, 21);
+            int controlRoll = Random.Range(1, 21);
             if(spellcasterType == "Apprentice")
             {
                 summonRoll -= 2;

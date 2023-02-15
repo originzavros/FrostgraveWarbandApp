@@ -10,7 +10,7 @@ public class SpellRoller
 
     public static int RollDice()
     {
-        return Random.Range(1, 20);
+        return Random.Range(1, 21);
     }
 
     public static bool MakeRollForSpell(WizardRuntimeSpell spell, int additionalMods = 0, int rollMods = 0)
