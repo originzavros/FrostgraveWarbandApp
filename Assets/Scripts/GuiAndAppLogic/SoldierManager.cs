@@ -66,6 +66,8 @@ public class SoldierManager : MonoBehaviour
 
     public void FillViewWithParty()
     {
+        CreateAndAttachPlaymodeSoldierContainer(currentWarband.warbandWizard.playerWizardProfile, warbandMainContentContainer);
+
         foreach(var soldier in currentWarband.warbandSoldiers)
         {
             CreateAndAttachPlaymodeSoldierContainer(soldier, warbandMainContentContainer);
@@ -100,7 +102,12 @@ public class SoldierManager : MonoBehaviour
 
         AddEditTraitButtonToSoldier(csw, incoming);
         AddSoldierStatusButtonToSoldier(csw, incoming);
-        AddSwapButtonToSoldier(csw, incoming);
+
+        if(incoming.soldierType != "Wizard") //can't swap wizard out
+        {
+            AddSwapButtonToSoldier(csw, incoming);
+        }
+        
         
 
         csw.SetBodyPermaActive();        
