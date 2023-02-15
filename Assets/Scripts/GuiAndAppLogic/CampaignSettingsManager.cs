@@ -9,10 +9,12 @@ public class CampaignSettingsManager : MonoBehaviour
     [SerializeField] Toggle allSoldiersToggle;
     [SerializeField] Toggle mazeOfMalcorToggle;
     [SerializeField] Toggle thawOfTheLichLordToggle;
+    [SerializeField] Toggle forgottenPactsToggle;
 
     private bool mazeOfMalcor = false;
     private bool allSoldiers = false;
     private bool thawOfTheLichLord = false;
+    private bool forgottenPacts = false;
 
     private List<FrostgraveBook> enabledCampaigns = new List<FrostgraveBook>();
     Dictionary<string, bool> settings = new Dictionary<string,bool>();
@@ -43,6 +45,12 @@ public class CampaignSettingsManager : MonoBehaviour
                 thawOfTheLichLord = settings["ThawOfTheLichLord"];
             }
             thawOfTheLichLordToggle.isOn = thawOfTheLichLord;
+
+            if (settings.ContainsKey("ForgottenPacts"))
+            {
+                forgottenPacts = settings["ForgottenPacts"];
+            }
+            forgottenPactsToggle.isOn = forgottenPacts;
         }
 
         // foreach(var item in settings)
@@ -95,6 +103,20 @@ public class CampaignSettingsManager : MonoBehaviour
             enabledCampaigns.Remove(FrostgraveBook.ThawOfTheLichLord);
         }
         ChangeSetting("ThawOfTheLichLord", thawOfTheLichLord);
+    }
+
+    public void OnToggleForgottenPacts()
+    {
+        forgottenPacts = forgottenPactsToggle.isOn;
+        if (forgottenPacts == true)
+        {
+            enabledCampaigns.Add(FrostgraveBook.ForgottenPacts);
+        }
+        else
+        {
+            enabledCampaigns.Remove(FrostgraveBook.ForgottenPacts);
+        }
+        ChangeSetting("ForgottenPacts", forgottenPacts);
     }
 
     public void OnToggleAllSoldiers()

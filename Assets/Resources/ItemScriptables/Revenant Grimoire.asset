@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Revenant Grimoire
   m_EditorClassIdentifier: 
   itemName: Revenant Grimoire
-  itemDescription: This spell is complicated, check page 43 of "Thaw of the Lich
-    Lord" campaign book. This spell's Grimoire cannot be purchased and must be found.
+  itemDescription: "This spell is complicated, check page 43 of \"Thaw of the Lich
+    Lord\" campaign book. This spell's Grimoire cannot be purchased and must be found.\r"
   itemPurchasePrice: 500
   itemSalePrice: 200
   itemBook: 7

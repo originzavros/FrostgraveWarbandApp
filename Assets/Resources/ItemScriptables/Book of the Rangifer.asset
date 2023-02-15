@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Book of the Rangifer
   itemDescription: A wizard that possesses a Book of the Rangifer may include one
-    Rangifer in his warband at the cost of 100gc (In App adds hire option in Hire
+    Rangifer in his warband at the cost of 100gc (In app adds the option in Hire
     Soldiers)(The wizard does not need to carry the book to use this ability, it
     can be stored in the vault.). The rangifer takes the place of a soldier and has
     all the rules of a soldier. Rangifers hate the undead, and will not serve in

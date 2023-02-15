@@ -39,6 +39,7 @@ public class ShopVaultManager : MonoBehaviour
 
     [BoxGroup("ExpansionButtons")][SerializeField] GameObject mazeOfMalcorButton;
     [BoxGroup("ExpansionButtons")] [SerializeField] GameObject thawOfTheLichLordButton;
+    [BoxGroup("ExpansionButtons")] [SerializeField] GameObject forgottenPactsButton;
 
     private PlayerWarband currentWarband;
 
@@ -152,6 +153,10 @@ public class ShopVaultManager : MonoBehaviour
             {
                 thawOfTheLichLordButton.SetActive(true);
             }
+            if (book == FrostgraveBook.ForgottenPacts)
+            {
+                forgottenPactsButton.SetActive(true);
+            }
         }
     }
 
@@ -224,7 +229,20 @@ public class ShopVaultManager : MonoBehaviour
                 }
             }
         }
-        else{
+        if (shopType == "ForgottenPacts")
+        {
+            foreach (var item in LoadAssets.allMagicItemObjects)
+            {
+                if (item.itemBook == FrostgraveBook.ForgottenPacts)
+                {
+                    MagicItemRuntime temp = new MagicItemRuntime();
+                    temp.Init(item);
+                    InstanceItemContainerAndAttach(temp, shopBuyContents, ItemContainerMode.buy);
+                }
+            }
+        }
+        else
+        {
             foreach(var item in LoadAssets.allMagicItemObjects)
             {
                 if(item.itemBook != FrostgraveBook.Core)
@@ -488,6 +506,10 @@ public class ShopVaultManager : MonoBehaviour
     public void OnClickThawOfTheLichLord()
     {
         FillShopBuyWithItems("ThawOfTheLichLord");
+    }
+    public void OnClickForgottenPacts()
+    {
+        FillShopBuyWithItems("ForgottenPacts");
     }
     #endregion
 

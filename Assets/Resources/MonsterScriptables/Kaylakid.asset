@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63a5f83dcaf8df0498f63252ef1a4b64, type: 3}
+  m_Name: Kaylakid
+  m_EditorClassIdentifier: 
+  soldierName: Kaylakid
+  inventoryLimit: 1
+  move: 5
+  fight: 1
+  shoot: 0
+  armor: 12
+  will: 0
+  health: 12
+  cost: 0
+  hiringName: Kaylakid
+  soldierType: 
+  isHired: 0
+  description: 
+  status: 0
+  bookEdition: 1
+  baseSoldierEquipment: []
+  soldierInventory: []
+  monsterKeywordList:
+  - {fileID: 11400000, guid: 3f654bbe6f969b34ba0d100fcafc27dc, type: 2}
+  - {fileID: 11400000, guid: 5e6f985b9260e904098af2b6491b5ad7, type: 2}
+  - {fileID: 11400000, guid: d6583a8481696d049a92ad12f4b7b4c4, type: 2}
+  - {fileID: 11400000, guid: 2ac3535656a07c4409e63bfa261b39f1, type: 2}

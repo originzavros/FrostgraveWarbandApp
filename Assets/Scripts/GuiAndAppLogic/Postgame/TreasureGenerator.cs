@@ -20,6 +20,7 @@ public class TreasureGenerator : MonoBehaviour
     private List<MagicItemScriptable> allTheMazeOfMalcor = new List<MagicItemScriptable>();
     private List<MagicItemScriptable> allTheMazeOfMalcorScrolls = new List<MagicItemScriptable>();
     private List<MagicItemScriptable> allThawOfTheLichLord = new List<MagicItemScriptable>();
+    private List<MagicItemScriptable> allForgottenPacts = new List<MagicItemScriptable>();
 
 
  
@@ -79,6 +80,14 @@ public class TreasureGenerator : MonoBehaviour
                     
                 }
             }
+
+            if(item.itemBook == FrostgraveBook.ForgottenPacts)
+            {
+                if (item.itemType != MagicItemType.Scroll)
+                {
+                    allForgottenPacts.Add(item);
+                }
+            }
         }
 
 
@@ -135,6 +144,13 @@ public class TreasureGenerator : MonoBehaviour
         {
             generatedTreasure.items.Add(ConvertTreasure(allThawOfTheLichLord[Random.Range(0, allThawOfTheLichLord.Count)]));
         }
+
+        if (book == FrostgraveBook.ForgottenPacts)
+        {
+            generatedTreasure.items.Add(ConvertTreasure(allForgottenPacts[Random.Range(0, allForgottenPacts.Count)]));
+        }
+
+
         return generatedTreasure;
     }
     

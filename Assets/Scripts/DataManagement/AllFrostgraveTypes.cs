@@ -23,7 +23,8 @@ public enum WizardSchools{
     Distortionist,
     Fatecaster,
     Sonancer,
-    Spiritualist
+    Spiritualist,
+    Any
 }
 
 public enum FrostgraveBook{

@@ -13,19 +13,11 @@ MonoBehaviour:
   m_Name: Ring of Transference
   m_EditorClassIdentifier: 
   itemName: Ring of Transference
-  itemDescription: 'This ring may only be worn by a spellcaster. Once per game, the
-    wearer of the ring can spend an action to transfer
-
-    up to 5 points of their
-    own Health to another member of their warband that is in line of sight, on a
-
-    1-for-1
-    basis. So, if the wearer spend 3 Health, they may transfer 3 Health to another
-    warband member.
-
-    This may not take the other warband member above their
-    starting Health.'
-  itemPurchasePrice: 400
-  itemSalePrice: 150
-  itemBook: 0
+  itemDescription: A Spellcaster wearing this ring may use an action to transfer
+    their Health to a member of the same warband within 6" and LOS. For each 1 Health
+    lost by the caster, restore 1 health to the target. Cannot reduce the caster
+    to 0 Health and cannot take the target's health above its maximum.
+  itemPurchasePrice: 300
+  itemSalePrice: 0
+  itemBook: 1
   itemType: 3

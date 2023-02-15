@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: HateUndead
   m_EditorClassIdentifier: 
   keywordName: HateUndead
-  keywordDescription: Get +1 Fight and attacks count as magical against undead creatures.
+  keywordDescription: "Get +1 Fight and attacks count as magical against undead creatures.\r"

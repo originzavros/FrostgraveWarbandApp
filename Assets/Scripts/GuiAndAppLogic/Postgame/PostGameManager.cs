@@ -1121,7 +1121,12 @@ public class PostGameManager : MonoBehaviour
                 tempTreasure = treasureGenerator.GenerateTreasureCampaign(FrostgraveBook.ThawOfTheLichLord);
                 selectWindow.AddItemGroup("ThawOfTheLichLord", tempTreasure, TreasureSelectGroupType.normal);
             }
-        
+            else if (name == "ForgottenPacts")
+            {
+                tempTreasure = treasureGenerator.GenerateTreasureCampaign(FrostgraveBook.ForgottenPacts);
+                selectWindow.AddItemGroup("ForgottenPacts", tempTreasure, TreasureSelectGroupType.normal);
+            }
+
             temp.transform.SetParent(treasureFinalizerPanelContents.transform);
         }
     }

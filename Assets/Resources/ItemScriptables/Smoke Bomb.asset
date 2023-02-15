@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Smoke Bomb
+  m_EditorClassIdentifier: 
+  itemName: Smoke Bomb
+  itemDescription: A consumable item that when used creates a 3" diameter smoke cloud
+    within 6". The cloud blocks all LOS into and throug it. Figures inside the cloud
+    can draw LOS at a max of 3". At the end of each round, roll a D20, on a 19-20
+    the cloud dissipates.
+  itemPurchasePrice: 100
+  itemSalePrice: 0
+  itemBook: 1
+  itemType: 3

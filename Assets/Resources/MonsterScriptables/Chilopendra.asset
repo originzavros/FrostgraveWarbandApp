@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63a5f83dcaf8df0498f63252ef1a4b64, type: 3}
+  m_Name: Chilopendra
+  m_EditorClassIdentifier: 
+  soldierName: Chilopendra
+  inventoryLimit: 1
+  move: 6
+  fight: 4
+  shoot: 0
+  armor: 12
+  will: 4
+  health: 14
+  cost: 0
+  hiringName: Chilopendra
+  soldierType: 
+  isHired: 0
+  description: 
+  status: 0
+  bookEdition: 1
+  baseSoldierEquipment: []
+  soldierInventory: []
+  monsterKeywordList:
+  - {fileID: 11400000, guid: 3f654bbe6f969b34ba0d100fcafc27dc, type: 2}
+  - {fileID: 11400000, guid: fe86c4ad9b42f7641972e2d38b3422f7, type: 2}
+  - {fileID: 11400000, guid: d629ebe6eeefe524a8a39d5ebb3c23c9, type: 2}

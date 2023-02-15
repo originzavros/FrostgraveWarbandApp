@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Dark Cauldron
   itemDescription: The Dark Cauldron is a Base Resource that provides +1 to all Create
-    Zombie and Revenant spells caset Out of Game. The Dark Cauldron cannot be purchased.
+    Zombie and Revenant spells cast Out of Game. The Dark Cauldron cannot be purchased.
   itemPurchasePrice: 0
   itemSalePrice: 250
   itemBook: 7

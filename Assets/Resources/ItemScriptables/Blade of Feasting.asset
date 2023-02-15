@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d38769e4bc0f840aa583d73295b808, type: 3}
+  m_Name: Blade of Feasting
+  m_EditorClassIdentifier: 
+  itemName: Blade of Feasting
+  itemDescription: Grants +2 Fight against Demons. If the sword causes damage to
+    a Demon in a game, the wielder receives +1 to their Casting Roll when rolling
+    for Summon Demon out of game. The blade contains the True Name of the demon lord
+    Tiszirain. Can be sold for 300 gold.
+  itemPurchasePrice: 400
+  itemSalePrice: 300
+  itemBook: 1
+  itemType: 0

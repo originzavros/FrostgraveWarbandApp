@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Club of Battering
   itemDescription: This large mace counts as a two-handed weapon. It gives the wielder
-    +1 Fight in melee. In addition, shoudl the wielder win a fight, he may choose
+    +1 Fight in melee. In addition, should the wielder win a fight, he may choose
     to push his opponent back 3" instead of the usual 1".
   itemPurchasePrice: 300
   itemSalePrice: 0
