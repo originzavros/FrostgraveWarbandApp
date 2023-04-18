@@ -15,6 +15,20 @@ public class SoldierHireWindow : MonoBehaviour
     [SerializeField] GameObject useButton;
     [SerializeField] GameObject windowContents;
 
+    //public void Start()
+    //{
+    //    this.transform.localScale.Set(1, 1, 1);
+    //}
+    //float scaleValue = 0;
+    public void Update()
+    {
+        //if(this.transform.localScale.x > 1)
+        //{
+        //    scaleValue = 1 - this.transform.localScale.x;
+        //    this.transform.localScale += new Vector3(scaleValue, scaleValue, 0);
+        //}
+    }
+
     public void SwitchToHireMode()
     {
         hireButton.SetActive(true);
